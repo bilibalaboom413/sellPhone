@@ -25,3 +25,17 @@ Run below command **before creating any pull requests!**
 ```bash
 $ npm run prettier
 ```
+
+## How to start the app?
+
+Start development server `nodemon`:
+
+```bash
+$ npm run dev
+```
+
+Start actual server `node`:
+
+```bash
+$ npm start
+```
