@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "COMP5347 Assignment 2",
   "scripts": {
+    "dev": "nodemon server/server/js --watch server",
+    "start": "node server/server.js",
+    "prettier": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,7 +24,12 @@
   "author": "Group WebDev-13",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "prettier": "2.6.2"
   }
 }
