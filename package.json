@@ -1,0 +1,27 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "COMP5347 Assignment 2",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.sydney.edu.au/COMP5347-2022/webdev-13"
+  },
+  "keywords": [
+    "JavaScript",
+    "MongoDB",
+    "HTML",
+    "CSS",
+    "React",
+    "Node",
+    "Express"
+  ],
+  "author": "Group WebDev-13",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.3.0"
+  }
+}
