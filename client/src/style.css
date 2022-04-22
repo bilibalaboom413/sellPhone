@@ -1,0 +1,15 @@
+/* * {
+    box-sizing: border-box;
+} */
+
+.App {
+    font-family: "Karla", sans-serif;
+    margin: 0;
+}
+
+.header {
+    color: rgb(255, 200, 0);
+    text-align: center;
+    background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
+    padding: 15px 0;
+}
