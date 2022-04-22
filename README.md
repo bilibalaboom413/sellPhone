@@ -1,8 +1,16 @@
 ## Installation
 
 ### Backend
+
 ```bash
 $ cd webdev-13/server
+$ npm install
+```
+
+### Frontend
+
+```bash
+$ cd client
 $ npm install
 ```
 
@@ -24,6 +32,7 @@ You can then access those variables after `require("dotenv").config()` by callin
 Run below command **before creating any pull requests!**
 
 ```bash
+$ cd server
 $ npm run prettier
 ```
 

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js --watch server",
     "start": "node server.js",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --write ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
