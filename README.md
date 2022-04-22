@@ -1,7 +1,8 @@
 ## Installation
 
+### Backend
 ```bash
-$ cd webdev-13
+$ cd webdev-13/server
 $ npm install
 ```
 
