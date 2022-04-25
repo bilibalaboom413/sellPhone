@@ -14,6 +14,15 @@ $ cd client
 $ npm install
 ```
 
+## Run
+
+To run both the back-end server and React app front-end in one command:
+
+```bash
+$ cd client
+$ npm run dev
+```
+
 ## Environment Variables
 
 Edit `.env` file to add relevant variables.
