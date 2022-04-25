@@ -1,5 +1,4 @@
 const express = require('express');
-const { process_params } = require('express/lib/router');
 
 // Load .env
 require("dotenv").config();
@@ -13,7 +12,7 @@ app.listen(port, () => {
 
 // Routes
 app.get('/helloworld', (req, res) => {
-    res.send("Hello word");
+    res.send({ express: 'Your express backend is connected to react.'});
 });
 
 module.exports = app;
