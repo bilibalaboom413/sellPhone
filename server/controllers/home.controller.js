@@ -14,6 +14,8 @@ module.exports.showCheckout = function (req, res) {
 
 module.exports.transactionConfirm = function (req, res) {
   const phones = req.query.phones;
+  console.log(phones);
+
   for (let i = 0; i < phones.length; i++) {
     let id = phones[i].id;
     let inventory = phones[i].stock;
