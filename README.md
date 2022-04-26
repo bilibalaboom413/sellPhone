@@ -1,8 +1,51 @@
 ## Installation
 
+### Backend
+
 ```bash
-$ cd webdev-13
+$ cd webdev-13/server
 $ npm install
+```
+
+### Frontend
+
+```bash
+$ cd client
+$ npm install
+```
+
+## Run
+
+To run both the back-end server and React app front-end in one command:
+
+```bash
+$ cd client
+$ npm run dev
+```
+
+### Back-end Server
+
+```bash
+$ cd server
+```
+
+Start development server `nodemon`:
+
+```bash
+$ npm run dev
+```
+
+Start actual server `node`:
+
+```bash
+$ npm start
+```
+
+### Front-end React App
+
+```bash
+$ cd client
+$ npm start
 ```
 
 ## Environment Variables
@@ -23,19 +66,6 @@ You can then access those variables after `require("dotenv").config()` by callin
 Run below command **before creating any pull requests!**
 
 ```bash
+$ cd server
 $ npm run prettier
-```
-
-## How to start the app?
-
-Start development server `nodemon`:
-
-```bash
-$ npm run dev
-```
-
-Start actual server `node`:
-
-```bash
-$ npm start
 ```

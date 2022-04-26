@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "COMP5347 Assignment 2",
+  "description": "COMP5347 Assignment 2 Backend",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js --watch server",
