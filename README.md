@@ -23,6 +23,31 @@ $ cd client
 $ npm run dev
 ```
 
+### Back-end Server
+
+```bash
+$ cd server
+```
+
+Start development server `nodemon`:
+
+```bash
+$ npm run dev
+```
+
+Start actual server `node`:
+
+```bash
+$ npm start
+```
+
+### Front-end React App
+
+```bash
+$ cd client
+$ npm start
+```
+
 ## Environment Variables
 
 Edit `.env` file to add relevant variables.
@@ -43,18 +68,4 @@ Run below command **before creating any pull requests!**
 ```bash
 $ cd server
 $ npm run prettier
-```
-
-## How to start the app?
-
-Start development server `nodemon`:
-
-```bash
-$ npm run dev
-```
-
-Start actual server `node`:
-
-```bash
-$ npm start
 ```
