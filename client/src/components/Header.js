@@ -1,9 +1,15 @@
 import React from "react";
 
 export default function Header() {
-    return (
-        <header className="header">
-            <h1>Welcome to the Checkout Page</h1>
-        </header>
-    )
+  function backToPreviousPage() {
+    window.history.back();
+  }
+  return (
+    <header className="header">
+      <h1>Welcome to the Checkout Page</h1>
+      <button className="back-button" onClick={backToPreviousPage}>
+        Back
+      </button>
+    </header>
+  );
 }

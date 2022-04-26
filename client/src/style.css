@@ -1,15 +1,101 @@
-/* * {
-    box-sizing: border-box;
-} */
+* {
+  box-sizing: border-box;
+}
 
 .App {
-    font-family: "Karla", sans-serif;
-    margin: 0;
+  font-family: "Karla", sans-serif;
+  margin: 0;
 }
 
 .header {
-    color: rgb(255, 200, 0);
-    text-align: center;
-    background: linear-gradient(90deg, #672280 1.18%, #A626D3 100%);
-    padding: 15px 0;
+  color: rgb(255, 200, 0);
+  text-align: center;
+  background: linear-gradient(90deg, #672280 1.18%, #a626d3 100%);
+  padding: 15px 0;
+}
+
+.header .back-button {
+  /* float: right; */
+  padding: 5px 5px;
+  margin-top: 10px;
+  background-color: #a626d3;
+  color: rgb(255, 200, 0);
+  border: 1px solid forestgreen;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+table {
+  border: 2px solid forestgreen;
+  width: 100%;
+  height: 800px;
+  max-height: 100%;
+}
+
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+  width: 100px;
+  text-align: center;
+  /* border-bottom: 1px solid black; */
+}
+
+.submit-button {
+  float: right;
+  padding: 20px 20px;
+  margin-top: 10px;
+  background-color: #a626d3;
+  color: rgb(255, 200, 0);
+  border: 1px solid forestgreen;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+table .table-title {
+  color: rgb(255, 200, 0);
+  font-size: 1.5rem;
+}
+
+.quantity-input {
+  width: 80%;
+  margin-bottom: 5px;
+}
+
+.input-button,
+.remove-button {
+  height: 30px;
+  background-color: #a626d3;
+  color: rgb(255, 200, 0);
+  border: 1px solid forestgreen;
+  border-radius: 3px;
+}
+
+.total-price-label,
+.total-price {
+  font-size: 1.5rem;
+  color: red;
+}
+
+.total-price-label {
+  margin-right: 10px;
+  margin-left: 10px;
+  color: rgb(255, 200, 0);
+}
+
+.main-bottom {
+  margin-top: 10px;
+  align-items: center;
+  justify-content: center;
 }

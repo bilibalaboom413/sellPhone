@@ -1,11 +1,12 @@
 {
-  "name": "ecommerce",
+  "name": "server",
   "version": "1.0.0",
   "description": "COMP5347 Assignment 2",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server/server/js --watch server",
-    "start": "node server/server.js",
-    "prettier": "prettier --write .",
+    "dev": "nodemon server.js --watch server",
+    "start": "node server.js",
+    "prettier": "prettier --write ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
