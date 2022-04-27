@@ -5,7 +5,7 @@ const router = express.Router();
 // router.get("/", (req, res) => {
 //   res.send("Hello world");
 // });
-router.get("/checkout", controller.showCheckout);
-// router.post("/home", controller.transactionConfirm);
+// router.get("/show", controller.showCheckout);
+router.post("/transaction", controller.transactionConfirm);
 
 module.exports = router;

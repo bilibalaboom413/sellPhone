@@ -1,52 +1,55 @@
-// const express = require("express");
 const Phone = require("../models/Phones");
 
-module.exports.showCheckout = function (req, res) {
-  let id = "625d127d2140a08eb1365d2a";
-  Phone.findPhoneById(id, function (err, phone) {
-    if (err) {
-      console.log("Cannot find phone: " + id);
-    } else {
-      res.send(phone);
-    }
-  });
-};
+// module.exports.showCheckout = function (req, res) {
+//     let id = "625d127d2140a08eb1365d2a";
+//     Phone.findPhoneById(id, function (err, phone) {
+//     if (err) {
+//       console.log("Cannot find phone: " + id);
+//     } else {
+//       res.send(phone);
+//     }
+//   });
+// };
 
-module.exports.transactionConfirm = function (req, res) {
-  const phones = req.query.phones;
-  console.log(phones);
+module.exports.transactionConfirm = async (req, res) => {
+  try {
+    // get phones list
+    const phones = req.body;
 
-  for (let i = 0; i < phones.length; i++) {
-    let id = phones[i].id;
-    let inventory = phones[i].stock;
-    let sell = phones[i].sell;
+    // iterate to update phones
+    for (let i = 0; i < phones.length; i++) {
+      let id = phones[i].id;
+      let title = phones[i].title;
+      let stock;
+      let addedQuantity = phones[i].addedQuantity;
 
-    Phone.findPhoneById(id, function (err, phone) {
-      console.log(id);
-      if (err) {
-        console.log("Cannot find phone: " + id);
-      } else {
-        console.log(phone);
-        inventory = phone[0].stock;
-        // res.send(phone);
-        console.log(inventory, sell);
-        if (inventory >= sell) {
-          Phone.updateOne(
-            { _id: id },
-            { stock: inventory - sell },
-            function (err, result) {
-              if (err) {
-                console.log("Update error");
-              } else {
-                console.log(result);
-              }
-            }
-          );
+      Phone.findPhoneById(id, function (err, phone) {
+        if (err) {
+          console.log("Cannot find phone: " + id);
         } else {
-          throw new Error("Not enough stock of phone: " + id);
+          try {
+            // console.log(phone);
+            stock = phone[0].stock;
+            if (stock >= addedQuantity) {
+              Phone.updateOne(
+                { _id: id },
+                { stock: stock - addedQuantity },
+                function (err) {
+                  if (err) {
+                    console.log("Update error");
+                  }
+                }
+              );
+            } else {
+              throw new Error(`Not enough stock of phone: ${id}`);
+            }
+          } catch {
+            console.log(`Not enough stock of phone: ${title}`);
+          }
         }
-      }
-    });
-    console.log(res);
+      });
+    }
+  } catch (error) {
+    res.stats(500).json({ error: error });
   }
 };
