@@ -9,7 +9,7 @@ export default function CheckoutBody() {
       id: "625d127d2140a08eb1365d2a",
       title:
         '"CLEAR CLEAN ESN" Sprint EPIC 4G Galaxy SPH-D700*FRONT CAMERA*ANDROID*SLIDER*QWERTY KEYBOARD*TOUCH SCREEN',
-      price: 1,
+      price: 1.99,
       addedQuantity: 1,
     },
     {
@@ -155,7 +155,8 @@ export default function CheckoutBody() {
           console.log(err);
         }
       )
-      .then(alert("You have finish the transaction!"));
+      .then(alert("You have finish the transaction!"))
+      .then((window.location = "/"));
   }
 
   return (

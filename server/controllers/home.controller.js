@@ -23,7 +23,7 @@ module.exports.transactionConfirm = async (req, res) => {
       let stock;
       let addedQuantity = phones[i].addedQuantity;
 
-      Phone.findPhoneById(id, function (err, phone) {
+      await Phone.findPhoneById(id, function (err, phone) {
         if (err) {
           console.log("Cannot find phone: " + id);
         } else {
