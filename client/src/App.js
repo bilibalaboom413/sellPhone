@@ -4,17 +4,31 @@ import Checkout from "./checkout/Checkout";
 import Home from "./Home";
 import Layout from "./Layout";
 
-const App = () => {
+// const App = () => {
+//   return (
+//     <BrowserRouter className="App">
+//       <Routes>
+//         <Route path="/" element={<Layout />}>
+//           <Route index element={<Home />} />
+//           <Route path="checkout" element={<Checkout />} />
+//         </Route>
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+// import { Routes, Route } from "react-router-dom";
+
+function Test() {
+  return <h1>Hello World!</h1>;
+}
+
+function App() {
   return (
-    <BrowserRouter className="App">
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="checkout" element={<Checkout />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/helloworld" element={<Test />} />
+      <Route paht="./checkout" element={<Checkout />} />
+    </Routes>
   );
-};
+}
 
 export default App;
