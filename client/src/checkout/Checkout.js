@@ -4,7 +4,7 @@ import CheckoutHeader from "./CheckoutHeader";
 
 export default function Checkout() {
   return (
-    <div className="checkout">
+    <div className="Checkout">
       <CheckoutHeader />
       <CheckoutBody />
     </div>

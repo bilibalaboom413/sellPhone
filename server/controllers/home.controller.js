@@ -1,16 +1,5 @@
 const Phone = require("../models/Phones");
 
-// module.exports.showCheckout = function (req, res) {
-//     let id = "625d127d2140a08eb1365d2a";
-//     Phone.findPhoneById(id, function (err, phone) {
-//     if (err) {
-//       console.log("Cannot find phone: " + id);
-//     } else {
-//       res.send(phone);
-//     }
-//   });
-// };
-
 module.exports.transactionConfirm = async (req, res) => {
   try {
     // get phones list
