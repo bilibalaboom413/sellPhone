@@ -18,7 +18,6 @@ module.exports.transactionConfirm = async (req, res) => {
           console.log("Cannot find phone: " + id);
         } else {
           try {
-            // console.log(phone);
             stock = phone[0].stock;
             if (stock >= addedQuantity) {
               Phone.updateOne(
@@ -31,7 +30,7 @@ module.exports.transactionConfirm = async (req, res) => {
                 }
               );
             } else {
-              throw new Error(`Not enough stock of phone: ${id}`);
+              throw new Error(`Not enough stock of phone: ${title}`);
             }
           } catch {
             console.log(`Not enough stock of phone: ${title}`);

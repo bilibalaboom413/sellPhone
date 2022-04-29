@@ -8,13 +8,14 @@ const router = require("./routes/home.routes");
 require("dotenv").config();
 
 const app = express();
-const CONNECTION_URL = process.env.MONGO_URL;
-const port = 5000;
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use("/checkout", router);
+
+const CONNECTION_URL = process.env.MONGO_URL;
+const port = 5000;
 
 mongoose
   .connect(CONNECTION_URL)

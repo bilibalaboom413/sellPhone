@@ -146,7 +146,7 @@ export default function CheckoutBody() {
   function checkout(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/checkout/transaction", phones)
+      .post("http://localhost:5000/checkout/transaction", phones)
       .then(
         (res) => {
           console.log(res.data);
