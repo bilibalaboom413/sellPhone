@@ -4,15 +4,17 @@
 
 ```bash
 $ cd webdev-13/server
-$ npm install
+$ npm ci
 ```
 
 ### Frontend
 
 ```bash
-$ cd client
-$ npm install
+$ cd webdev-13/client
+$ npm ci
 ```
+
+> [Why `npm ci` over `npm install`](https://stackoverflow.com/questions/48524417/should-the-package-lock-json-file-be-added-to-gitignore)
 
 ## Run
 
