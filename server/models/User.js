@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+const {ObjectId} = require("mongodb");
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
+  _id:{
+    type: ObjectId,
+    required: true,
+  },
   firstname: {
     type: String,
     required: true,
@@ -20,4 +25,4 @@ const userSchema = Schema({
   },
 });
 
-module.exports = User = mongoose.model("User", userSchema);
+module.exports = User = mongoose.model("User", userSchema,'user');

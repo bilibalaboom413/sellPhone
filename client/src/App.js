@@ -1,6 +1,8 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Checkout from "./checkout/Checkout";
+import Homepage from "./Homepage/Homepage";
+import Info from "./Homepage/Info";
 
 function Test() {
   return <h1>Hello World!</h1>;
@@ -10,6 +12,8 @@ function App() {
   return (
     <Routes>
       <Route path="/helloworld" element={<Test />} />
+      <Route path="/" element={<Homepage />} />
+      <Route path="/addreview" element={<Info />} />
       <Route path="/checkout" element={<Checkout />} />
     </Routes>
   );
