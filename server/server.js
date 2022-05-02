@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 const CONNECTION_URL = process.env.MONGO_URL;
-const port = 5000;
+const port = 8000;
 
 app.use("/checkout", router);
 app.get("/phone", phoneController.apiGetAllPhoneService);

@@ -1,5 +1,5 @@
 const express = require("express");
-const Phone = require("../models/Phones");
+const Phone = require("../models/Phone");
 
 module.exports.transactionConfirm = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ module.exports.transactionConfirm = async (req, res) => {
           try {
             stock = phone[0].stock;
             if (stock >= addedQuantity) {
-              Phone.updateOne(
+                Phone.updateOne(
                 { _id: id },
                 { stock: stock - addedQuantity },
                 function (err) {

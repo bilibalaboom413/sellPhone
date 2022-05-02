@@ -4,14 +4,16 @@ import axios from "axios";
 class Info extends React.Component {
   state = {
     phones: [],
+    quantity: 0,
+    inputQuantity: false,
     commentInput: "",
     ratingInput: 5,
     userid: "",
     username: "",
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const query = window.location.search.substring(1);
     const vars = query.split("&");
     for (let i = 0; i < vars.length; i++) {
@@ -77,6 +79,18 @@ class Info extends React.Component {
     });
   };
 
+  handleInputQuantity = (e) => {
+    const tmp = e.target.value;
+    if (!isNaN(tmp) && tmp > 0) {
+        this.setState({quantity: parseInt(tmp)});
+    } else if (!tmp) {
+        this.setState({inputQuantity: false});
+    } else {
+        alert("Please input a valid quantity!");
+    }
+    this.setState({inputQuantity: false});
+  }
+
   render() {
     return (
       <div id="root">
@@ -104,7 +118,7 @@ class Info extends React.Component {
         </table>
         <table>
           <thead>
-            <th>reviewes</th>
+            <th>reviews</th>
           </thead>
           <tbody>
             {this.state.phones.map((phone) => (
@@ -123,6 +137,10 @@ class Info extends React.Component {
           </tbody>
         </table>
         <div>
+            <label>current added quantity: </label>
+            <span className="added-quantity">{this.state.quantity}</span>
+            {this.state.inputQuantity && <input type="text" placeholder="input quantity" onBlur={(e) => this.handleInputQuantity(e) } />}
+            {!this.state.inputQuantity && <input onClick={() => this.setState({ inputQuantity: true})} type="button" value="add to cart" />}
           <input
             type="text"
             placeholder="Search by name"

@@ -1,36 +1,17 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 
-export default function CheckoutBody() {
+export default function CheckoutBody(props) {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const [phones, setPhones] = useState([
-    {
-      id: "625d127d2140a08eb1365d2a",
-      title:
-        '"CLEAR CLEAN ESN" Sprint EPIC 4G Galaxy SPH-D700*FRONT CAMERA*ANDROID*SLIDER*QWERTY KEYBOARD*TOUCH SCREEN',
-      price: 1.99,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2b",
-      title: "Cricket Samsung Galaxy Discover R740 Phone",
-      price: 2,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2c",
-      title: "Galaxy s III mini SM-G730V Verizon Cell Phone BLUE",
-      price: 3,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2d",
-      title: "Galaxy S5 G900A Factory Unlocked Android Smartphone 16GB White",
-      price: 1,
-      addedQuantity: 1,
-    },
-  ]);
+//   const [phones, setPhones] = useState(props.phonesCheckout);
+  const [phones, setPhones] = useState([{
+    id: "626a0dcdae46eec1b39202cf",
+    title:
+      '"CLEAR CLEAN ESN" Sprint EPIC 4G Galaxy SPH-D700*FRONT CAMERA*ANDROID*SLIDER*QWERTY KEYBOARD*TOUCH SCREEN',
+    price: 1.99,
+    addedQuantity: 1,
+  }]);
 
   const [quantity, setQuantity] = useState(
     phones.map((phone) => {
@@ -67,7 +48,7 @@ export default function CheckoutBody() {
       }
     }
 
-    if (!isNaN(num)) {
+    if (!isNaN(num) && num >= 0) {
       if (num === 0) {
         removeItem(e);
       } else {
@@ -146,7 +127,7 @@ export default function CheckoutBody() {
   function checkout(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/checkout/transaction", phones)
+      .post("http://localhost:8000/checkout/transaction", phones)
       .then(
         (res) => {
           console.log(res.data);
