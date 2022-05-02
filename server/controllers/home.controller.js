@@ -1,5 +1,5 @@
 const express = require("express");
-const Phone = require("../models/Phones");
+const Phone = require("../models/Phone");
 
 module.exports.transactionConfirm = async (req, res) => {
   try {
