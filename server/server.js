@@ -5,20 +5,17 @@ const cors = require("cors");
 const router = require("./routes/home.routes");
 const phoneController = require("./controllers/phoneController");
 
-const app = express();
-
 // Load .env
-require("dotenv").config();
+// require("dotenv").config();
 
-// mongoose.connect("mongodb+srv://admin:V6oygYYf0XjD4JOt@cluster0.qilqs.mongodb.net/comp5347",
-//     { useNewUrlParser: true });
+const port = 8000;
+const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-const CONNECTION_URL = process.env.MONGO_URL;
-const port = 8000;
+// const CONNECTION_URL = process.env.MONGO_URL;
 
 app.use("/checkout", router);
 app.get("/phone", phoneController.apiGetAllPhoneService);
@@ -39,20 +36,15 @@ app.all("*", function (req, res, next) {
   next();
 });
 
-mongoose
-  .connect(CONNECTION_URL)
-  .then(() =>
-    app.listen(port, () => console.log(`Server Running on Port: ${port}`))
-  )
-  .catch((error) => console.log(`${error} did not connect`));
+// mongoose
+//   .connect(CONNECTION_URL)
+//   .then(() =>
+//     app.listen(port, () => console.log(`Server Running on Port: ${port}`))
+//   )
+//   .catch((error) => console.log(`${error} did not connect`));
 
-// app.listen(port, () => {
-//   console.log(`Listening on Port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Listening on Port ${port}`);
+});
 
-// Routes
-// app.get("/helloworld", (req, res) => {
-//   res.send({ express: "Your express backend is connected to react." });
-// });
-
-// module.exports = app;
+module.exports = app;
