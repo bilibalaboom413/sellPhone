@@ -8,11 +8,11 @@ module.exports = class PhoneController {
         {
           _id: 1,
           title: 1,
-          brand: 2,
-          image: 3,
-          stock: 4,
-          seller: 5,
-          price: 6,
+          brand: 1,
+          image: 1,
+          stock: 1,
+          seller: 1,
+          price: 1,
         }
       );
       if (!phone) {
@@ -29,9 +29,9 @@ module.exports = class PhoneController {
       const phone = await Phone.find(
         { stock: { $gt: 0 } },
         {
-          _id: 0,
+          _id: 1,
           title: 1,
-          price: 2,
+          price: 1,
         }
       )
         .sort({ stock: 1 })
@@ -50,7 +50,7 @@ module.exports = class PhoneController {
       const phone = await Phone.aggregate([
         {
           $project: {
-            _id: 0,
+            _id: 1,
             title: 1,
             Ave_rating: { $avg: "$reviews.rating" },
           },
@@ -72,7 +72,7 @@ module.exports = class PhoneController {
       const phone = await Phone.find(
         {},
         {
-          _id: 0,
+          _id: 1,
           brand: 1,
         }
       ).distinct("brand");
@@ -161,13 +161,13 @@ module.exports = class PhoneController {
           price: { $lte: _value },
         },
         {
-          _id: 0,
+          _id: 1,
           title: 1,
-          brand: 2,
-          image: 3,
-          stock: 4,
-          seller: 5,
-          price: 6,
+          brand: 1,
+          image: 1,
+          stock: 1,
+          seller: 1,
+          price: 1,
         }
       );
       if (!phone) {
@@ -185,16 +185,16 @@ module.exports = class PhoneController {
       const phone = await Phone.find(
         { _id: id },
         {
-          _id: 0,
+          _id: 1,
           title: 1,
-          brand: 2,
-          image: 3,
-          stock: 4,
-          seller: 5,
-          price: 6,
-          "reviews.reviewer": 7,
-          "reviews.rating": 8,
-          "reviews.comment": 9,
+          brand: 1,
+          image: 1,
+          stock: 1,
+          seller: 1,
+          price: 1,
+          "reviews.reviewer": 1,
+          "reviews.rating": 1,
+          "reviews.comment": 1,
         }
       );
       if (!phone) {
