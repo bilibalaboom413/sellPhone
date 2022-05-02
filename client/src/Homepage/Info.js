@@ -12,8 +12,8 @@ class Info extends React.Component {
     username: "",
   };
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const query = window.location.search.substring(1);
     const vars = query.split("&");
     for (let i = 0; i < vars.length; i++) {
@@ -82,14 +82,14 @@ class Info extends React.Component {
   handleInputQuantity = (e) => {
     const tmp = e.target.value;
     if (!isNaN(tmp) && tmp > 0) {
-        this.setState({quantity: parseInt(tmp)});
+      this.setState({ quantity: parseInt(tmp) });
     } else if (!tmp) {
-        this.setState({inputQuantity: false});
+      this.setState({ inputQuantity: false });
     } else {
-        alert("Please input a valid quantity!");
+      alert("Please input a valid quantity!");
     }
-    this.setState({inputQuantity: false});
-  }
+    this.setState({ inputQuantity: false });
+  };
 
   render() {
     return (
@@ -137,13 +137,43 @@ class Info extends React.Component {
           </tbody>
         </table>
         <div>
-            <label>current added quantity: </label>
-            <span className="added-quantity">{this.state.quantity}</span>
-            {this.state.inputQuantity && <input type="text" placeholder="input quantity" onBlur={(e) => this.handleInputQuantity(e) } />}
-            {!this.state.inputQuantity && <input onClick={() => this.setState({ inputQuantity: true})} type="button" value="add to cart" />}
+          <label>current added quantity: </label>
+          <span className="added-quantity">{this.state.quantity}</span>
+          {this.state.inputQuantity && (
+            <input
+              type="text"
+              placeholder="input quantity"
+              onBlur={(e) => {
+                this.handleInputQuantity(e);
+                // if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
+                //     const id = this.state.phones[0]._id;
+                //     const title = this.state.phones[0].title;
+                //     const price = this.state.phones[0].price;
+                //     const phone = {
+                //         id: id,
+                //         title: title,
+                //         price: price,
+                //         addQuantity: this.state.quantity
+                //     }
+                //     if (window.localStorage.getItem(id)) {
+                //         window.localStorage.removeItem(id)
+                //     }
+                //     window.localStorage.setItem(id, JSON.stringify(phone));
+                //     console.log(window.localStorage);
+                // }
+              }}
+            />
+          )}
+          {!this.state.inputQuantity && (
+            <input
+              onClick={() => this.setState({ inputQuantity: true })}
+              type="button"
+              value="add to cart"
+            />
+          )}
           <input
             type="text"
-            placeholder="Search by name"
+            placeholder="Comment"
             value={this.state.commentInput}
             onChange={this.handleGetComment}
           />

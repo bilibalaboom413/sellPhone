@@ -1,17 +1,13 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 
-export default function CheckoutBody(props) {
+export default function CheckoutBody() {
+  const phonesCheckout = [];
+  //   for (let i = 0; i < window.localStorage.length; i++) {
+  //     phonesCheckout.push(JSON.parse(window.localStorage[i].value));
+  //   }
   const [totalPrice, setTotalPrice] = useState(0);
-
-//   const [phones, setPhones] = useState(props.phonesCheckout);
-  const [phones, setPhones] = useState([{
-    id: "626a0dcdae46eec1b39202cf",
-    title:
-      '"CLEAR CLEAN ESN" Sprint EPIC 4G Galaxy SPH-D700*FRONT CAMERA*ANDROID*SLIDER*QWERTY KEYBOARD*TOUCH SCREEN',
-    price: 1.99,
-    addedQuantity: 1,
-  }]);
+  const [phones, setPhones] = useState(phonesCheckout);
 
   const [quantity, setQuantity] = useState(
     phones.map((phone) => {

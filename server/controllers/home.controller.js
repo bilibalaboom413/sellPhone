@@ -20,7 +20,7 @@ module.exports.transactionConfirm = async (req, res) => {
           try {
             stock = phone[0].stock;
             if (stock >= addedQuantity) {
-                Phone.updateOne(
+              Phone.updateOne(
                 { _id: id },
                 { stock: stock - addedQuantity },
                 function (err) {

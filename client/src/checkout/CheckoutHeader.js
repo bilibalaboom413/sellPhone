@@ -1,11 +1,8 @@
 import React from "react";
 
-export default function CheckoutHeader(props) {
-    // console.log(props.checkout);
-
-    function backToPreviousPage() {
-        // props.checkout(false);
-        window.history.back();
+export default function CheckoutHeader() {
+  function backToPreviousPage() {
+    window.history.back();
   }
   return (
     <header className="header">

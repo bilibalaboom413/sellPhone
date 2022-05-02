@@ -54,5 +54,5 @@ PhoneSchema.statics.findPhoneById = function (id, callback) {
   return this.find({ _id: id }).exec(callback);
 };
 
-var Phone = mongoose.model("Phone", PhoneSchema, "phonelisting");
+var Phone = mongoose.model("Phone", PhoneSchema, "phone");
 module.exports = Phone;
