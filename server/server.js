@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const router = require("./routes/home.routes");
+const registerRouter = require("./routes/register.routes");
 const phoneController = require("./controllers/phoneController");
 const port = 8000;
 const app = express();
@@ -19,6 +20,7 @@ app.all("*", function (req, res, next) {
   next();
 });
 
+app.use("/register", registerRouter);
 app.use("/checkout", router);
 app.get("/phone", phoneController.apiGetAllPhoneService);
 app.get("/brand", phoneController.apiGetBrandService);
