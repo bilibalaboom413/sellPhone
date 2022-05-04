@@ -8,63 +8,54 @@ class Info extends React.Component {
     ratingInput: 5,
     userid: "",
     username: "",
+    visible:false
   };
 
-  constructor() {
-    super();
-    const query = window.location.search.substring(1);
-    const vars = query.split("&");
-    for (let i = 0; i < vars.length; i++) {
-      const pair = vars[i].split("=");
-      if (pair[0] === "bookId") {
-        this.state.bookid = pair[1];
-      }
-      if (pair[0] === "userId") {
-        this.state.userid = pair[1];
-      }
-    }
+  constructor(props) {
+    super(props);
+    this.state.phoneid = props.phoneid
+    this.state.userid = props.userid
     this.getInfo();
   }
 
   getInfo = async () => {
-    const { bookid } = this.state;
+    const { phoneid } = this.state;
     axios
-      .get("http://localhost:8000/phoneinfo", {
-        params: {
-          id: bookid,
-        },
-      })
-      .then((_d) => {
-        this.setState({ phones: _d.data });
-        // console.log(_d.data)
-      });
+        .get("http://localhost:8000/phoneinfo", {
+          params: {
+            id: phoneid,
+          },
+        })
+        .then((_d) => {
+          this.setState({ phones: _d.data });
+        });
   };
   addReview = async () => {
-    const { bookid, userid, commentInput, ratingInput } = this.state;
+    const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
-      .get("http://localhost:8000/addreview", {
-        params: {
-          id: bookid,
-          userId: userid,
-          rating: ratingInput,
-          comment: commentInput,
-        },
-      })
-      .then((_d) => {
-        this.getInfo();
-      });
+        .get("http://localhost:8000/addreview", {
+          params: {
+            id: phoneid,
+            userId: userid,
+            rating: ratingInput,
+            comment: commentInput,
+          },
+        })
+        .then((_d) => {
+          this.getInfo();
+        });
   };
   FinduserName = async (userid) => {
     // const {userid} = this.state;
     axios
-      .get("http://localhost:8000/finduser", {
-        params: {
-          id: userid,
-        },
-      })
-      .then((_d) => {
-        this.setState({ username: _d.data });
-      });
+        .get("http://localhost:8000/finduser", {
+          params: {
+            id: userid,
+          },
+        })
+        .then((_d) => {
+          this.setState({ username: _d.data });
+        });
   };
   handleGetComment = (event) => {
     this.setState({
@@ -79,69 +70,72 @@ class Info extends React.Component {
 
   render() {
     return (
-      <div id="root">
-        <table>
-          <thead>
-            <th>title</th>
-            <th>brand</th>
-            <th>image</th>
-            <th>stock</th>
-            <th>seller</th>
-            <th>price</th>
-          </thead>
-          <tbody>
-            {this.state.phones.map((phone) => (
-              <tr key={phone._id}>
-                <td>{phone.title}</td>
-                <td>{phone.brand}</td>
-                <td>{phone._id}</td>
-                <td>{phone.stock}</td>
-                <td>{phone.seller}</td>
-                <td>{phone.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <th>reviewes</th>
-          </thead>
-          <tbody>
-            {this.state.phones.map((phone) => (
-              <tr key={phone._id}>
-                {phone.reviews.map((review) => (
-                  <tr>
-                    <td>{review.reviewer}</td>
-
-                    <td>{review.rating}</td>
-
-                    <td>{review.comment}</td>
+        <div className='popup'>
+          <div className='popup_inner'>
+            <button onClick={this.props.closePopup}>close me</button>
+            <table>
+              <thead>
+              <th>title</th>
+              <th>brand</th>
+              <th>image</th>
+              <th>stock</th>
+              <th>seller</th>
+              <th>price</th>
+              </thead>
+              <tbody>
+              {this.state.phones.map((phone) => (
+                  <tr key={phone._id}>
+                    <td>{phone.title}</td>
+                    <td>{phone.brand}</td>
+                    <td>{phone._id}</td>
+                    <td>{phone.stock}</td>
+                    <td>{phone.seller}</td>
+                    <td>{phone.price}</td>
                   </tr>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div>
-          <input
-            type="text"
-            placeholder="Search by name"
-            value={this.state.commentInput}
-            onChange={this.handleGetComment}
-          />
-          <select
-            value={this.state.ratingInput}
-            onChange={this.handleGetRating}
-          >
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
-          <input type="button" onClick={this.addReview} value="add review" />
+              ))}
+              </tbody>
+            </table>
+            <table>
+              <thead>
+              <th>reviewes</th>
+              </thead>
+              <tbody>
+              {this.state.phones.map((phone) => (
+                  <tr key={phone._id}>
+                    {phone.reviews.map((review) => (
+                        <tr>
+                          <td>{review.reviewer}</td>
+
+                          <td>{review.rating}</td>
+
+                          <td>{review.comment}</td>
+                        </tr>
+                    ))}
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+            <div>
+              <input
+                  type="text"
+                  placeholder="Search by name"
+                  value={this.state.commentInput}
+                  onChange={this.handleGetComment}
+              />
+              <select
+                  value={this.state.ratingInput}
+                  onChange={this.handleGetRating}
+              >
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
+              <input type="button" onClick={this.addReview} value="add review" />
+            </div>
+          </div>
         </div>
-      </div>
     );
   }
 }
