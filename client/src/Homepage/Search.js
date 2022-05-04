@@ -73,7 +73,6 @@ class Search extends React.Component {
   render() {
     return (
       <div id="root">
-        <div>
           <div id="search">
             <input
               type="text"
@@ -149,7 +148,6 @@ class Search extends React.Component {
             </table>
           </div>
         </div>
-      </div>
     );
   }
 }
