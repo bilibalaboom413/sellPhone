@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-
+import Info from './Info';
+import './Info.css';
 class Search extends React.Component {
   state = {
     phones: [],
@@ -11,6 +12,8 @@ class Search extends React.Component {
     highValue: "",
     setValue: 200,
     userId: "5f5237a4c1beb1523fa3da05",
+    phoneid:'',
+    showPopup: false
   };
 
   constructor() {
@@ -69,7 +72,12 @@ class Search extends React.Component {
       setValue: event.target.value,
     });
   };
-
+  togglePopup(param) {
+    this.setState({
+      phoneid:param,
+      showPopup: !this.state.showPopup
+    });
+  }
   render() {
     return (
       <div id="root">
@@ -97,7 +105,6 @@ class Search extends React.Component {
               value={this.state.setValue}
               onChange={this.handleGetValue}
             />
-            {/* <a>{this.state.setValue}</a> */}
             <span>{this.state.setValue}</span>
             <input type="button" onClick={this.getSearch} value="search" />
           </div>
@@ -110,37 +117,29 @@ class Search extends React.Component {
           <div id="searchList">
             <table>
               <thead>
-                <th>title</th>
-                <th>brand</th>
-                <th>image</th>
-                <th>stock</th>
-                <th>seller</th>
-                <th>price</th>
-                <th></th>
+              <th>image</th>
+              <th>title</th>
+              <th>brand</th>
+              <th>price</th>
+              <th></th>
               </thead>
               <tbody>
                 {this.state.phones.map((phone) => (
                   <tr key={phone._id}>
+                    <td>{phone.image}</td>
                     <td>{phone.title}</td>
                     <td>{phone.brand}</td>
-                    <td>{phone._id}</td>
-                    <td>{phone.stock}</td>
-                    <td>{phone.seller}</td>
                     <td>{phone.price}</td>
                     <td>
-                      <button
-                        onClick={() =>
-                          //   window.open(
-                          //     "/addreview?bookId=" +
-                          //       phone._id +
-                          //       "&userId=" +
-                          //       this.state.userId
-                          //   )
-                          (window.location = `/addreview?bookId=${phone._id}&userId=${this.state.userId}`)
-                        }
-                      >
-                        EditBook
-                      </button>
+                      <button onClick={()=>this.togglePopup(phone._id)}>Info</button>
+                      {this.state.showPopup ?
+                          <Info
+                              phoneid={this.state.phoneid}
+                              userid = "5f5237a4c1beb1523fa3dbac"
+                              closePopup={this.togglePopup.bind(this)}
+                          />
+                          : null
+                      }
                     </td>
                   </tr>
                 ))}
