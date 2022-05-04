@@ -73,75 +73,81 @@ class Search extends React.Component {
   render() {
     return (
       <div id="root">
-        <div id="search">
-          <input
-            type="text"
-            placeholder="Search by name"
-            value={this.state.searchInput}
-            onChange={this.handleGetTitle}
-          />
-          <select value={this.state.BrandInput} onChange={this.handleGetBrand}>
-            <option value="">Phone Brand</option>
-            {this.state.brandlist.map((brandlist) => (
-              <option>{brandlist}</option>
-            ))}
-          </select>
-          <input
-            type="range"
-            name="Value"
-            min="0"
-            max={this.state.highValue.price + 1}
-            value={this.state.setValue}
-            onChange={this.handleGetValue}
-          />
-          <a>{this.state.setValue}</a>
-          <input type="button" onClick={this.getSearch} value="search" />
-        </div>
-
-        <div>
-          <button>checkout</button>
-        </div>
-
-        <div id="searchList">
-          <table>
-            <thead>
-              <th>title</th>
-              <th>brand</th>
-              <th>image</th>
-              <th>stock</th>
-              <th>seller</th>
-              <th>price</th>
-              <th></th>
-            </thead>
-            <tbody>
-              {this.state.phones.map((phone) => (
-                <tr key={phone._id}>
-                  <td>{phone.title}</td>
-                  <td>{phone.brand}</td>
-                  <td>{phone._id}</td>
-                  <td>{phone.stock}</td>
-                  <td>{phone.seller}</td>
-                  <td>{phone.price}</td>
-                  <td>
-                    <button
-                      onClick={() =>
-                        window.open(
-                          "/addreview?bookId=" +
-                            phone._id +
-                            "&userId=" +
-                            this.state.userId
-                        )
-                      }
-                    >
-                      EditBook
-                    </button>
-                  </td>
-                </tr>
+          <div id="search">
+            <input
+              type="text"
+              placeholder="Search by name"
+              value={this.state.searchInput}
+              onChange={this.handleGetTitle}
+            />
+            <select
+              value={this.state.BrandInput}
+              onChange={this.handleGetBrand}
+            >
+              <option value="">Phone Brand</option>
+              {this.state.brandlist.map((brandlist) => (
+                <option>{brandlist}</option>
               ))}
-            </tbody>
-          </table>
+            </select>
+            <input
+              type="range"
+              name="Value"
+              min="0"
+              max={this.state.highValue.price + 1}
+              value={this.state.setValue}
+              onChange={this.handleGetValue}
+            />
+            {/* <a>{this.state.setValue}</a> */}
+            <span>{this.state.setValue}</span>
+            <input type="button" onClick={this.getSearch} value="search" />
+          </div>
+
+          <div>
+            <button onClick={() => (window.location = "./checkout")}>
+              checkout
+            </button>
+          </div>
+          <div id="searchList">
+            <table>
+              <thead>
+                <th>title</th>
+                <th>brand</th>
+                <th>image</th>
+                <th>stock</th>
+                <th>seller</th>
+                <th>price</th>
+                <th></th>
+              </thead>
+              <tbody>
+                {this.state.phones.map((phone) => (
+                  <tr key={phone._id}>
+                    <td>{phone.title}</td>
+                    <td>{phone.brand}</td>
+                    <td>{phone._id}</td>
+                    <td>{phone.stock}</td>
+                    <td>{phone.seller}</td>
+                    <td>{phone.price}</td>
+                    <td>
+                      <button
+                        onClick={() =>
+                          //   window.open(
+                          //     "/addreview?bookId=" +
+                          //       phone._id +
+                          //       "&userId=" +
+                          //       this.state.userId
+                          //   )
+                          (window.location = `/addreview?bookId=${phone._id}&userId=${this.state.userId}`)
+                        }
+                      >
+                        EditBook
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
     );
   }
 }

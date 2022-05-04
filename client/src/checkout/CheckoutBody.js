@@ -2,36 +2,22 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 
 export default function CheckoutBody() {
+  // load the cart information
+  const phonesCheckout = [];
+  const numOfCategory = parseInt(localStorage.getItem("numOfCategory"));
+  let remain = numOfCategory;
+  let curIndex = 1;
+  while (remain) {
+    if (localStorage.getItem(curIndex)) {
+      remain--;
+      phonesCheckout.push(JSON.parse(localStorage.getItem(curIndex)));
+    }
+    curIndex++;
+  }
+
+  // initialize state
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const [phones, setPhones] = useState([
-    {
-      id: "625d127d2140a08eb1365d2a",
-      title:
-        '"CLEAR CLEAN ESN" Sprint EPIC 4G Galaxy SPH-D700*FRONT CAMERA*ANDROID*SLIDER*QWERTY KEYBOARD*TOUCH SCREEN',
-      price: 1.99,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2b",
-      title: "Cricket Samsung Galaxy Discover R740 Phone",
-      price: 2,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2c",
-      title: "Galaxy s III mini SM-G730V Verizon Cell Phone BLUE",
-      price: 3,
-      addedQuantity: 1,
-    },
-    {
-      id: "625d127d2140a08eb1365d2d",
-      title: "Galaxy S5 G900A Factory Unlocked Android Smartphone 16GB White",
-      price: 1,
-      addedQuantity: 1,
-    },
-  ]);
-
+  const [phones, setPhones] = useState(phonesCheckout || []);
   const [quantity, setQuantity] = useState(
     phones.map((phone) => {
       return {
@@ -67,7 +53,7 @@ export default function CheckoutBody() {
       }
     }
 
-    if (!isNaN(num)) {
+    if (!isNaN(num) && num >= 0) {
       if (num === 0) {
         removeItem(e);
       } else {
@@ -82,6 +68,24 @@ export default function CheckoutBody() {
               : phone;
           });
         });
+
+        // update the localStorage of cart information
+        let found = false;
+        let curIndex = 1;
+        while (!found) {
+          if (localStorage.getItem(curIndex)) {
+            const phone = JSON.parse(localStorage.getItem(curIndex));
+            console.log(phone.id, id);
+            if (phone.id === id) {
+              found = true;
+              phone.addedQuantity = num;
+              // console.log(phone);
+              localStorage.setItem(curIndex, JSON.stringify(phone));
+              break;
+            }
+          }
+          curIndex++;
+        }
       }
     } else {
       alert("You have invalid input quantity!");
@@ -89,12 +93,30 @@ export default function CheckoutBody() {
   }
 
   function removeItem(e) {
+    e.stopPropagation();
     console.log("Removing item");
     const id = e.target.name;
     setPhones((prePhones) => prePhones.filter((phone) => phone.id !== id));
     setQuantity((preQuantity) =>
       preQuantity.filter((phone) => phone.id !== id)
     );
+
+    // update the localStorage of cart information
+    let found = false;
+    let curIndex = 1;
+    while (!found) {
+      if (localStorage.getItem(curIndex)) {
+        const phone = JSON.parse(localStorage.getItem(curIndex));
+        console.log(phone.id, id);
+        if (phone.id === id) {
+          found = true;
+          localStorage.removeItem(curIndex);
+          localStorage.setItem("numOfCategory", numOfCategory - 1);
+          break;
+        }
+      }
+      curIndex++;
+    }
   }
 
   useEffect(() => {
@@ -146,7 +168,7 @@ export default function CheckoutBody() {
   function checkout(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/checkout/transaction", phones)
+      .post("http://localhost:8000/checkout/transaction", phones)
       .then(
         (res) => {
           console.log(res.data);
@@ -156,6 +178,7 @@ export default function CheckoutBody() {
         }
       )
       .then(alert("You have finish the transaction!"))
+      .then(localStorage.clear())
       .then((window.location = "/"));
   }
 
