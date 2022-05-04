@@ -28,6 +28,30 @@ class Info extends React.Component {
     this.getInfo();
   }
 
+  // add the cart information in localStorage
+  componentDidUpdate() {
+    if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
+      const id = this.state.phones[0]._id;
+      const title = this.state.phones[0].title;
+      const price = this.state.phones[0].price;
+      const phone = {
+        id: id,
+        title: title,
+        price: price,
+        addedQuantity: this.state.quantity,
+      };
+      let numOfCategory = localStorage.getItem("numOfCategory");
+      if (localStorage.getItem("numOfCategory")) {
+        localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
+        numOfCategory = localStorage.getItem("numOfCategory");
+        localStorage.setItem(numOfCategory, JSON.stringify(phone));
+      } else {
+        localStorage.setItem("numOfCategory", 1);
+        localStorage.setItem(1, JSON.stringify(phone));
+      }
+    }
+  }
+
   getInfo = async () => {
     const { bookid } = this.state;
     axios
@@ -145,22 +169,6 @@ class Info extends React.Component {
               placeholder="input quantity"
               onBlur={(e) => {
                 this.handleInputQuantity(e);
-                // if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
-                //     const id = this.state.phones[0]._id;
-                //     const title = this.state.phones[0].title;
-                //     const price = this.state.phones[0].price;
-                //     const phone = {
-                //         id: id,
-                //         title: title,
-                //         price: price,
-                //         addQuantity: this.state.quantity
-                //     }
-                //     if (window.localStorage.getItem(id)) {
-                //         window.localStorage.removeItem(id)
-                //     }
-                //     window.localStorage.setItem(id, JSON.stringify(phone));
-                //     console.log(window.localStorage);
-                // }
               }}
             />
           )}
