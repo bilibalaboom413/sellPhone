@@ -2,13 +2,22 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 
 export default function CheckoutBody() {
+  // load the cart information
   const phonesCheckout = [];
-  //   for (let i = 0; i < window.localStorage.length; i++) {
-  //     phonesCheckout.push(JSON.parse(window.localStorage[i].value));
-  //   }
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [phones, setPhones] = useState(phonesCheckout);
+  const numOfCategory = parseInt(localStorage.getItem("numOfCategory"));
+  let remain = numOfCategory;
+  let curIndex = 1;
+  while (remain) {
+    if (localStorage.getItem(curIndex)) {
+      remain--;
+      phonesCheckout.push(JSON.parse(localStorage.getItem(curIndex)));
+    }
+    curIndex++;
+  }
 
+  // initialize state
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [phones, setPhones] = useState(phonesCheckout || []);
   const [quantity, setQuantity] = useState(
     phones.map((phone) => {
       return {
@@ -59,6 +68,24 @@ export default function CheckoutBody() {
               : phone;
           });
         });
+
+        // update the localStorage of cart information
+        let found = false;
+        let curIndex = 1;
+        while (!found) {
+          if (localStorage.getItem(curIndex)) {
+            const phone = JSON.parse(localStorage.getItem(curIndex));
+            console.log(phone.id, id);
+            if (phone.id === id) {
+              found = true;
+              phone.addedQuantity = num;
+              // console.log(phone);
+              localStorage.setItem(curIndex, JSON.stringify(phone));
+              break;
+            }
+          }
+          curIndex++;
+        }
       }
     } else {
       alert("You have invalid input quantity!");
@@ -66,12 +93,30 @@ export default function CheckoutBody() {
   }
 
   function removeItem(e) {
+    e.stopPropagation();
     console.log("Removing item");
     const id = e.target.name;
     setPhones((prePhones) => prePhones.filter((phone) => phone.id !== id));
     setQuantity((preQuantity) =>
       preQuantity.filter((phone) => phone.id !== id)
     );
+
+    // update the localStorage of cart information
+    let found = false;
+    let curIndex = 1;
+    while (!found) {
+      if (localStorage.getItem(curIndex)) {
+        const phone = JSON.parse(localStorage.getItem(curIndex));
+        console.log(phone.id, id);
+        if (phone.id === id) {
+          found = true;
+          localStorage.removeItem(curIndex);
+          localStorage.setItem("numOfCategory", numOfCategory - 1);
+          break;
+        }
+      }
+      curIndex++;
+    }
   }
 
   useEffect(() => {
@@ -133,6 +178,7 @@ export default function CheckoutBody() {
         }
       )
       .then(alert("You have finish the transaction!"))
+      .then(localStorage.clear())
       .then((window.location = "/"));
   }
 
