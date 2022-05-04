@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Info from './Info';
-import './Info.css';
+
 class Search extends React.Component {
   state = {
     phones: [],
@@ -12,8 +11,6 @@ class Search extends React.Component {
     highValue: "",
     setValue: 200,
     userId: "5f5237a4c1beb1523fa3da05",
-    phoneid:'',
-    showPopup: false
   };
 
   constructor() {
@@ -39,17 +36,17 @@ class Search extends React.Component {
   getSearch = async () => {
     const { searchInput, BrandInput, setValue } = this.state;
     axios
-        .get("http://localhost:8000/Search", {
-          params: {
-            title: searchInput,
-            brand: BrandInput,
-            value: setValue,
-          },
-        })
-        .then((_d) => {
-          console.log(_d);
-          this.setState({ phones: _d.data });
-        });
+      .get("http://localhost:8000/Search", {
+        params: {
+          title: searchInput,
+          brand: BrandInput,
+          value: setValue,
+        },
+      })
+      .then((_d) => {
+        console.log(_d);
+        this.setState({ phones: _d.data });
+      });
   };
   getHighestValue = async () => {
     axios.get("http://localhost:8000/highestValue").then((_d) => {
@@ -72,71 +69,81 @@ class Search extends React.Component {
       setValue: event.target.value,
     });
   };
-  togglePopup(param) {
-    this.setState({
-      phoneid:param,
-      showPopup: !this.state.showPopup
-    });
-  }
+
   render() {
     return (
-        <div id="root">
+      <div id="root">
           <div id="search">
             <input
-                type="text"
-                placeholder="Search by name"
-                value={this.state.searchInput}
-                onChange={this.handleGetTitle}
+              type="text"
+              placeholder="Search by name"
+              value={this.state.searchInput}
+              onChange={this.handleGetTitle}
             />
-            <select value={this.state.BrandInput} onChange={this.handleGetBrand}>
+            <select
+              value={this.state.BrandInput}
+              onChange={this.handleGetBrand}
+            >
               <option value="">Phone Brand</option>
               {this.state.brandlist.map((brandlist) => (
-                  <option>{brandlist}</option>
+                <option>{brandlist}</option>
               ))}
             </select>
             <input
-                type="range"
-                name="Value"
-                min="0"
-                max={this.state.highValue.price + 1}
-                value={this.state.setValue}
-                onChange={this.handleGetValue}
+              type="range"
+              name="Value"
+              min="0"
+              max={this.state.highValue.price + 1}
+              value={this.state.setValue}
+              onChange={this.handleGetValue}
             />
-            <a>{this.state.setValue}</a>
+            {/* <a>{this.state.setValue}</a> */}
+            <span>{this.state.setValue}</span>
             <input type="button" onClick={this.getSearch} value="search" />
           </div>
+
           <div>
-            <button>checkout</button>
+            <button onClick={() => (window.location = "./checkout")}>
+              checkout
+            </button>
           </div>
           <div id="searchList">
             <table>
               <thead>
-              <th>image</th>
-              <th>title</th>
-              <th>brand</th>
-              <th>price</th>
-              <th></th>
+                <th>title</th>
+                <th>brand</th>
+                <th>image</th>
+                <th>stock</th>
+                <th>seller</th>
+                <th>price</th>
+                <th></th>
               </thead>
               <tbody>
-              {this.state.phones.map((phone) => (
+                {this.state.phones.map((phone) => (
                   <tr key={phone._id}>
-                    <td>{phone.image}</td>
                     <td>{phone.title}</td>
                     <td>{phone.brand}</td>
+                    <td>{phone._id}</td>
+                    <td>{phone.stock}</td>
+                    <td>{phone.seller}</td>
                     <td>{phone.price}</td>
                     <td>
-                      <button onClick={()=>this.togglePopup(phone._id)}>Info</button>
-                      {this.state.showPopup ?
-                          <Info
-                              phoneid={this.state.phoneid}
-                              userid = "5f5237a4c1beb1523fa3dbac"
-                              closePopup={this.togglePopup.bind(this)}
-                          />
-                          : null
-                      }
+                      <button
+                        onClick={() =>
+                          //   window.open(
+                          //     "/addreview?bookId=" +
+                          //       phone._id +
+                          //       "&userId=" +
+                          //       this.state.userId
+                          //   )
+                          (window.location = `/addreview?bookId=${phone._id}&userId=${this.state.userId}`)
+                        }
+                      >
+                        EditBook
+                      </button>
                     </td>
                   </tr>
-              ))}
+                ))}
               </tbody>
             </table>
           </div>
@@ -146,4 +153,3 @@ class Search extends React.Component {
 }
 
 export default Search;
-
