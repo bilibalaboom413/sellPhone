@@ -10,26 +10,19 @@ class Info extends React.Component {
     ratingInput: 5,
     userid: "",
     username: "",
+    visible:false
   };
 
-  constructor() {
-    super();
-    const query = window.location.search.substring(1);
-    const vars = query.split("&");
-    for (let i = 0; i < vars.length; i++) {
-      const pair = vars[i].split("=");
-      if (pair[0] === "bookId") {
-        this.state.bookid = pair[1];
-      }
-      if (pair[0] === "userId") {
-        this.state.userid = pair[1];
-      }
-    }
+  constructor(props) {
+    super(props);
+    this.state.phoneid = props.phoneid
+    this.state.userid = props.userid
     this.getInfo();
   }
 
   // add the cart information in localStorage
   componentDidUpdate() {
+      console.log(this.state.phones)
     if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
       const id = this.state.phones[0]._id;
       const title = this.state.phones[0].title;
@@ -62,15 +55,14 @@ class Info extends React.Component {
       })
       .then((_d) => {
         this.setState({ phones: _d.data });
-        // console.log(_d.data)
       });
   };
   addReview = async () => {
-    const { bookid, userid, commentInput, ratingInput } = this.state;
+    const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
       .get("http://localhost:8000/addreview", {
         params: {
-          id: bookid,
+          id: phoneid,
           userId: userid,
           rating: ratingInput,
           comment: commentInput,
@@ -117,7 +109,9 @@ class Info extends React.Component {
 
   render() {
     return (
-      <div id="root">
+    <div className='popup'>
+      <div className='popup_inner'>
+        <button onClick={this.props.closePopup}>close me</button>
         <table>
           <thead>
             <th>title</th>
@@ -198,6 +192,7 @@ class Info extends React.Component {
           <input type="button" onClick={this.addReview} value="add review" />
         </div>
       </div>
+    </div>
     );
   }
 }
