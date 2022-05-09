@@ -112,7 +112,6 @@ module.exports = class PhoneController {
       const reviewer = req.query.userId;
       const rating = req.query.rating;
       const comment = req.query.comment;
-      console.log("Controller layer");
       const phone = await Phone.updateOne(
         { _id: id },
         {
@@ -128,8 +127,6 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      console.log("complete!");
-      console.log(phone);
       res.send(phone);
     } catch (error) {
       res.status(500).json({ error: error });
@@ -183,7 +180,6 @@ module.exports = class PhoneController {
                 "stock": 1,
                 "seller": 1,
                 "price": 1,
-
           }
         }
           ]
@@ -206,7 +202,6 @@ module.exports = class PhoneController {
   static async apiGetReview(req, res, next) {
     try {
       const id = req.query.id;
-      console.log(id);
       const phone = await Phone.aggregate([
             {
               $match: {
@@ -251,7 +246,6 @@ module.exports = class PhoneController {
   static async apiGetAllReview(req, res, next) {
     try {
       const id = req.query.id;
-      console.log(id);
       const phone = await Phone.aggregate([
             {
               $match: {
