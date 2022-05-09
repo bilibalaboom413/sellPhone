@@ -4,6 +4,7 @@ import axios from "axios";
 class Info extends React.Component {
   state = {
     phones: [],
+    reviews:[],
     quantity: 0,
     inputQuantity: false,
     commentInput: "",
@@ -18,6 +19,7 @@ class Info extends React.Component {
     this.state.phoneid = props.phoneid;
     this.state.userid = props.userid;
     this.getInfo();
+    this.getreview();
   }
 
   // add the cart information in localStorage
@@ -62,6 +64,28 @@ class Info extends React.Component {
         this.setState({ phones: _d.data });
       });
   };
+  getreview = async () => {
+    const {phoneid} = this.state;
+    axios.get('http://localhost:8000/getreview', {
+      params: {
+        "id": phoneid,
+      }
+    })
+        .then(_d => {
+          this.setState({reviews: _d.data})
+        })
+  };
+  getallreview = async () => {
+    const {phoneid} = this.state;
+    axios.get('http://localhost:8000/allreview', {
+      params: {
+        "id": phoneid,
+      }
+    })
+        .then(_d => {
+          this.setState({reviews: _d.data})
+        })
+  }
   addReview = async () => {
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
@@ -74,7 +98,7 @@ class Info extends React.Component {
         },
       })
       .then((_d) => {
-        this.getInfo();
+        this.getallreview();
       });
   };
   FinduserName = async (userid) => {
@@ -114,6 +138,7 @@ class Info extends React.Component {
 
   render() {
     return (
+
       <div className="popup">
         <div className="popup_inner">
           <button onClick={this.props.closePopup}>close me</button>
@@ -140,24 +165,20 @@ class Info extends React.Component {
             </tbody>
           </table>
           <table>
-            <thead>
-              <th>reviews</th>
-            </thead>
-            <tbody>
-              {this.state.phones.map((phone) => (
-                <tr key={phone._id}>
-                  {phone.reviews.map((review) => (
-                    <tr>
-                      <td>{review.reviewer}</td>
-
-                      <td>{review.rating}</td>
-
-                      <td>{review.comment}</td>
-                    </tr>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
+          <thead>
+          <th>reviewer</th>
+          <th>rating</th>
+          <th>comment</th>
+          </thead>
+          <tbody>
+          {this.state.reviews.map((review) => (
+              <tr>
+                <td>{review.reviews.reviewer}</td>
+                <td>{review.reviews.rating}</td>
+                <td>{review.reviews.comment}</td>
+              </tr>
+          ))}
+          </tbody>
           </table>
           <div>
             <label>current added quantity: </label>
@@ -197,6 +218,7 @@ class Info extends React.Component {
             <input type="button" onClick={this.addReview} value="add review" />
           </div>
         </div>
+        <button onClick={this.getallreview}>all review</button>
       </div>
     );
   }

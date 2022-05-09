@@ -31,6 +31,8 @@ app.get("/Bestseller", phoneController.apiGetBestSellerService);
 app.get("/Search", phoneController.apiGetSearchService);
 app.get("/highestValue", phoneController.apiGetHighestValue);
 app.get("/addreview", phoneController.apiAddReview);
+app.get("/getreview",phoneController.apiGetReview);
+app.get("/allreview",phoneController.apiGetAllReview);
 
 app.listen(port, () => {
   console.log(`Listening on Port ${port}`);
