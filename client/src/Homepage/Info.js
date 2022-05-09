@@ -11,20 +11,24 @@ class Info extends React.Component {
     ratingInput: 5,
     userid: "",
     username: "",
-    visible:false
+    visible: false,
   };
 
   constructor(props) {
     super(props);
-    this.state.phoneid = props.phoneid
-    this.state.userid = props.userid
+    this.state.phoneid = props.phoneid;
+    this.state.userid = props.userid;
     this.getInfo();
     this.getreview();
   }
 
   // add the cart information in localStorage
-  componentDidUpdate() {
-    if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
+  componentDidUpdate(preProps) {
+    if (
+      !isNaN(this.state.quantity) &&
+      this.state.quantity > 0 &&
+      preProps.quantity !== this.state.quantity
+    ) {
       const id = this.state.phones[0]._id;
       const title = this.state.phones[0].title;
       const price = this.state.phones[0].price;
@@ -36,7 +40,9 @@ class Info extends React.Component {
       };
       let numOfCategory = localStorage.getItem("numOfCategory");
       if (localStorage.getItem("numOfCategory")) {
-        localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
+        if (preProps.phoneid !== this.state.phones[0]._id) {
+          localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
+        }
         numOfCategory = localStorage.getItem("numOfCategory");
         localStorage.setItem(numOfCategory, JSON.stringify(phone));
       } else {
@@ -132,32 +138,33 @@ class Info extends React.Component {
 
   render() {
     return (
-    <div className='popup'>
-      <div className='popup_inner'>
-        <button onClick={this.props.closePopup}>close me</button>
-        <table>
-          <thead>
-            <th>title</th>
-            <th>brand</th>
-            <th>image</th>
-            <th>stock</th>
-            <th>seller</th>
-            <th>price</th>
-          </thead>
-          <tbody>
-            {this.state.phones.map((phone) => (
-              <tr key={phone._id}>
-                <td>{phone.title}</td>
-                <td>{phone.brand}</td>
-                <td>{phone._id}</td>
-                <td>{phone.stock}</td>
-                <td>{phone.seller}</td>
-                <td>{phone.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <table>
+
+      <div className="popup">
+        <div className="popup_inner">
+          <button onClick={this.props.closePopup}>close me</button>
+          <table>
+            <thead>
+              <th>title</th>
+              <th>brand</th>
+              <th>image</th>
+              <th>stock</th>
+              <th>seller</th>
+              <th>price</th>
+            </thead>
+            <tbody>
+              {this.state.phones.map((phone) => (
+                <tr key={phone._id}>
+                  <td>{phone.title}</td>
+                  <td>{phone.brand}</td>
+                  <td>{phone._id}</td>
+                  <td>{phone.stock}</td>
+                  <td>{phone.seller}</td>
+                  <td>{phone.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <table>
           <thead>
           <th>reviewer</th>
           <th>rating</th>
@@ -172,47 +179,47 @@ class Info extends React.Component {
               </tr>
           ))}
           </tbody>
-        </table>
-        <div>
-          <label>current added quantity: </label>
-          <span className="added-quantity">{this.state.quantity}</span>
-          {this.state.inputQuantity && (
+          </table>
+          <div>
+            <label>current added quantity: </label>
+            <span className="added-quantity">{this.state.quantity}</span>
+            {this.state.inputQuantity && (
+              <input
+                type="text"
+                placeholder="input quantity"
+                onBlur={(e) => {
+                  this.handleInputQuantity(e);
+                }}
+              />
+            )}
+            {!this.state.inputQuantity && (
+              <input
+                onClick={() => this.setState({ inputQuantity: true })}
+                type="button"
+                value="add to cart"
+              />
+            )}
             <input
               type="text"
-              placeholder="input quantity"
-              onBlur={(e) => {
-                this.handleInputQuantity(e);
-              }}
+              placeholder="Comment"
+              value={this.state.commentInput}
+              onChange={this.handleGetComment}
             />
-          )}
-          {!this.state.inputQuantity && (
-            <input
-              onClick={() => this.setState({ inputQuantity: true })}
-              type="button"
-              value="add to cart"
-            />
-          )}
-          <input
-            type="text"
-            placeholder="Comment"
-            value={this.state.commentInput}
-            onChange={this.handleGetComment}
-          />
-          <select
-            value={this.state.ratingInput}
-            onChange={this.handleGetRating}
-          >
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
-          <input type="button" onClick={this.addReview} value="add review" />
+            <select
+              value={this.state.ratingInput}
+              onChange={this.handleGetRating}
+            >
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+            <input type="button" onClick={this.addReview} value="add review" />
+          </div>
         </div>
         <button onClick={this.getallreview}>all review</button>
       </div>
-    </div>
     );
   }
 }
