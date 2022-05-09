@@ -4,7 +4,7 @@ import axios from "axios";
 class Info extends React.Component {
   state = {
     phones: [],
-    reviews:[],
+    reviews: [],
     quantity: 0,
     inputQuantity: false,
     commentInput: "",
@@ -65,27 +65,29 @@ class Info extends React.Component {
       });
   };
   getreview = async () => {
-    const {phoneid} = this.state;
-    axios.get('http://localhost:8000/getreview', {
-      params: {
-        "id": phoneid,
-      }
-    })
-        .then(_d => {
-          this.setState({reviews: _d.data})
-        })
+    const { phoneid } = this.state;
+    axios
+      .get("http://localhost:8000/getreview", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.setState({ reviews: _d.data });
+      });
   };
   getallreview = async () => {
-    const {phoneid} = this.state;
-    axios.get('http://localhost:8000/allreview', {
-      params: {
-        "id": phoneid,
-      }
-    })
-        .then(_d => {
-          this.setState({reviews: _d.data})
-        })
-  }
+    const { phoneid } = this.state;
+    axios
+      .get("http://localhost:8000/allreview", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.setState({ reviews: _d.data });
+      });
+  };
   addReview = async () => {
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
@@ -138,7 +140,6 @@ class Info extends React.Component {
 
   render() {
     return (
-
       <div className="popup">
         <div className="popup_inner">
           <button onClick={this.props.closePopup}>close me</button>
@@ -165,20 +166,20 @@ class Info extends React.Component {
             </tbody>
           </table>
           <table>
-          <thead>
-          <th>reviewer</th>
-          <th>rating</th>
-          <th>comment</th>
-          </thead>
-          <tbody>
-          {this.state.reviews.map((review) => (
-              <tr>
-                <td>{review.reviews.reviewer}</td>
-                <td>{review.reviews.rating}</td>
-                <td>{review.reviews.comment}</td>
-              </tr>
-          ))}
-          </tbody>
+            <thead>
+              <th>reviewer</th>
+              <th>rating</th>
+              <th>comment</th>
+            </thead>
+            <tbody>
+              {this.state.reviews.map((review) => (
+                <tr>
+                  <td>{review.reviews.reviewer}</td>
+                  <td>{review.reviews.rating}</td>
+                  <td>{review.reviews.comment}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
           <div>
             <label>current added quantity: </label>

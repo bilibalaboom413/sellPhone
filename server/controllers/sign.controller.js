@@ -4,7 +4,7 @@ const User = require("../models/User");
 const Link = require("../models/Link");
 const mail = require("../models/email");
 
-const SERVER = "http://localhost:8000";
+const WEBSITE = "http://localhost:3000";
 const EMAIL_FROM_ADDRESS = "eCommerce <NoReply>";
 const EMAIL_SUBJECT = "Registration Activation";
 const EMAIL_CONTENT1 =
@@ -48,7 +48,7 @@ module.exports.register = async (req, res) => {
       }
       // Create a link document in DB
       var id = ObjectId();
-      var activatation = SERVER + "/register/" + id;
+      var activatation = WEBSITE + "/register/" + id;
       // Send an register activation link to the email
       var message = {
         from: EMAIL_FROM_ADDRESS,
@@ -87,6 +87,66 @@ module.exports.register = async (req, res) => {
             );
           }
         );
+      });
+    });
+  });
+};
+
+// Activation Function
+module.exports.activate = async (req, res) => {
+  id = req.params.id;
+
+  // Check if the register activation id exists in Link
+  Link.checkRegisterIdExists(id, (err, result) => {
+    if (err) {
+      console.log(`${err}`);
+      res.status(500).json({ error: err });
+      return;
+    }
+
+    // If the link doesn't exist
+    if (!result) {
+      res.send("Sorry! Page Not Found");
+      return;
+    }
+
+    Link.findRegisterLinkById(id, (err, result) => {
+      if (err) {
+        console.log(`${err}`);
+        res.status(500).json({ error: err });
+        return;
+      }
+
+      let data = {
+        _id: ObjectId(),
+        firstname: result["firstname"],
+        lastname: result["lastname"],
+        email: result["email"],
+        password: result["password"],
+      };
+
+      // Create the user in the userlist database
+      User.createUser(data, (err, result) => {
+        if (err) {
+          console.log(`${err}`);
+          res.status(500).json({ error: err });
+          return;
+        }
+
+        console.log("Create New User Document: ");
+        console.log(result);
+        res.send("Activated! You can now sign in using your email address.");
+
+        // Remove the link document in links database
+        Link.deleteRegisterLinkById(id, (err, result) => {
+          if (err) {
+            console.log(`${err}`);
+            // res.status(500).json({ error: err });
+            return;
+          }
+
+          console.log(`Delete Link Document ${id}`);
+        });
       });
     });
   });

@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    passsword: {
+    password: {
       type: String,
       required: true,
     },
@@ -42,6 +42,13 @@ UserSchema.statics.checkEmailExists = function (email, callback) {
  */
 UserSchema.statics.findUserByEmail = function (email, callback) {
   return this.findOne({ email: email }).exec(callback);
+};
+
+/**
+ * Creates a user document in the database.
+ */
+UserSchema.statics.createUser = function (data, callback) {
+  return this.create(data, callback);
 };
 
 var User = mongoose.model("User", UserSchema, "userlist");
