@@ -11,14 +11,14 @@ const LinkSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
     // Either be 'register' or 'reset'
     type: {
       type: String,
       required: true,
+    },
+    password: {
+      type: String,
+      required: false,
     },
     firstname: {
       type: String,
@@ -92,14 +92,14 @@ LinkSchema.statics.findResetLinkById = function (id, callback) {
 };
 
 /**
- * Deletes the particular register link document with provided id.
+ * Deletes the particular register link document with the provided id.
  */
 LinkSchema.statics.deleteRegisterLinkById = function (id, callback) {
   return this.deleteOne({ _id: id, type: "register" }).exec(callback);
 };
 
 /**
- * Deletes the particular register link document with provided id.
+ * Deletes the particular reset link document with the provided id.
  */
 LinkSchema.statics.deleteResetLinkById = function (id, callback) {
   return this.deleteOne({ _id: id, type: "reset" }).exec(callback);

@@ -51,5 +51,16 @@ UserSchema.statics.createUser = function (data, callback) {
   return this.create(data, callback);
 };
 
+/**
+ * Changes the password of a user with provided email address.
+ * data: { email: "email@address", password: "md5 hash" }
+ */
+UserSchema.statics.changePassword = function (data, callback) {
+  return this.updateOne(
+    { email: data.email },
+    { password: data.password }
+  ).exec(callback);
+};
+
 var User = mongoose.model("User", UserSchema, "userlist");
 module.exports = User;
