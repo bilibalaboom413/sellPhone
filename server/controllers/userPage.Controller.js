@@ -7,9 +7,10 @@ module.exports = class UserPage{
     
 
     static async apiGetUserInfo(req,res,next){
+        console.log('apiGetUserInfo')
         try{
             const testId = '5f5237a4c1beb1523fa3da02'
-            const user = await User.find({"_id": testId},{
+            const user = await User.find({/* "_id": testId */},{
                 _id: 1,
                 "firstname":2,
                 "lastname":3,
@@ -19,13 +20,16 @@ module.exports = class UserPage{
             if(!user){
                 res.status(404).json("No such user.")
             }
+            console.log(user)
             res.json(user);
         }catch(error){
+            consolo.log('error')
             res.status(500).json({error:error})
         }
     }
 
     static async apiSetUserInfo(req,res,next){
+        console.log('apiSetUserInfo')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -72,6 +76,7 @@ module.exports = class UserPage{
     }
 
     static async apiSetPassword(req,res,next){
+        console.log('apiSetPassword')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -160,6 +165,7 @@ module.exports = class UserPage{
     } */
 
     static async apigetPhoneInfo(req, res, next){
+        console.log('apigetPhoneInfo')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -204,6 +210,7 @@ module.exports = class UserPage{
     }
 
     static async apiAddList(req,res,next){
+        console.log('apiAddList')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -236,6 +243,7 @@ module.exports = class UserPage{
 
 
     static async apideletePhone(req, res, next){
+        console.log('apideletePhone')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -256,6 +264,7 @@ module.exports = class UserPage{
    
 
     static async apigetComments(req, res, next){
+        console.log('apiGetComment')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  
@@ -286,6 +295,7 @@ module.exports = class UserPage{
     }
 
     static async apiGetReviewerInfo(req,res,next){
+        console.log('apiGetReviewer')
         const back = JSON.stringify(req.body)
         const back1 = JSON.parse(back)
  

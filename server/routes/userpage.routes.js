@@ -77,3 +77,22 @@ module.exports = app;
 
 
  */
+
+
+
+/* const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/userPage.Controller");
+
+router.post("/transaction", controller.transactionConfirm);
+
+router.get('/userPage',controller.apiGetUserInfo);
+router.post('/updateUserPage',controller.apiSetUserInfo);
+router.post('/setPassword',controller.apiSetPassword);
+router.post('/addList',controller.apiAddList);
+router.post('/userPhone',controller.apigetPhoneInfo);
+router.post('/deletePhone',controller.apideletePhone);
+router.post('/getComments',controller.apigetComments);
+router.post('/getReviewers',controller.apiGetReviewerInfo);
+
+module.exports = router; */

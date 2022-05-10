@@ -32,13 +32,15 @@ function App() {
       <Route path="/addreview" element={<Info />} />
       <Route path="/checkout" element={<Checkout />} />
 
+     
+      <Route path='/userHome' element={<UserHome/>}> 
+          <Route path='/userHome/editProfile' element={<EditProfile/>}></Route>
+          <Route path='/userHome/manageList' element={<ManageList/>}></Route>
+          <Route path='/userHome/changePassword' element={<ChangePassword/>}></Route>
+          <Route path='/userHome/addList' element={<AddList/>}></Route>
+      </Route>
       
-      <Route path='/userHome' element={<UserHome/>}></Route>
-        <Route path='/editProfile' element={<EditProfile/>}></Route>
-        <Route path='/manageList' element={<ManageList/>}></Route>
-        <Route path='/changePassword' element={<ChangePassword/>}></Route>
-        <Route path='/addList' element={<AddList/>}></Route>
-      
+        
     </Routes>
   );
 }

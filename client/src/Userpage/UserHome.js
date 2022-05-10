@@ -52,17 +52,17 @@ export default function App() {
     <Content style={{ padding: '0 50px' }}>
       <Breadcrumb style={{ margin: '16px 0' }}>
         <Breadcrumb.Item> 
-        <Link to="/editProfile">
+        <Link to="/userHome/editProfile">
           <button>Edit Profile</button>
           </Link>
           </Breadcrumb.Item>
         <Breadcrumb.Item>
-        <Link to="/changePassword">
+        <Link to="/userHome/changePassword">
           <button>Change Password</button>
           </Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-        <Link to="/manageList">
+        <Link to="/userHome/manageList">
           <button>Add new list</button>
           </Link>
         </Breadcrumb.Item>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Form, Input, InputNumber, Button, message } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import React, { Component } from 'react'
 
 
@@ -39,6 +39,7 @@ export default class EditProfile extends Component {
    
 
   getUserInfo = async() =>{
+    console.log('post request')
     axios.get('http://localhost:8000/userPage')
     .then(res =>{
   //    this.setState({userInfo:res.data})
