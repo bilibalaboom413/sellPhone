@@ -6,6 +6,10 @@ class Info extends React.Component {
     phones: [],
     reviews: [],
     quantity: 0,
+    prevPhone: {
+      id: '',
+      quantity: 0
+    },
     inputQuantity: false,
     commentInput: "",
     ratingInput: 5,
@@ -22,12 +26,10 @@ class Info extends React.Component {
     this.getreview();
   }
 
-  // add the cart information in localStorage
-  componentDidUpdate(preProps) {
+  // Add the cart information in localStorage
+  componentDidUpdate() {
     if (
-      !isNaN(this.state.quantity) &&
-      this.state.quantity > 0 &&
-      preProps.quantity !== this.state.quantity
+      !isNaN(this.state.quantity) && this.state.quantity > 0 
     ) {
       const id = this.state.phones[0]._id;
       const title = this.state.phones[0].title;
@@ -40,14 +42,22 @@ class Info extends React.Component {
       };
       let numOfCategory = localStorage.getItem("numOfCategory");
       if (localStorage.getItem("numOfCategory")) {
-        if (preProps.phoneid !== this.state.phones[0]._id) {
+        if (this.state.prevPhone.id !== this.state.phones[0]._id) {
           localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
+          this.setState({prevPhone: {
+            id: phone.id,
+            quantity: phone.addedQuantity
+          }})
         }
         numOfCategory = localStorage.getItem("numOfCategory");
         localStorage.setItem(numOfCategory, JSON.stringify(phone));
       } else {
         localStorage.setItem("numOfCategory", 1);
         localStorage.setItem(1, JSON.stringify(phone));
+        this.setState({prevPhone: {
+          id: phone.id,
+          quantity: phone.addedQuantity
+        }})
       }
     }
   }
@@ -169,23 +179,6 @@ class Info extends React.Component {
             <thead>
               <th>reviews</th>
             </thead>
-            {/* <tbody>
-              {this.state.phones.map((phone) => (
-                <tr key={phone._id}>
-                  {phone.reviews.map((review) => (
-                    <tr>
-                      <td>{review.reviewer}</td>
-
-                      <td>{review.rating}</td>
-
-                      <td>{review.comment}</td>
-                    </tr>
-                  ))}
-              <th>reviewer</th>
-              <th>rating</th>
-              <th>comment</th>
-            </tbody>
-            </thead> */}
             <tbody>
               {this.state.reviews.map((review) => (
                 <tr>
