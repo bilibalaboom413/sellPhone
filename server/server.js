@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const router = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");
+const resetRouter = require("./routes/reset.routes");
+const resetpasswordRouter = require("./routes/resetpassword.routes");
 const phoneController = require("./controllers/phoneController");
 
 const port = 8000;
@@ -22,6 +24,8 @@ app.all("*", function (req, res, next) {
 });
 
 app.use("/register", registerRouter);
+app.use("/reset", resetRouter);
+app.use("/resetpassword", resetpasswordRouter);
 app.use("/checkout", router);
 app.get("/phone", phoneController.apiGetAllPhoneService);
 app.get("/brand", phoneController.apiGetBrandService);
@@ -31,6 +35,8 @@ app.get("/Bestseller", phoneController.apiGetBestSellerService);
 app.get("/Search", phoneController.apiGetSearchService);
 app.get("/highestValue", phoneController.apiGetHighestValue);
 app.get("/addreview", phoneController.apiAddReview);
+app.get("/getreview", phoneController.apiGetReview);
+app.get("/allreview", phoneController.apiGetAllReview);
 
 app.listen(port, () => {
   console.log(`Listening on Port ${port}`);

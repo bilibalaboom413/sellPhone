@@ -25,13 +25,11 @@ class Search extends React.Component {
 
   getData = async () => {
     axios.get("http://localhost:8000/phone").then((_d) => {
-      // console.log(_d)
       this.setState({ phones: _d.data });
     });
   };
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
-      // console.log(_d.data)
       this.setState({ brandlist: _d.data });
     });
   };
@@ -47,14 +45,12 @@ class Search extends React.Component {
         },
       })
       .then((_d) => {
-        console.log(_d);
         this.setState({ phones: _d.data });
       });
   };
   getHighestValue = async () => {
     axios.get("http://localhost:8000/highestValue").then((_d) => {
       this.setState({ highValue: _d.data });
-      console.log(_d.data);
     });
   };
   handleGetTitle = (event) => {
