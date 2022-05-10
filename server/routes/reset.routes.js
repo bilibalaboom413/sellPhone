@@ -2,7 +2,7 @@ const express = require("express");
 const controller = require("../controllers/sign.controller");
 const router = express.Router();
 
-router.post("/", controller.register);
-router.post("/:id", controller.activate);
+router.post("/", controller.reset);
+router.post("/:id", controller.reset2);
 
 module.exports = router;
