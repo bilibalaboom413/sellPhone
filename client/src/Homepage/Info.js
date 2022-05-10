@@ -7,8 +7,8 @@ class Info extends React.Component {
     reviews: [],
     quantity: 0,
     prevPhone: {
-      id: '',
-      quantity: 0
+      id: "",
+      quantity: 0,
     },
     inputQuantity: false,
     commentInput: "",
@@ -28,9 +28,7 @@ class Info extends React.Component {
 
   // Add the cart information in localStorage
   componentDidUpdate() {
-    if (
-      !isNaN(this.state.quantity) && this.state.quantity > 0 
-    ) {
+    if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
       const id = this.state.phones[0]._id;
       const title = this.state.phones[0].title;
       const price = this.state.phones[0].price;
@@ -44,20 +42,24 @@ class Info extends React.Component {
       if (localStorage.getItem("numOfCategory")) {
         if (this.state.prevPhone.id !== this.state.phones[0]._id) {
           localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
-          this.setState({prevPhone: {
-            id: phone.id,
-            quantity: phone.addedQuantity
-          }})
+          this.setState({
+            prevPhone: {
+              id: phone.id,
+              quantity: phone.addedQuantity,
+            },
+          });
         }
         numOfCategory = localStorage.getItem("numOfCategory");
         localStorage.setItem(numOfCategory, JSON.stringify(phone));
       } else {
         localStorage.setItem("numOfCategory", 1);
         localStorage.setItem(1, JSON.stringify(phone));
-        this.setState({prevPhone: {
-          id: phone.id,
-          quantity: phone.addedQuantity
-        }})
+        this.setState({
+          prevPhone: {
+            id: phone.id,
+            quantity: phone.addedQuantity,
+          },
+        });
       }
     }
   }
