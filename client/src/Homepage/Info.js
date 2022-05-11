@@ -4,9 +4,12 @@ import axios from "axios";
 class Info extends React.Component {
   state = {
     phones: [],
-    reviews:[],
-    showreviews:[],
+    reviews: [],
     quantity: 0,
+    prevPhone: {
+      id: "",
+      quantity: 0,
+    },
     inputQuantity: false,
     commentInput: "",
     ratingInput: 5,
@@ -23,13 +26,9 @@ class Info extends React.Component {
     this.getreview();
   }
 
-  // add the cart information in localStorage
-  componentDidUpdate(preProps) {
-    if (
-      !isNaN(this.state.quantity) &&
-      this.state.quantity > 0 &&
-      preProps.quantity !== this.state.quantity
-    ) {
+  // Add the cart information in localStorage
+  componentDidUpdate() {
+    if (!isNaN(this.state.quantity) && this.state.quantity > 0) {
       const id = this.state.phones[0]._id;
       const title = this.state.phones[0].title;
       const price = this.state.phones[0].price;
@@ -41,14 +40,26 @@ class Info extends React.Component {
       };
       let numOfCategory = localStorage.getItem("numOfCategory");
       if (localStorage.getItem("numOfCategory")) {
-        if (preProps.phoneid !== this.state.phones[0]._id) {
+        if (this.state.prevPhone.id !== this.state.phones[0]._id) {
           localStorage.setItem("numOfCategory", parseInt(numOfCategory) + 1);
+          this.setState({
+            prevPhone: {
+              id: phone.id,
+              quantity: phone.addedQuantity,
+            },
+          });
         }
         numOfCategory = localStorage.getItem("numOfCategory");
         localStorage.setItem(numOfCategory, JSON.stringify(phone));
       } else {
         localStorage.setItem("numOfCategory", 1);
         localStorage.setItem(1, JSON.stringify(phone));
+        this.setState({
+          prevPhone: {
+            id: phone.id,
+            quantity: phone.addedQuantity,
+          },
+        });
       }
     }
   }
@@ -66,36 +77,29 @@ class Info extends React.Component {
       });
   };
   getreview = async () => {
-    const {phoneid} = this.state;
-    axios.get('http://localhost:8000/getreview', {
-      params: {
-        "id": phoneid,
-      }
-    })
-        .then(_d => {
-          this.setState({reviews: _d.data})
-          this.getShowReview()
-        })
+    const { phoneid } = this.state;
+    axios
+      .get("http://localhost:8000/getreview", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.setState({ reviews: _d.data });
+      });
   };
-  getShowReview = async () => {
-    const{reviews} = this.state;
-    var reviewlist = []
-    for (const i in reviews){
-      reviewlist[i] = reviews[i].reviews.comment.substring(0,200) + "..."
-    }
-    this.setState({showreviews:reviewlist})
-  }
   getallreview = async () => {
-    const {phoneid} = this.state;
-    axios.get('http://localhost:8000/allreview', {
-      params: {
-        "id": phoneid,
-      }
-    })
-        .then(_d => {
-          this.setState({reviews: _d.data})
-        })
-  }
+    const { phoneid } = this.state;
+    axios
+      .get("http://localhost:8000/allreview", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.setState({ reviews: _d.data });
+      });
+  };
   addReview = async () => {
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
@@ -148,7 +152,6 @@ class Info extends React.Component {
 
   render() {
     return (
-
       <div className="popup">
         <div className="popup_inner">
           <button onClick={this.props.closePopup}>close me</button>
@@ -175,20 +178,20 @@ class Info extends React.Component {
             </tbody>
           </table>
           <table>
-          <thead>
-          <th>reviewer</th>
-          <th>rating</th>
-          <th>comment</th>
-          </thead>
-          <tbody>
-          {this.state.reviews.map((review) => (
-              <tr>
-                <td>{review.reviews.reviewer}</td>
-                <td>{review.reviews.rating}</td>
-                <td onClick={() => this.checkLength(review.reviews.reviewer)}>{review.reviews.comment}</td>
-              </tr>
-          ))}
-          </tbody>
+            <thead>
+              <th>reviewer</th>
+              <th>rating</th>
+              <th>comment</th>
+            </thead>
+            <tbody>
+              {this.state.reviews.map((review) => (
+                <tr>
+                  <td>{review.reviews.reviewer}</td>
+                  <td>{review.reviews.rating}</td>
+                  <td>{review.reviews.comment}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
           <div>
             <label>current added quantity: </label>

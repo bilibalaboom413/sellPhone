@@ -167,35 +167,37 @@ module.exports = class PhoneController {
     try {
       const id = req.query.id;
       const phone = await Phone.aggregate([
-            {
-              $match: {
-                "_id": new mongoose.Types.ObjectId(id)
-              }
-            }
-            , {
-              $project: {
-                "title": 1,
-                "brand": 1,
-                "image": 1,
-                "stock": 1,
-                "seller": 1,
-                "price": 1,
-          }
-        }
-          ]
-      );
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(id),
+          },
+        },
+        {
+          $project: {
+            title: 1,
+            brand: 1,
+            image: 1,
+            stock: 1,
+            seller: 1,
+            price: 1,
+          },
+        },
+      ]);
       if (!phone) {
-        res.status(404).json("There are no phone published yet!")
+        res.status(404).json("There are no phone published yet!");
       }
-      const name = await User.find({"_id": phone[0].seller}, {
-        _id: 0,
-        "firstname": 1,
-        "lastname": 2
-      });
-      phone[0].seller = name[0].firstname + " " + name[0].lastname
+      const name = await User.find(
+        { _id: phone[0].seller },
+        {
+          _id: 0,
+          firstname: 1,
+          lastname: 2,
+        }
+      );
+      phone[0].seller = name[0].firstname + " " + name[0].lastname;
       res.json(phone);
     } catch (error) {
-      res.status(500).json({error: error})
+      res.status(500).json({ error: error });
     }
   }
 
@@ -203,43 +205,43 @@ module.exports = class PhoneController {
     try {
       const id = req.query.id;
       const phone = await Phone.aggregate([
-            {
-              $match: {
-                "_id": new mongoose.Types.ObjectId(id)
-              }
-            }
-            ,
-            {
-              $unwind: "$reviews"
-            }
-            , {
-              $project: {
-                "reviews.reviewer": 1,
-                "reviews.rating": 1,
-                "reviews.comment": 1,
-              }
-
-            },
-            {
-              $limit: 3
-            }
-          ]
-      );
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(id),
+          },
+        },
+        {
+          $unwind: "$reviews",
+        },
+        {
+          $project: {
+            "reviews.reviewer": 1,
+            "reviews.rating": 1,
+            "reviews.comment": 1,
+          },
+        },
+        {
+          $limit: 3,
+        },
+      ]);
       if (!phone) {
-        res.status(404).json("There are no phone published yet!")
+        res.status(404).json("There are no phone published yet!");
       }
       for (const x in phone) {
-        const name = await User.find({"_id": phone[x].reviews.reviewer}, {
-          _id: 0,
-          "firstname": 1,
-          "lastname": 2
-        });
-        const fullname = name[0].firstname + " " + name[0].lastname
-        phone[x].reviews.reviewer = fullname.toString()
+        const name = await User.find(
+          { _id: phone[x].reviews.reviewer },
+          {
+            _id: 0,
+            firstname: 1,
+            lastname: 2,
+          }
+        );
+        const fullname = name[0].firstname + " " + name[0].lastname;
+        phone[x].reviews.reviewer = fullname.toString();
       }
       res.json(phone);
     } catch (error) {
-      res.status(500).json({error: error})
+      res.status(500).json({ error: error });
     }
   }
 
@@ -247,40 +249,40 @@ module.exports = class PhoneController {
     try {
       const id = req.query.id;
       const phone = await Phone.aggregate([
-            {
-              $match: {
-                "_id": new mongoose.Types.ObjectId(id)
-              }
-            }
-            ,
-            {
-              $unwind: "$reviews"
-            }
-            , {
-              $project: {
-                "reviews.reviewer": 1,
-                "reviews.rating": 1,
-                "reviews.comment": 1,
-              }
-
-            }
-          ]
-      );
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(id),
+          },
+        },
+        {
+          $unwind: "$reviews",
+        },
+        {
+          $project: {
+            "reviews.reviewer": 1,
+            "reviews.rating": 1,
+            "reviews.comment": 1,
+          },
+        },
+      ]);
       if (!phone) {
-        res.status(404).json("There are no phone published yet!")
+        res.status(404).json("There are no phone published yet!");
       }
       for (const x in phone) {
-        const name = await User.find({"_id": phone[x].reviews.reviewer}, {
-          _id: 0,
-          "firstname": 1,
-          "lastname": 2
-        });
-        const fullname = name[0].firstname + " " + name[0].lastname
-        phone[x].reviews.reviewer = fullname.toString()
+        const name = await User.find(
+          { _id: phone[x].reviews.reviewer },
+          {
+            _id: 0,
+            firstname: 1,
+            lastname: 2,
+          }
+        );
+        const fullname = name[0].firstname + " " + name[0].lastname;
+        phone[x].reviews.reviewer = fullname.toString();
       }
       res.json(phone);
     } catch (error) {
-      res.status(500).json({error: error})
+      res.status(500).json({ error: error });
     }
   }
 };
