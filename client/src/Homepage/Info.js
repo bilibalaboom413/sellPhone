@@ -5,6 +5,7 @@ class Info extends React.Component {
   state = {
     phones: [],
     reviews:[],
+    showreviews:[],
     quantity: 0,
     inputQuantity: false,
     commentInput: "",
@@ -73,8 +74,17 @@ class Info extends React.Component {
     })
         .then(_d => {
           this.setState({reviews: _d.data})
+          this.getShowReview()
         })
   };
+  getShowReview = async () => {
+    const{reviews} = this.state;
+    var reviewlist = []
+    for (const i in reviews){
+      reviewlist[i] = reviews[i].reviews.comment.substring(0,200) + "..."
+    }
+    this.setState({showreviews:reviewlist})
+  }
   getallreview = async () => {
     const {phoneid} = this.state;
     axios.get('http://localhost:8000/allreview', {
@@ -175,7 +185,7 @@ class Info extends React.Component {
               <tr>
                 <td>{review.reviews.reviewer}</td>
                 <td>{review.reviews.rating}</td>
-                <td>{review.reviews.comment}</td>
+                <td onClick={() => this.checkLength(review.reviews.reviewer)}>{review.reviews.comment}</td>
               </tr>
           ))}
           </tbody>
