@@ -218,7 +218,11 @@ class Info extends React.Component {
             )}
             {!this.state.inputQuantity && (
               <input
-                onClick={() => this.setState({ inputQuantity: true })}
+                onClick={() =>
+                  this.state.userid
+                    ? this.setState({ inputQuantity: true })
+                    : (window.location = "./login")
+                }
                 type="button"
                 value="add to cart"
               />
