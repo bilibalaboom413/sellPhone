@@ -138,7 +138,7 @@ class Homepage extends React.Component {
               <tbody>
                 {this.state.soldout.map((soldout) => (
                   <tr key={soldout._id}>
-                    <td>{soldout.title}</td>
+                    <td onClick={() => this.togglePopup(soldout._id)}>{soldout.title}</td>
                     <td>{soldout.price}</td>
                   </tr>
                 ))}
@@ -156,7 +156,7 @@ class Homepage extends React.Component {
               <tbody>
                 {this.state.bestseller.map((bestseller) => (
                   <tr key={bestseller._id}>
-                    <td>{bestseller.title}</td>
+                    <td onClick={() => this.togglePopup(bestseller._id)}>{bestseller.title}</td>
                     <td>{bestseller.Ave_rating}</td>
                   </tr>
                 ))}
