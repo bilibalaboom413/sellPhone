@@ -5,7 +5,7 @@ const router = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");
 const resetRouter = require("./routes/reset.routes");
 const resetpasswordRouter = require("./routes/resetpassword.routes");
-const phoneController = require("./controllers/phoneController");
+const homepageRouter = require("./routes/homepage.routes");
 
 const port = 8000;
 const app = express();
@@ -23,20 +23,11 @@ app.all("*", function (req, res, next) {
   next();
 });
 
+app.use("/",homepageRouter);
 app.use("/register", registerRouter);
 app.use("/reset", resetRouter);
 app.use("/resetpassword", resetpasswordRouter);
 app.use("/checkout", router);
-app.get("/phone", phoneController.apiGetAllPhoneService);
-app.get("/brand", phoneController.apiGetBrandService);
-app.get("/phoneinfo", phoneController.apiGetPhoneInfo);
-app.get("/Soldout", phoneController.apiGetSoldOutService);
-app.get("/Bestseller", phoneController.apiGetBestSellerService);
-app.get("/Search", phoneController.apiGetSearchService);
-app.get("/highestValue", phoneController.apiGetHighestValue);
-app.get("/addreview", phoneController.apiAddReview);
-app.get("/getreview", phoneController.apiGetReview);
-app.get("/allreview", phoneController.apiGetAllReview);
 
 app.listen(port, () => {
   console.log(`Listening on Port ${port}`);
