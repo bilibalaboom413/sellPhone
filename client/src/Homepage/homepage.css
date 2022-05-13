@@ -1,17 +1,24 @@
-.navigationbar {
-  height: 100px;
+.Homepage .navigationbar {
+  height: 300px;
   width: 100%;
 }
-.homepagecontent {
+.Homepage .homepagecontent {
   width: 100%;
 }
-.soldoutlist {
+.Homepage table {
+  border: 2px solid forestgreen;
+}
+
+.Homepage .soldoutlist {
   float: left;
   width: 20%;
 }
-.bestsellerlist {
+.Homepage .bestsellerlist {
   float: right;
   width: 20%;
+}
+.Homepage .searchresultlist table {
+  border: 2px solid forestgreen;
 }
 .popup {
   position: fixed;
@@ -24,7 +31,7 @@
   margin: auto;
   background-color: rgba(0, 0, 0, 0.5);
 }
-.popup_inner {
+.Homepage .popup_inner {
   position: absolute;
   left: 5%;
   right: 5%;
