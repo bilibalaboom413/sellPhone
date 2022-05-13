@@ -187,7 +187,7 @@ export default class ManageList extends Component {
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-  <Link to="/manageList">
+  <Link to="/userHome/manageList">
   <Button onClick={this.setUserInfo.bind(this)}>
           Go back to list managing
         </Button>

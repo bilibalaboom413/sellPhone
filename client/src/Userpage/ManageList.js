@@ -207,7 +207,7 @@ const expandedRowRender = (record) => {
       
 
   </Table>
-  <Link to="/addList">
+  <Link to="/userHome/addList">
         
   <Button>Add a new Phone list</Button>
 

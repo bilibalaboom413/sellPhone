@@ -10,7 +10,7 @@ module.exports = class UserPage{
         console.log('apiGetUserInfo')
         try{
             const testId = '5f5237a4c1beb1523fa3da02'
-            const user = await User.find({/* "_id": testId */},{
+            const user = await User.find({"_id": testId },{
                 _id: 1,
                 "firstname":2,
                 "lastname":3,
