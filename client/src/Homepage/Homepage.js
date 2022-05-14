@@ -13,9 +13,11 @@ class Homepage extends React.Component {
     BrandInput: "",
     highValue: "",
     setValue: 200,
-    userId: "5f5237a4c1beb1523fa3da05",
     phoneid: "",
     showPopup: false,
+    userId: "5f5237a4c1beb1523fa3da05",
+    ButtonContent:"Log in",
+    hasLogin:false
   };
 
   constructor() {
@@ -25,6 +27,7 @@ class Homepage extends React.Component {
     this.getHighestValue();
     this.getSoldout();
     this.getBestseller();
+    this.CheckLogin();
   }
 
   getData = async () => {
@@ -87,11 +90,25 @@ class Homepage extends React.Component {
       phoneid: param,
       showPopup: !this.state.showPopup,
     });
-  }
+  };
+  CheckLogin = async() => {
+     // Change Button content depends on user login situation
+     // If user has login, to show the UserID
+  };
+  Login = async() => {
+     //The Button to Click to jump to Login page
+  };
   render() {
     return (
-      <div id="root">
+      <div className="Homepage">
         <div className="navigationbar">
+          <p>Phone Seller</p>
+          {/*<div className="LoginComponent">*/}
+          {/*  <p>{this.state.userId}</p>*/}
+          {/*  <button onClick="login">*/}
+          {/*    {this.state.ButtonContent}*/}
+          {/*  </button>*/}
+          {/*</div>*/}
           <input
             type="text"
             placeholder="Search by name"
@@ -114,7 +131,7 @@ class Homepage extends React.Component {
           />
           <span>{this.state.setValue}</span>
           <input type="button" onClick={this.getSearch} value="search" />
-          <div>
+          <div className="ButtonList">
             <button
               onClick={() => {
                 this.state.userId
@@ -129,6 +146,7 @@ class Homepage extends React.Component {
 
         <div className="homepagecontent">
           <div className="soldoutlist">
+            <h1>Soldout List</h1>
             <table>
               <thead>
                 <th>title</th>
@@ -147,6 +165,7 @@ class Homepage extends React.Component {
           </div>
 
           <div className="bestsellerlist">
+            <h1>Bset Seller List</h1>
             <table>
               <thead>
                 <th>title</th>
@@ -163,6 +182,7 @@ class Homepage extends React.Component {
               </tbody>
             </table>
           </div>
+
           <div className="searchresultlist">
             <table>
               <thead>
