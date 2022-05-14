@@ -47,6 +47,8 @@ app.post('/userPhone',UserPage.apigetPhoneInfo);
 app.post('/deletePhone',UserPage.apideletePhone);
 app.post('/getComments',UserPage.apigetComments);
 app.post('/getReviewers',UserPage.apiGetReviewerInfo);
+app.post('/enable',UserPage.apiEnable);
+app.post('/disable',UserPage.apiDisable);
 
 app.listen(port, () => {
   console.log(`Listening on Port ${port}`);

@@ -20,10 +20,11 @@ export default class EditProfile extends Component {
 
 
    state = {
-    _id:"",
+    _id:"5f5237a4c1beb1523fa3da02",
     firstname:"",
     lastname:"",
-    email:""
+    email:"",
+    password:""
    }
 
   constructor(){
@@ -39,8 +40,12 @@ export default class EditProfile extends Component {
    
 
   getUserInfo = async() =>{
-    console.log('post request')
-    axios.get('http://localhost:8000/userPage')
+    const id = this.state._id;
+    axios.get('http://localhost:8000/userPage',{
+      params:{
+        id:id
+      }
+    })
     .then(res =>{
   //    this.setState({userInfo:res.data})
       console.log(res)
@@ -51,6 +56,7 @@ export default class EditProfile extends Component {
       this.setState({firstname:res.data[0].firstname})
       this.setState({lastname:res.data[0].lastname})
       this.setState({email:res.data[0].email})
+      this.setState({password:res.data[0].password})
       console.log(this.state.firstname)
     /*   console.log('this is backup:'+this.backdata[0].firstname) */
     })
@@ -72,12 +78,22 @@ export default class EditProfile extends Component {
     .then(
       () =>{
       //alert('Sucess update your file')
-      message.success('Sucess update your file')
+  
       }
     )
   }
 
-
+  checkPassword(){
+    const str=prompt('Please input your password');
+    if(str==this.state.password){
+      this.setUserInfo()
+      message.success('Sucess update your file')
+      setTimeout(()=>window.location.reload(),3000)
+   
+    }else{
+      alert('You input wrong password, try again!')
+    }
+  }
 
  
   onChangeF(e) {
@@ -149,10 +165,10 @@ export default class EditProfile extends Component {
       >
         <Input placeholder={this.state.email} onChange={this.onChangeE.bind(this)}/>
       </Form.Item>
-     
+ 
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button onClick={this.setUserInfo.bind(this)}>
+        <Button onClick={()=>this.checkPassword()}>
           Submit
         </Button>
       </Form.Item>

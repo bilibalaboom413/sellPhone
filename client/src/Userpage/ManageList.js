@@ -74,47 +74,42 @@ export default class ManageList extends Component {
         .then( res =>{
 
           message.success('Succes delete this phone item!')
-          this.forceUpdate();
+          setTimeout(()=>window.location.reload(),3000)
 
         })
   }
 
- /*  getReviewer = (val) =>{
-    const user = [{
+  enable = (val) =>{
+    const phone = [{
       
-      _id:val
+      _id:val._id
       
     }]
-    axios.post('http://localhost:9000/getReviewers', user)
+    axios.post('http://localhost:8000/enable', phone)
         .then( res =>{
-          this.setState({reviewer:res.data[0].firstname})
-          console.log(this.state.reviewer)
+
+          message.success('Succes display the item')
+         
+
         })
-
-      
-  } */
-
-  /* setReviewer = () =>{
-    const len = this.state.phoneList.length;
-    console.log(this.state.phoneList)
-    console.log(len)
-    for(var i=0;i<this.state.phoneList.length-1;i++){
-      if(this.state.phoneList[i].reviews>0){
-        for(var j=0;j<this.state.phoneList[i].reviews[j].reviewer;j++){
-       const cache =  this.getReviewer(this.state.phoneList[i].reviews[j].reviewer)
-       console.log('cache '+cache)
-      }
-      }
-    }
   }
- */
- 
 
+  disable = (val) =>{
+    const phone = [{
+      
+      _id:val._id
+      
+    }]
+    axios.post('http://localhost:8000/disable', phone)
+        .then( res =>{
 
+          message.success('Succes display the item')
+         
 
- 
+        })
+  }
+
   
-
   render() {
     const { Column, ColumnGroup } = Table;
     const data = this.state.phoneList;
@@ -139,11 +134,11 @@ export default class ManageList extends Component {
     dataIndex: 'stock',
     key: 'stock',
   },
-  {
+  /* {
     title: 'seller',
     dataIndex: 'seller',
     key: 'seller',
-  },
+  }, */
   {
     title: 'price',
     dataIndex: 'price',
@@ -152,23 +147,17 @@ export default class ManageList extends Component {
   {
     title:'Management',
     key:'operation',
-    render: (record) => <Button onClick={()=> this.getSelect(record)}>Delete</Button>
+    render: (record) => <><Button onClick={()=> this.enable(record)}>Enable</Button>
+    <Button onClick={()=> this.disable(record)}>Disable</Button>
+    <Button onClick={()=> this.getSelect(record)}>Delete</Button></>
   }
-  /* {
-    title: 'reviews',
-    dataIndex: 'reviews',
-    key: 'reviews',
-  }, */
 
-  //怎么添加评论没想好
 ];
 
 const expandedRowRender = (record) => {
 
   if(record.length>0){
-/*   console.log('record: '+record)
-  console.log('record: '+record[0].comment)
-  console.log("test call back"+ this.getReviewer(record[0].reviewer)) */
+
  
   const columns = [
       { title: 'reviewer', key: 'reviewer', align: "center", width: 100, ellipsis: true,
@@ -182,8 +171,10 @@ const expandedRowRender = (record) => {
       (data = record[0]) => <span>{data.comment}</span>},
   ];
   return <Table columns={columns} dataSource={record} pagination={false} rowKey={record => record.reviewer} />;
+  }else if(record.length==undefined){
+    return null
   }else{
-    return 
+    return null
   }
 };
 

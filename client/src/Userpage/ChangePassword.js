@@ -6,16 +6,20 @@ import axios from 'axios';
 import {
     Form,
     Input,
-    InputNumber,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
+    message,
+    Layout
   } from 'antd';
 
+
+  const layout = {
+    labelCol: {
+      span: 6,
+    },
+    wrapperCol: {
+      span: 10,
+    },
+  };
 
   const formItemLayout = {
     labelCol: {
@@ -56,8 +60,9 @@ export default class ChangePassword extends Component {
   
 
   state = {
-    _id:"",
+    _id:"5f5237a4c1beb1523fa3da02",
     newpassword:"",
+    password:""
    }
 
    constructor(){
@@ -65,12 +70,29 @@ export default class ChangePassword extends Component {
     this.getUserInfo();
   }
 
+  checkPassword(){
+    const str=prompt('Please input your password');
+    if(str==this.state.password){
+           this.setPassword()
+       
+      message.success('Sucess update your password')
+      setTimeout(()=>window.location.reload(),3000)
+    }else{
+      alert('You input wrong password, try again!')
+    }
+  }
 
   getUserInfo = async() =>{
-    axios.get('http://localhost:8000/userPage')
+    const id = this.state._id;
+    axios.get('http://localhost:8000/userPage',{
+      params:{
+        id:id
+      }
+    })
     .then(res =>{
       this.setState({_id:res.data[0]._id})
       this.setState({newpassword:res.data[0].password})
+      this.setState({password:res.data[0].password})
       console.log('Do with id: '+this.state._id)
     /*   console.log('this is backup:'+this.backdata[0].firstname) */
     })
@@ -105,7 +127,7 @@ export default class ChangePassword extends Component {
     return (
       <div>
     <Form
-      {...formItemLayout}
+      {...layout}
       name="register"
       scrollToFirstError
     >
@@ -144,10 +166,12 @@ export default class ChangePassword extends Component {
           }),
         ]}
       >
+        
+   
         <Input.Password onChange={this.onChangeP.bind(this)}/>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button onClick={this.setPassword.bind(this)}>
+        <Button onClick={()=>this.checkPassword()}>
           Register
         </Button>
       </Form.Item>

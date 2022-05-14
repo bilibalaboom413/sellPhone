@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Phone = require("../models/Phone");
+const { ObjectId } = require("mongodb");
 
 
 module.exports = class UserPage{
@@ -9,7 +10,7 @@ module.exports = class UserPage{
     static async apiGetUserInfo(req,res,next){
         console.log('apiGetUserInfo')
         try{
-            const testId = '5f5237a4c1beb1523fa3da02'
+            const testId = req.query.id;
             const user = await User.find({"_id": testId },{
                 _id: 1,
                 "firstname":2,
@@ -99,7 +100,7 @@ module.exports = class UserPage{
            
             const updateData = await User.findOneAndUpdate(
                 {_id:Id},
-                {password:"wdnmdwochaonimamongodb"},
+                {password:back1.user[0].newpassword},
                 {new:true}
             )
 
@@ -171,6 +172,7 @@ module.exports = class UserPage{
  
         console.log(back1)
 
+   
         try {
             const seller = back1[0].seller;
             const phone = await Phone.find({"seller": seller}, {
@@ -188,12 +190,22 @@ module.exports = class UserPage{
             if(!phone){
                 res.status(404).json("There are no phone published yet!")
             }
-            for(var i=0;i<phone.length;i++){
-            
-                if(phone[i].reviews.length>0){
-                  
-                    for(var j=0;j < phone[i].reviews.length;j++){
-                      
+
+           /*  for(var i=0;i<phone.length;i++){
+                console.log('test1')
+                console.log('reviews: '+phone[0].reviews)
+                console.log('reviews.length: '+typeof(phone[0].reviews))
+                console.log('reviews.length: '+Object.keys(phone[0].reviews).length)
+             
+                
+                
+                if(Object.keys(phone[i].reviews).length>0){
+                    console.log('test2')
+                 //   console.log('inner review: '+phone[i].reviews)
+                    for(var j=0;j < Object.keys(phone[i].reviews).length;j++){
+                        console.log('test3')
+                        console.log('reviews j '+phone[i].reviews[j])
+                        console.log('reviews j id '+phone[i].reviews[j].reviewer)
                         const Id = phone[i].reviews[j].reviewer;
                         const user = await User.find({"_id":Id})
                        
@@ -201,8 +213,44 @@ module.exports = class UserPage{
                         phone[i].reviews[j].reviewer = user[0].firstname + " " + user[0].lastname;
                     }
                 }
-            }
+            } */
+
+
+            for (const x in phone) {
+                console.log('test1')
+                const name = await User.find(
+                  { _id: phone[x].reviews.reviewer },
+                  {
+                    _id: 0,
+                    firstname: 1,
+                    lastname: 2,
+                  }
+                );
+
+       
+
+                const fullname=[];
+
+                console.log('1 '+phone[0].reviews.reviewer)
+                console.log('2 '+phone[0].reviewer)
+                
+         
+
+           
+                for(let i=0;i<name.length;i++){
+                    fullname[i] = name[i].firstname + " " + name[i].lastname
+                }
+                console.log('fullname '+fullname)
+             
+                console.log('reviewer: '+phone[x].reviews.reviewer)
+                phone[x].reviews.reviewer = fullname;
+                console.log('3 '+phone[0].reviews.reviewer)
+                
+              }
+
             console.log('phone: '+phone)
+
+            
             res.json(phone);
         } catch (error) {
             res.status(500).json({error: error})
@@ -224,6 +272,7 @@ module.exports = class UserPage{
         console.log('sellerid :'+ back1.phone[0].seller)
 
         const newPhone = [{
+            _id:ObjectId(),
             title: back1.phone[0].title,
             brand: back1.phone[0].brand,
             image: back1.phone[0].image,
@@ -254,6 +303,45 @@ module.exports = class UserPage{
             
             const remove = await Phone.deleteOne(
                 {_id:id},
+            )
+            res.json('sucess');
+        } catch (error) {
+            res.status(500).json({error: error})
+        }
+    }
+
+    static async apiDisable(req, res, next){
+        console.log('apideletePhone')
+        const back = JSON.stringify(req.body)
+        const back1 = JSON.parse(back)
+ 
+        console.log(back1)
+
+        try {
+            const id = back1[0]._id;
+            
+            const enable = await Phone.updateOne(
+                {_id:id},{$set:{disabled:""}}
+            )
+            console.log('enable: '+enable)
+            res.json('sucess');
+        } catch (error) {
+            res.status(500).json({error: error})
+        }
+    }
+
+    static async apiEnable(req, res, next){
+        console.log('apideletePhone')
+        const back = JSON.stringify(req.body)
+        const back1 = JSON.parse(back)
+ 
+        console.log(back1)
+
+        try {
+            const id = back1[0]._id;
+            
+            const enable = await Phone.updateOne(
+                {_id:id},{$unset:{disabled:null}}
             )
             res.json('sucess');
         } catch (error) {
