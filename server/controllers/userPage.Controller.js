@@ -217,7 +217,8 @@ module.exports = class UserPage{
 
 
             for (const x in phone) {
-                console.log('test1')
+                console.log('test1 '+x)
+                if(phone[x].reviews.reviewer!=null){
                 const name = await User.find(
                   { _id: phone[x].reviews.reviewer },
                   {
@@ -227,31 +228,30 @@ module.exports = class UserPage{
                   }
                 );
 
-       
-
                 const fullname=[];
-
-                console.log('1 '+phone[0].reviews.reviewer)
-                console.log('2 '+phone[0].reviewer)
-                
-         
-
            
                 for(let i=0;i<name.length;i++){
                     fullname[i] = name[i].firstname + " " + name[i].lastname
                 }
-                console.log('fullname '+fullname)
-             
-                console.log('reviewer: '+phone[x].reviews.reviewer)
-                phone[x].reviews.reviewer = fullname;
-                console.log('3 '+phone[0].reviews.reviewer)
-                
+    
+                const cache = JSON.stringify(phone[x])
+                const cache1 = JSON.parse(cache)
+        
+                cache1.reviews[0].reviewer  = fullname[0]
+      
+                for(let i=0;i<cache1.reviews.length;i++){
+                    cache1.reviews[i].reviewer = fullname[i]
+                }
+          
+                phone[x] = cache1
+       
               }
 
             console.log('phone: '+phone)
-
+            }
             
             res.json(phone);
+        
         } catch (error) {
             res.status(500).json({error: error})
         }

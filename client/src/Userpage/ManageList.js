@@ -53,6 +53,7 @@ export default class ManageList extends Component {
         .then( res =>{
           /*   console.log('res_data '+res.data) */
             this.setState({phoneList: res.data})
+            console.log(res.data)
             console.log(this.state.phoneList)
             console.log(this.state.phoneList[0])
             console.log(this.state.phoneList[1])
@@ -74,7 +75,7 @@ export default class ManageList extends Component {
         .then( res =>{
 
           message.success('Succes delete this phone item!')
-          setTimeout(()=>window.location.reload(),3000)
+          setTimeout(()=>window.location.reload(),1500)
 
         })
   }
@@ -156,7 +157,7 @@ export default class ManageList extends Component {
 
 const expandedRowRender = (record) => {
 
-  if(record.length>0){
+  if(record!=null){
 
  
   const columns = [
@@ -171,8 +172,6 @@ const expandedRowRender = (record) => {
       (data = record[0]) => <span>{data.comment}</span>},
   ];
   return <Table columns={columns} dataSource={record} pagination={false} rowKey={record => record.reviewer} />;
-  }else if(record.length==undefined){
-    return null
   }else{
     return null
   }
