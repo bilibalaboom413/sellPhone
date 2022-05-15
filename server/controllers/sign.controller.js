@@ -259,6 +259,7 @@ module.exports.reset2 = async (req, res) => {
   });
 };
 
+// Password Reset Post Function
 module.exports.resetpassword = async (req, res) => {
   id = req.body.id;
   password = req.body.password;
@@ -300,4 +301,62 @@ module.exports.resetpassword = async (req, res) => {
       res.send("Successed! You can now sign in using your new password.");
     });
   });
+};
+
+// Login
+module.exports.login = async (req, res) => {
+  email = req.body.email;
+  password = req.body.password;
+
+  User.findUserByEmail(email, (err, result) => {
+    if (err) {
+      console.log(`${err}`);
+      res.status(500).json({ error: err });
+      return;
+    }
+
+    // Email address not registered
+    if (result == null) {
+      res.send("The email doesn't exist!");
+      return;
+    }
+
+    // Password Verification
+    if (result.password != password) {
+      res.send("Password Incorrect!");
+      return;
+    }
+
+    // If already login
+    if (req.session.user) {
+      res.send(
+        "You have already signed in! Please log out before using another account."
+      );
+      return;
+    }
+
+    // Login
+    req.session.user = result;
+    console.log("Login Session:");
+    console.log(req.session);
+    res.send("Login!");
+  });
+};
+
+// Check if the user is currently signed in
+module.exports.authenticate = async (req, res) => {
+  console.log("Authenticating:");
+  console.log(req.session);
+  if (req.session.user) {
+    res.send(req.session.user);
+  } else {
+    res.send("No Login!");
+  }
+};
+
+// Logout
+module.exports.logout = async (req, res) => {
+  console.log(`Logout Session ${req.session.user._id}`);
+  delete req.session;
+  res.send("Logout!");
 };

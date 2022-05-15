@@ -17,7 +17,7 @@ class Info extends React.Component {
     userid: "",
     username: "",
     visible: false,
-    reviewNumber:3
+    reviewNumber: 3,
   };
 
   constructor(props) {
@@ -82,12 +82,12 @@ class Info extends React.Component {
 
   //Using ID and review number to load the phone review
   getreview = async () => {
-    const { phoneid,reviewNumber} = this.state;
+    const { phoneid, reviewNumber } = this.state;
     axios
       .get("http://localhost:8000/getreview", {
         params: {
           id: phoneid,
-          reviewNumber: reviewNumber
+          reviewNumber: reviewNumber,
         },
       })
       .then((_d) => {
@@ -103,24 +103,24 @@ class Info extends React.Component {
       reviewlist[i] = data[i].reviews.comment;
       if (data[i].reviews.comment.length > 200) {
         data[i].reviews.comment =
-            data[i].reviews.comment.substring(0, 200) + "...";
+          data[i].reviews.comment.substring(0, 200) + "...";
       }
     }
-    this.setState({reviews: data});
-    this.setState({showreviews:reviewlist});
+    this.setState({ reviews: data });
+    this.setState({ showreviews: reviewlist });
   };
 
   //to show the entire review if click
-  checkLength = async (index) =>{
-    const{reviews,showreviews} = this.state;
-    reviews[index].reviews.comment = showreviews[index]
-    this.setState({reviews})
+  checkLength = async (index) => {
+    const { reviews, showreviews } = this.state;
+    reviews[index].reviews.comment = showreviews[index];
+    this.setState({ reviews });
   };
 
   //Get more 3 reviews
   getmorereview = async () => {
-    let {reviewNumber} = this.state;
-    this.state.reviewNumber = reviewNumber+3;
+    let { reviewNumber } = this.state;
+    this.state.reviewNumber = reviewNumber + 3;
     this.getreview();
     // const { phoneid } = this.state;
     // axios
@@ -147,10 +147,10 @@ class Info extends React.Component {
           rating: ratingInput,
           comment: commentInput,
         },
-        })
-        .then((_d) => {
-          this.getmorereview();
-        });
+      })
+      .then((_d) => {
+        this.getmorereview();
+      });
   };
 
   //The click function for adding review
@@ -179,94 +179,93 @@ class Info extends React.Component {
 
   render() {
     return (
-        <div className="popup">
-          <div className="popup_inner">
-            <button onClick={this.props.closePopup}>close me</button>
-            <table>
-              <thead>
+      <div className="popup">
+        <div className="popup_inner">
+          <button onClick={this.props.closePopup}>close me</button>
+          <table>
+            <thead>
               <th>title</th>
               <th>brand</th>
               <th>image</th>
               <th>stock</th>
               <th>seller</th>
               <th>price</th>
-              </thead>
-              <tbody>
+            </thead>
+            <tbody>
               {this.state.phones.map((phone) => (
-                  <tr key={phone._id}>
-                    <td>{phone.title}</td>
-                    <td>{phone.brand}</td>
-                    <td>{phone._id}</td>
-                    <td>{phone.stock}</td>
-                    <td>{phone.seller}</td>
-                    <td>{phone.price}</td>
-                  </tr>
+                <tr key={phone._id}>
+                  <td>{phone.title}</td>
+                  <td>{phone.brand}</td>
+                  <td>{phone._id}</td>
+                  <td>{phone.stock}</td>
+                  <td>{phone.seller}</td>
+                  <td>{phone.price}</td>
+                </tr>
               ))}
-              </tbody>
-            </table>
-            <table>
-              <thead>
+            </tbody>
+          </table>
+          <table>
+            <thead>
               <th>reviewer</th>
               <th>rating</th>
               <th>comment</th>
-              </thead>
-              <tbody>
+            </thead>
+            <tbody>
               {this.state.reviews.map((review, index) => (
-                  <tr>
-                    <td>{review.reviews.reviewer}</td>
-                    <td>{review.reviews.rating}</td>
-                    <td onClick={() => this.checkLength(index)}>
-                      {review.reviews.comment}
-                    </td>
-                  </tr>
-
+                <tr>
+                  <td>{review.reviews.reviewer}</td>
+                  <td>{review.reviews.rating}</td>
+                  <td onClick={() => this.checkLength(index)}>
+                    {review.reviews.comment}
+                  </td>
+                </tr>
               ))}
-              </tbody>
-            </table>
-            <div>
-              <label>current added quantity: </label>
-              <span className="added-quantity">{this.state.quantity}</span>
-              {this.state.inputQuantity && (
-                  <input
-                      type="text"
-                      placeholder="input quantity"
-                      onBlur={(e) => {
-                        this.handleInputQuantity(e);
-                      }}
-                  />
-              )}
-              {!this.state.inputQuantity && (
-                  <input
-                      onClick={() =>
-                          this.state.userid
-                              ? this.setState({ inputQuantity: true })
-                              : (window.location = "./login")
-                      }
-                      type="button"
-                      value="add to cart"
-                  />
-              )}
+            </tbody>
+          </table>
+          <div>
+            <label>current added quantity: </label>
+            <span className="added-quantity">{this.state.quantity}</span>
+            {this.state.inputQuantity && (
               <input
-                  type="text"
-                  placeholder="Comment"
-                  value={this.state.commentInput}
-                  onChange={this.handleGetComment}
+                type="text"
+                placeholder="input quantity"
+                onBlur={(e) => {
+                  this.handleInputQuantity(e);
+                }}
               />
-              <select
-                  value={this.state.ratingInput}
-                  onChange={this.handleGetRating}
-              >
-                <option value="5">5</option>
-                <option value="4">4</option>
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-              </select>
-              <input type="button" onClick={this.addReview} value="add review" />
-              <button onClick={this.getmorereview}>all review</button>
-            </div>
+            )}
+            {!this.state.inputQuantity && (
+              <input
+                onClick={() =>
+                  this.state.userid
+                    ? this.setState({ inputQuantity: true })
+                    : (window.location = "./login")
+                }
+                type="button"
+                value="add to cart"
+              />
+            )}
+            <input
+              type="text"
+              placeholder="Comment"
+              value={this.state.commentInput}
+              onChange={this.handleGetComment}
+            />
+            <select
+              value={this.state.ratingInput}
+              onChange={this.handleGetRating}
+            >
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+            <input type="button" onClick={this.addReview} value="add review" />
+            <button onClick={this.getmorereview}>all review</button>
           </div>
         </div>
+      </div>
     );
   }
 }

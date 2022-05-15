@@ -30,7 +30,8 @@ module.exports = class PhoneController {
       const phone = await Phone.find(
         {
           stock: { $gt: 0 },
-          disabled: {$exists:false} },
+          disabled: { $exists: false },
+        },
         {
           _id: 1,
           title: 1,
@@ -54,11 +55,10 @@ module.exports = class PhoneController {
         {
           $match: {
             reviews: {
-              $not:
-                  {$size:1}
+              $not: { $size: 1 },
             },
-            disabled: {$exists:false}
-          }
+            disabled: { $exists: false },
+          },
         },
         {
           $project: {
@@ -233,7 +233,7 @@ module.exports = class PhoneController {
           },
         },
         {
-          $limit: Number(reviewNumber)
+          $limit: Number(reviewNumber),
         },
       ]);
       if (!phone) {
