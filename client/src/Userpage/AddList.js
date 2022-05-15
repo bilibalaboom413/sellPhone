@@ -53,7 +53,7 @@ export default class ManageList extends Component {
       
     }]
 
-    axios.post('http://localhost:8000/addList',{
+    axios.post('http://localhost:8000/user/addList',{
       phone
     })
     .then(res => {

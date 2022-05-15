@@ -49,7 +49,7 @@ export default class ManageList extends Component {
       seller:this.state.seller
       
     }]
-    axios.post('http://localhost:8000/userPhone', phone)
+    axios.post('http://localhost:8000/user/userPhone', phone)
         .then( res =>{
           /*   console.log('res_data '+res.data) */
             this.setState({phoneList: res.data})
@@ -70,7 +70,7 @@ export default class ManageList extends Component {
       _id:val._id
       
     }]
-    axios.post('http://localhost:8000/deletePhone', phone)
+    axios.post('http://localhost:8000/user/deletePhone', phone)
         .then( res =>{
 
           message.success('Succes delete this phone item!')
@@ -85,7 +85,7 @@ export default class ManageList extends Component {
       _id:val._id
       
     }]
-    axios.post('http://localhost:8000/enable', phone)
+    axios.post('http://localhost:8000/user/enable', phone)
         .then( res =>{
 
           message.success('Succes display the item')
@@ -100,7 +100,7 @@ export default class ManageList extends Component {
       _id:val._id
       
     }]
-    axios.post('http://localhost:8000/disable', phone)
+    axios.post('http://localhost:8000/user/disable', phone)
         .then( res =>{
 
           message.success('Succes display the item')

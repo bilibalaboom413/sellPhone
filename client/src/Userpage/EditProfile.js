@@ -41,7 +41,7 @@ export default class EditProfile extends Component {
 
   getUserInfo = async() =>{
     const id = this.state._id;
-    axios.get('http://localhost:8000/userPage',{
+    axios.get('http://localhost:8000/user/userPage',{
       params:{
         id:id
       }
@@ -72,7 +72,7 @@ export default class EditProfile extends Component {
     }]
 
     console.log('here is test user: '+user.firstname)
-    axios.post('http://localhost:8000/updateUserPage',{
+    axios.post('http://localhost:8000/user/updateUserPage',{
       user
     })
     .then(

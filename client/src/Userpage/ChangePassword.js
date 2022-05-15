@@ -84,7 +84,7 @@ export default class ChangePassword extends Component {
 
   getUserInfo = async() =>{
     const id = this.state._id;
-    axios.get('http://localhost:8000/userPage',{
+    axios.get('http://localhost:8000/user/userPage',{
       params:{
         id:id
       }
@@ -112,7 +112,7 @@ export default class ChangePassword extends Component {
       newpassword:this.state.newpassword
     }]
 
-    axios.post('http://localhost:8000/setPassword',{
+    axios.post('http://localhost:8000/user/setPassword',{
       user
     })
     .then(
