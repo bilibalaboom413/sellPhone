@@ -94,21 +94,42 @@ class Homepage extends React.Component {
   CheckLogin = async () => {
     // Change Button content depends on user login situation
     // If user has login, to show the UserID
+    axios
+      .get("http://localhost:8000/authenticate", { withCredentials: true })
+      .then((res) => {
+        if (res.data !== "No Login!") {
+          console.log(res.data);
+          this.setState({ userId: res.data._id, ButtonContent: "Sign Out" });
+        } else {
+          console.log("No Login!");
+          this.setState({ userId: null, ButtonContent: "Sign In" });
+        }
+      })
+      .catch((err) => console.log(err.data));
   };
-  Login = async () => {
-    //The Button to Click to jump to Login page
+  signBtn = async () => {
+    if (this.state.ButtonContent === "Sign In") {
+      window.location = "./login";
+    } else if (this.state.ButtonContent === "Sign Out") {
+      axios
+        .get("http://localhost:8000/logout", { withCredentials: true })
+        .then((res) => {
+          if (res.data === "Logout!") {
+            window.location = "./login";
+          }
+        })
+        .catch((err) => console.log(err.data));
+    }
   };
   render() {
     return (
       <div className="Homepage">
         <div className="navigationbar">
           <p>Phone Seller</p>
-          {/*<div className="LoginComponent">*/}
-          {/*  <p>{this.state.userId}</p>*/}
-          {/*  <button onClick="login">*/}
-          {/*    {this.state.ButtonContent}*/}
-          {/*  </button>*/}
-          {/*</div>*/}
+          <div className="LoginComponent">
+            <p>{this.state.userId}</p>
+            <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
+          </div>
           <input
             type="text"
             placeholder="Search by name"
