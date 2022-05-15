@@ -16,7 +16,7 @@ class Homepage extends React.Component {
     phoneid: "",
     showPopup: false,
     userId: "",
-    userfullname:"",
+    userfullname: "",
     ButtonContent: "Log in",
     hasLogin: false,
   };
@@ -100,7 +100,11 @@ class Homepage extends React.Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          this.setState({ userId: res.data._id, userfullname:res.data.firstname + " " + res.data.lastname,ButtonContent: "Sign Out" });
+          this.setState({
+            userId: res.data._id,
+            userfullname: res.data.firstname + " " + res.data.lastname,
+            ButtonContent: "Sign Out",
+          });
         } else {
           console.log("No Login!");
           this.setState({ userId: null, ButtonContent: "Sign In" });
