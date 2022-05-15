@@ -165,9 +165,12 @@ class Info extends React.Component {
   };
 
   handleInputQuantity = (e) => {
+    const stock = this.state.phones[0].stock;
     const tmp = e.target.value;
     if (!isNaN(tmp) && tmp > 0) {
-      this.setState({ quantity: parseInt(tmp) });
+      stock >= tmp
+        ? this.setState({ quantity: parseInt(tmp) })
+        : alert("Sorry not enough stock for this phone!");
     } else if (!tmp) {
       this.setState({ inputQuantity: false });
     } else {
@@ -261,13 +264,14 @@ class Info extends React.Component {
               <option value="1">1</option>
             </select>
             <input
-                onClick={() =>
-                    this.state.userid
-                        ? this.addReview()
-                        : (window.location = "./login")
-                }
-                type="button"
-                value="add review" />
+              onClick={() =>
+                this.state.userid
+                  ? this.addReview()
+                  : (window.location = "./login")
+              }
+              type="button"
+              value="add review"
+            />
             <button onClick={this.getmorereview}>all review</button>
           </div>
         </div>
