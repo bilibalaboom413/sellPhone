@@ -70,13 +70,12 @@ export default function CheckoutBody() {
           });
         });
 
-        // update the localStorage of cart information
+        // Update the localStorage of cart information
         let found = false;
         let curIndex = 1;
         while (!found) {
           if (localStorage.getItem(curIndex)) {
             const phone = JSON.parse(localStorage.getItem(curIndex));
-            console.log(phone.id, id);
             if (phone.id === id) {
               found = true;
               phone.addedQuantity = num;
@@ -88,7 +87,7 @@ export default function CheckoutBody() {
         }
       }
     } else {
-      alert("You have invalid input quantity!");
+      alert("Please input a valid quantity!");
     }
   }
 
@@ -101,7 +100,7 @@ export default function CheckoutBody() {
       preQuantity.filter((phone) => phone.id !== id)
     );
 
-    // update the localStorage of cart information
+    // Update the localStorage of cart information
     let found = false;
     let curIndex = 1;
     while (!found) {
