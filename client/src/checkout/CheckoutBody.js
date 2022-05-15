@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 
 export default function CheckoutBody() {
-  // load the cart information
+  // Load the cart information
   const phonesCheckout = [];
   const numOfCategory = parseInt(localStorage.getItem("numOfCategory"));
   let remain = numOfCategory;
@@ -15,7 +15,7 @@ export default function CheckoutBody() {
     curIndex++;
   }
 
-  // initialize state
+  // Initialize state
   const [totalPrice, setTotalPrice] = useState(0);
   const [phones, setPhones] = useState(phonesCheckout || []);
   const [quantity, setQuantity] = useState(
@@ -27,6 +27,7 @@ export default function CheckoutBody() {
     })
   );
 
+  // Quantity that to be modified
   function quantityInput(e) {
     const newQuantity = e.target.value;
     const id = e.target.name;
@@ -44,6 +45,7 @@ export default function CheckoutBody() {
     });
   }
 
+  // Modify the phone quantity
   function modifyQuantity(e) {
     const id = e.target.name;
     let num;
@@ -61,7 +63,6 @@ export default function CheckoutBody() {
           return prePhones.map((phone) => {
             return phone.id === id
               ? {
-                  // forget to write return
                   ...phone,
                   addedQuantity: num,
                 }
@@ -79,7 +80,6 @@ export default function CheckoutBody() {
             if (phone.id === id) {
               found = true;
               phone.addedQuantity = num;
-              // console.log(phone);
               localStorage.setItem(curIndex, JSON.stringify(phone));
               break;
             }
@@ -92,9 +92,9 @@ export default function CheckoutBody() {
     }
   }
 
+  // Remove phone
   function removeItem(e) {
     e.stopPropagation();
-    console.log("Removing item");
     const id = e.target.name;
     setPhones((prePhones) => prePhones.filter((phone) => phone.id !== id));
     setQuantity((preQuantity) =>
@@ -107,7 +107,6 @@ export default function CheckoutBody() {
     while (!found) {
       if (localStorage.getItem(curIndex)) {
         const phone = JSON.parse(localStorage.getItem(curIndex));
-        console.log(phone.id, id);
         if (phone.id === id) {
           found = true;
           localStorage.removeItem(curIndex);
@@ -119,6 +118,7 @@ export default function CheckoutBody() {
     }
   }
 
+  // Update total price
   useEffect(() => {
     let total = 0;
     for (let i = 0; i < phones.length; i++) {
@@ -128,6 +128,7 @@ export default function CheckoutBody() {
     setTotalPrice(total);
   }, [phones]);
 
+  // Create cart list
   const phonesElement = phones.map((val) => {
     return (
       <tr key={val.id}>
@@ -165,6 +166,7 @@ export default function CheckoutBody() {
     );
   });
 
+  // Checkout
   function checkout(e) {
     e.preventDefault();
     axios

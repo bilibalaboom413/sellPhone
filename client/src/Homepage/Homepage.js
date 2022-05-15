@@ -16,8 +16,8 @@ class Homepage extends React.Component {
     phoneid: "",
     showPopup: false,
     userId: "5f5237a4c1beb1523fa3da05",
-    ButtonContent:"Log in",
-    hasLogin:false
+    ButtonContent: "Log in",
+    hasLogin: false,
   };
 
   constructor() {
@@ -90,13 +90,13 @@ class Homepage extends React.Component {
       phoneid: param,
       showPopup: !this.state.showPopup,
     });
+  }
+  CheckLogin = async () => {
+    // Change Button content depends on user login situation
+    // If user has login, to show the UserID
   };
-  CheckLogin = async() => {
-     // Change Button content depends on user login situation
-     // If user has login, to show the UserID
-  };
-  Login = async() => {
-     //The Button to Click to jump to Login page
+  Login = async () => {
+    //The Button to Click to jump to Login page
   };
   render() {
     return (
@@ -156,7 +156,9 @@ class Homepage extends React.Component {
               <tbody>
                 {this.state.soldout.map((soldout) => (
                   <tr key={soldout._id}>
-                    <td onClick={() => this.togglePopup(soldout._id)}>{soldout.title}</td>
+                    <td onClick={() => this.togglePopup(soldout._id)}>
+                      {soldout.title}
+                    </td>
                     <td>{soldout.price}</td>
                   </tr>
                 ))}
@@ -165,7 +167,7 @@ class Homepage extends React.Component {
           </div>
 
           <div className="bestsellerlist">
-            <h1>Bset Seller List</h1>
+            <h1>Best Seller List</h1>
             <table>
               <thead>
                 <th>title</th>
@@ -175,8 +177,10 @@ class Homepage extends React.Component {
               <tbody>
                 {this.state.bestseller.map((bestseller) => (
                   <tr key={bestseller._id}>
-                    <td onClick={() => this.togglePopup(bestseller._id)}>{bestseller.title}</td>
-                    <td>{bestseller.Ave_rating}</td>
+                    <td onClick={() => this.togglePopup(bestseller._id)}>
+                      {bestseller.title}
+                    </td>
+                    <td>{bestseller.Ave_rating.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>

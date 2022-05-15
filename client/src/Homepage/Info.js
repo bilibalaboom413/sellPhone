@@ -5,7 +5,7 @@ class Info extends React.Component {
   state = {
     phones: [],
     reviews: [],
-    showreviews:[],
+    showreviews: [],
     quantity: 0,
     prevPhone: {
       id: "",
@@ -219,6 +219,7 @@ class Info extends React.Component {
                       {review.reviews.comment}
                     </td>
                   </tr>
+
               ))}
               </tbody>
             </table>
