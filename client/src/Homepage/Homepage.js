@@ -15,7 +15,8 @@ class Homepage extends React.Component {
     setValue: 200,
     phoneid: "",
     showPopup: false,
-    userId: "5f5237a4c1beb1523fa3da05",
+    userId: "",
+    userfullname:"",
     ButtonContent: "Log in",
     hasLogin: false,
   };
@@ -99,7 +100,7 @@ class Homepage extends React.Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          this.setState({ userId: res.data._id, ButtonContent: "Sign Out" });
+          this.setState({ userId: res.data._id, userfullname:res.data.firstname + " " + res.data.lastname,ButtonContent: "Sign Out" });
         } else {
           console.log("No Login!");
           this.setState({ userId: null, ButtonContent: "Sign In" });
@@ -127,7 +128,7 @@ class Homepage extends React.Component {
         <div className="navigationbar">
           <p>Phone Seller</p>
           <div className="LoginComponent">
-            <p>{this.state.userId}</p>
+            <p>{this.state.userfullname}</p>
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
           </div>
           <input
@@ -201,7 +202,7 @@ class Homepage extends React.Component {
                     <td onClick={() => this.togglePopup(bestseller._id)}>
                       {bestseller.title}
                     </td>
-                    <td>{bestseller.Ave_rating.toFixed(2)}</td>
+                    <td>{bestseller.Ave_rating}</td>
                   </tr>
                 ))}
               </tbody>
@@ -236,7 +237,7 @@ class Homepage extends React.Component {
             {this.state.showPopup ? (
               <Info
                 phoneid={this.state.phoneid}
-                userid="5f5237a4c1beb1523fa3dbac"
+                userid={this.state.userId}
                 closePopup={this.togglePopup.bind(this)}
               />
             ) : null}
