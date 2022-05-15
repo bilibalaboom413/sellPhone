@@ -5,7 +5,7 @@ class Info extends React.Component {
   state = {
     phones: [],
     reviews: [],
-    showreviews: [],
+    showreviews:[],
     quantity: 0,
     prevPhone: {
       id: "",
@@ -70,29 +70,29 @@ class Info extends React.Component {
   getInfo = async () => {
     const { phoneid } = this.state;
     axios
-        .get("http://localhost:8000/phoneinfo", {
-          params: {
-            id: phoneid,
-          },
-        })
-        .then((_d) => {
-          this.setState({ phones: _d.data });
-        });
+      .get("http://localhost:8000/phoneinfo", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.setState({ phones: _d.data });
+      });
   };
 
   //Using ID and review number to load the phone review
   getreview = async () => {
     const { phoneid,reviewNumber} = this.state;
     axios
-        .get("http://localhost:8000/getreview", {
-          params: {
-            id: phoneid,
-            reviewNumber: reviewNumber
-          },
-        })
-        .then((_d) => {
-          this.getShowReview(_d.data);
-        });
+      .get("http://localhost:8000/getreview", {
+        params: {
+          id: phoneid,
+          reviewNumber: reviewNumber
+        },
+      })
+      .then((_d) => {
+        this.getShowReview(_d.data);
+      });
   };
 
   //Just show 200 characters of each review
@@ -140,13 +140,13 @@ class Info extends React.Component {
   addReview = async () => {
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
-        .get("http://localhost:8000/addreview", {
-          params: {
-            id: phoneid,
-            userId: userid,
-            rating: ratingInput,
-            comment: commentInput,
-          },
+      .get("http://localhost:8000/addreview", {
+        params: {
+          id: phoneid,
+          userId: userid,
+          rating: ratingInput,
+          comment: commentInput,
+        },
         })
         .then((_d) => {
           this.getmorereview();
