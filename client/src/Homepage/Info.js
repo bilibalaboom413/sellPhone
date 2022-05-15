@@ -14,7 +14,6 @@ class Info extends React.Component {
     inputQuantity: false,
     commentInput: "",
     ratingInput: 5,
-    userid: "",
     username: "",
     visible: false,
     reviewNumber: 3,
@@ -261,7 +260,14 @@ class Info extends React.Component {
               <option value="2">2</option>
               <option value="1">1</option>
             </select>
-            <input type="button" onClick={this.addReview} value="add review" />
+            <input
+                onClick={() =>
+                    this.state.userid
+                        ? this.addReview()
+                        : (window.location = "./login")
+                }
+                type="button"
+                value="add review" />
             <button onClick={this.getmorereview}>all review</button>
           </div>
         </div>
