@@ -11,6 +11,6 @@ router.get("/Search", phoneController.apiGetSearchService);
 router.get("/highestValue", phoneController.apiGetHighestValue);
 router.get("/addreview", phoneController.apiAddReview);
 router.get("/getreview", phoneController.apiGetReview);
-router.get("/allreview", phoneController.apiGetAllReview);
+// router.get("/allreview", phoneController.apiGetAllReview);
 
 module.exports = router;
