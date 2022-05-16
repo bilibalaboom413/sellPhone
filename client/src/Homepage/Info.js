@@ -171,6 +171,8 @@ class Info extends React.Component {
       stock >= tmp
         ? this.setState({ quantity: parseInt(tmp) })
         : alert("Sorry not enough stock for this phone!");
+    } else if (!tmp) {
+      this.setState({ inputQuantity: false });
     } else {
       alert("Please input a valid quantity!");
     }
