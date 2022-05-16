@@ -130,14 +130,16 @@ class Homepage extends React.Component {
     if (this.state.ButtonContent === "Sign In") {
       window.location = "./login";
     } else if (this.state.ButtonContent === "Sign Out") {
-      axios
-        .get("http://localhost:8000/logout", { withCredentials: true })
-        .then((res) => {
-          if (res.data === "Logout!") {
-            window.location = "./login";
-          }
-        })
-        .catch((err) => console.log(err.data));
+      if (window.confirm("Are you sure to sign out?")) {
+        axios
+          .get("http://localhost:8000/logout", { withCredentials: true })
+          .then((res) => {
+            if (res.data === "Logout!") {
+              window.location = "./login";
+            }
+          })
+          .catch((err) => console.log(err.data));
+      }
     }
   };
   render() {
