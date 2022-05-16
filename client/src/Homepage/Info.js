@@ -96,7 +96,7 @@ class Info extends React.Component {
 
   //Just show 200 characters of each review
   getShowReview = async (data) => {
-    const { reviews, showreviews } = this.state;
+    // const { reviews, showreviews } = this.state;
     var reviewlist = [];
     for (const i in data) {
       reviewlist[i] = data[i].reviews.comment;
