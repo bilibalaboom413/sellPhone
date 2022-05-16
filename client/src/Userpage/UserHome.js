@@ -55,6 +55,12 @@ export default function App() {
               </Link>
             </Breadcrumb.Item>
 
+            <Breadcrumb.Item>
+              <Link to="/">
+                <button>Back to home page</button>
+              </Link>
+            </Breadcrumb.Item>
+
             <Breadcrumb.Item>User Profile</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-content">
