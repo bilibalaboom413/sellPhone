@@ -20,7 +20,7 @@ mongoose.connection.on('connected',function(){
 
 export default function App() {
   return (
-    <div>
+    <div className="UserHome">
       <Layout className="layout">
         <Header>
           <div className="logo" />
@@ -52,6 +52,12 @@ export default function App() {
             <Breadcrumb.Item>
               <Link to="/userHome/manageList">
                 <button>Add new list</button>
+              </Link>
+            </Breadcrumb.Item>
+
+            <Breadcrumb.Item>
+              <Link to="/">
+                <button>Back to home page</button>
               </Link>
             </Breadcrumb.Item>
 

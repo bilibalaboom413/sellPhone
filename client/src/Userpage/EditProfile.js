@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { Form, Input, Button, message } from "antd";
 import React, { Component } from "react";
+import md5 from "../Sign/md5";
 
 const layout = {
   labelCol: {
@@ -15,7 +16,7 @@ const layout = {
 
 export default class EditProfile extends Component {
   state = {
-    _id: "5f5237a4c1beb1523fa3da02",
+    _id: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -24,16 +25,35 @@ export default class EditProfile extends Component {
 
   constructor() {
     super();
-    this.getUserInfo();
-    // this.setUserInfo = this.setUserInfo.bind(this);
+    this.CheckLogin();
+    //   this.getUserInfo();
   }
 
-  onFinish = (values) => {
-    console.log(values);
+  CheckLogin = async () => {
+    // Change Button content depends on user login situation
+    // If user has login, to show the UserID
+    axios
+      .get("http://localhost:8000/authenticate", { withCredentials: true })
+      .then((res) => {
+        if (res.data !== "No Login!") {
+          console.log(res.data);
+          console.log("id res " + res.data._id);
+          this.setState({ _id: res.data._id }, () => {
+            this.getUserInfo();
+          });
+
+          console.log("the id " + this.state._id);
+        } else {
+          console.log("No Login!");
+          alert("Please login first!!");
+        }
+      })
+      .catch((err) => console.log(err.data));
   };
 
   getUserInfo = async () => {
     const id = this.state._id;
+    console.log("send id:" + id);
     axios
       .get("http://localhost:8000/user/userPage", {
         params: {
@@ -78,7 +98,7 @@ export default class EditProfile extends Component {
 
   checkPassword() {
     const str = prompt("Please input your password");
-    if (str == this.state.password) {
+    if (md5(str) == this.state.password) {
       this.setUserInfo();
       message.success("Sucess update your file");
       setTimeout(() => window.location.reload(), 3000);
