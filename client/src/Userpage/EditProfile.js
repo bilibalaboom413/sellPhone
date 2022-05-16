@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { Form, Input, Button, message } from "antd";
 import React, { Component } from "react";
+import md5 from "../Sign/md5"
 
 const layout = {
   labelCol: {
@@ -24,13 +25,31 @@ export default class EditProfile extends Component {
 
   constructor() {
     super();
+ //   this.CheckLogin();
     this.getUserInfo();
     // this.setUserInfo = this.setUserInfo.bind(this);
   }
 
-  onFinish = (values) => {
-    console.log(values);
+ 
+  CheckLogin = async () => {
+    // Change Button content depends on user login situation
+    // If user has login, to show the UserID
+    axios
+      .get("http://localhost:8000/authenticate", { withCredentials: true })
+      .then((res) => {
+        if (res.data !== "No Login!") {
+          console.log(res.data);
+          this.setState({
+            _id: res.data._id,
+          });
+        } else {
+          console.log("No Login!");
+          alert("Please login first!!")
+        }
+      })
+      .catch((err) => console.log(err.data));
   };
+
 
   getUserInfo = async () => {
     const id = this.state._id;
@@ -78,7 +97,7 @@ export default class EditProfile extends Component {
 
   checkPassword() {
     const str = prompt("Please input your password");
-    if (str == this.state.password) {
+    if (md5(str) == this.state.password) {
       this.setUserInfo();
       message.success("Sucess update your file");
       setTimeout(() => window.location.reload(), 3000);

@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { Form, Input, Button, message, Layout } from "antd";
 
+import md5 from "../Sign/md5"
 const layout = {
   labelCol: {
     span: 6,
@@ -59,7 +60,7 @@ export default class ChangePassword extends Component {
 
   checkPassword() {
     const str = prompt("Please input your password");
-    if (str == this.state.password) {
+    if (md5(str) == this.state.password) {
       this.setPassword();
 
       message.success("Sucess update your password");
@@ -96,7 +97,7 @@ export default class ChangePassword extends Component {
     const user = [
       {
         _id: this.state._id,
-        newpassword: this.state.newpassword,
+        newpassword: md5(this.state.newpassword),
       },
     ];
 
