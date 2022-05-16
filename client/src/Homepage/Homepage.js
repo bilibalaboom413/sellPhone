@@ -12,30 +12,31 @@ class Homepage extends React.Component {
     searchInput: "",
     BrandInput: "",
     highValue: "",
-    setValue: 200,
+    setValue: 500,
     phoneid: "",
     showPopup: false,
     userId: "",
     userfullname: "",
     ButtonContent: "Log in",
     hasLogin: false,
+    listNumber: 10,
   };
 
   constructor() {
     super();
     this.getBrand();
-    this.getData();
+    this.getSearch();
     this.getHighestValue();
     this.getSoldout();
     this.getBestseller();
     this.CheckLogin();
   }
-
-  getData = async () => {
-    axios.get("http://localhost:8000/phone").then((_d) => {
-      this.setState({ phones: _d.data });
-    });
-  };
+  //
+  // getData = async () => {
+  //   axios.get("http://localhost:8000/Search").then((_d) => {
+  //     this.setState({ phones: _d.data });
+  //   });
+  // };
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
       this.setState({ brandlist: _d.data });
@@ -54,21 +55,30 @@ class Homepage extends React.Component {
 
   getSearch = async () => {
     const { searchInput, BrandInput, setValue } = this.state;
+    let { listNumber } = this.state;
     axios
       .get("http://localhost:8000/Search", {
         params: {
           title: searchInput,
           brand: BrandInput,
           value: setValue,
+          listNumber: listNumber,
         },
       })
       .then((_d) => {
-        if(_d.data[0]!=null) {
-          this.setState({phones: _d.data});
-        }else{
-          window.alert("There does not have phones accord with the input requirements. Please change search input!");
+        if (_d.data[0] != null) {
+          this.setState({ phones: _d.data });
+        } else {
+          window.alert(
+            "There does not have phones accord with the input requirements. Please change search input!"
+          );
         }
       });
+  };
+  getmorephone = async () => {
+    let { listNumber } = this.state;
+    this.state.listNumber = listNumber + 10;
+    this.getSearch();
   };
   getHighestValue = async () => {
     axios.get("http://localhost:8000/highestValue").then((_d) => {
@@ -138,40 +148,43 @@ class Homepage extends React.Component {
             <p>SellPhone</p>
           </div>
           <div className="BarMid">
-          <input
-            type="text"
-            placeholder="Search by name"
-            value={this.state.searchInput}
-            onChange={this.handleGetTitle}
-          />
-          <select value={this.state.BrandInput} onChange={this.handleGetBrand}>
-            <option value="">Phone Brand</option>
-            {this.state.brandlist.map((brandlist) => (
-              <option>{brandlist}</option>
-            ))}
-          </select>
-          <input
-            type="range"
-            name="Value"
-            min="0"
-            max={this.state.highValue.price + 1}
-            value={this.state.setValue}
-            onChange={this.handleGetValue}
-          />
-          <span>{this.state.setValue}</span>
-          <input type="button" onClick={this.getSearch} value="search" />
+            <input
+              type="text"
+              placeholder="Search by name"
+              value={this.state.searchInput}
+              onChange={this.handleGetTitle}
+            />
+            <select
+              value={this.state.BrandInput}
+              onChange={this.handleGetBrand}
+            >
+              <option value="">Phone Brand</option>
+              {this.state.brandlist.map((brandlist) => (
+                <option>{brandlist}</option>
+              ))}
+            </select>
+            <input
+              type="range"
+              name="Value"
+              min="0"
+              max={this.state.highValue.price + 1}
+              value={this.state.setValue}
+              onChange={this.handleGetValue}
+            />
+            <span>{this.state.setValue}</span>
+            <input type="button" onClick={this.getSearch} value="search" />
           </div>
           <div className="ButtonList">
             {/*<div className="LoginComponent">*/}
-              {this.state.userId ? (
-                  <p>Welcome, {this.state.userfullname}</p>
-              ) : null}
-              <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
-              {this.state.userId ? (
-                  <button onClick={() => (window.location = "./userHome")}>
-                    Profile
-                  </button>
-              ) : null}
+            {this.state.userId ? (
+              <p>Welcome, {this.state.userfullname}</p>
+            ) : null}
+            <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
+            {this.state.userId ? (
+              <button onClick={() => (window.location = "./userHome")}>
+                Profile
+              </button>
+            ) : null}
             {/*</div>*/}
             <button
               onClick={() => {
@@ -186,87 +199,102 @@ class Homepage extends React.Component {
         </div>
 
         {/*<div className="homepagecontent">*/}
-          <div className="soldoutlist">
-            <h1>Soldout List</h1>
-            <table>
-              <thead>
-                <th>Image</th>
-                <th>price</th>
-                {/* <th></th> */}
-              </thead>
-              <tbody>
-                {this.state.soldout.map((soldout) => (
-                  <tr
-                    key={soldout._id}
-                    onClick={() => this.togglePopup(soldout._id)}
-                  >
-                    <td><img className="listimg" src={process.env.PUBLIC_URL  + soldout.image}/></td>
+        <div className="soldoutlist">
+          <h1>Soldout List</h1>
+          <table>
+            <thead>
+              <th>Image</th>
+              <th>price</th>
+              {/* <th></th> */}
+            </thead>
+            <tbody>
+              {this.state.soldout.map((soldout) => (
+                <tr
+                  key={soldout._id}
+                  onClick={() => this.togglePopup(soldout._id)}
+                >
+                  <td>
+                    <img
+                      className="listimg"
+                      src={process.env.PUBLIC_URL + soldout.image}
+                    />
+                  </td>
 
-                    <td>{soldout.price}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                  <td>{soldout.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          <div className="bestsellerlist">
-            <h1>Best Seller List</h1>
-            <table>
-              <thead>
-                <th>Image</th>
-                <th>rating</th>
-                {/* <th></th> */}
-              </thead>
-              <tbody>
-                {this.state.bestseller.map((bestseller) => (
-                  <tr
-                    key={bestseller._id}
-                    onClick={() => this.togglePopup(bestseller._id)}
-                  >
-                    <td> <img className="listimg" src={process.env.PUBLIC_URL  + bestseller.image}/></td>
-                    <td>{bestseller.Ave_rating}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="bestsellerlist">
+          <h1>Best Seller List</h1>
+          <table>
+            <thead>
+              <th>Image</th>
+              <th>rating</th>
+              {/* <th></th> */}
+            </thead>
+            <tbody>
+              {this.state.bestseller.map((bestseller) => (
+                <tr
+                  key={bestseller._id}
+                  onClick={() => this.togglePopup(bestseller._id)}
+                >
+                  <td>
+                    {" "}
+                    <img
+                      className="listimg"
+                      src={process.env.PUBLIC_URL + bestseller.image}
+                    />
+                  </td>
+                  <td>{bestseller.Ave_rating}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          <div className="searchresultlist">
-            <table>
-              <thead>
-                <th>image</th>
-                <th>title</th>
-                <th>brand</th>
-                <th>price</th>
-                {/* <th></th> */}
-              </thead>
-              <tbody>
-                {this.state.phones.map((phone) => (
-                  <tr
-                    key={phone._id}
-                    onClick={() => this.togglePopup(phone._id)}
-                  >
-                    <td> <img className="phoneimg" src={process.env.PUBLIC_URL  + phone.image}/></td>
-                    <td>{phone.title}</td>
-                    <td>{phone.brand}</td>
-                    <td>{phone.price}</td>
-                    {/* <td>
+        <div className="searchresultlist">
+          <table>
+            <thead>
+              <th>image</th>
+              <th>title</th>
+              <th>brand</th>
+              <th>price</th>
+              {/* <th></th> */}
+            </thead>
+            <tbody>
+              {this.state.phones.map((phone) => (
+                <tr key={phone._id} onClick={() => this.togglePopup(phone._id)}>
+                  <td>
+                    {" "}
+                    <img
+                      className="phoneimg"
+                      src={process.env.PUBLIC_URL + phone.image}
+                    />
+                  </td>
+                  <td>{phone.title}</td>
+                  <td>{phone.brand}</td>
+                  <td>{phone.price}</td>
+                  {/* <td>
                       <button >
                         Info
                       </button>
                     </td> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {this.state.showPopup ? (
-              <Info
-                phoneid={this.state.phoneid}
-                userid={this.state.userId}
-                closePopup={this.togglePopup.bind(this)}
-              />
-            ) : null}
-          </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button onClick={this.getmorephone}>More phones</button>
+          {this.state.showPopup ? (
+            <Info
+              phoneid={this.state.phoneid}
+              userid={this.state.userId}
+              closePopup={this.togglePopup.bind(this)}
+            />
+          ) : null}
+        </div>
         {/*</div>*/}
       </div>
     );
