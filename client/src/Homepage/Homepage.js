@@ -130,10 +130,17 @@ class Homepage extends React.Component {
     return (
       <div className="Homepage">
         <div className="navigationbar">
-          <p>Phone Seller</p>
+          {/* <p>Phone Seller</p> */}
           <div className="LoginComponent">
-            <p>{this.state.userfullname}</p>
+            {this.state.userId ? (
+              <p>Welcome, {this.state.userfullname}</p>
+            ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
+            {this.state.userId ? (
+              <button onClick={() => (window.location = "./userHome")}>
+                Profile
+              </button>
+            ) : null}
           </div>
           <input
             type="text"
@@ -177,14 +184,15 @@ class Homepage extends React.Component {
               <thead>
                 <th>title</th>
                 <th>price</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.soldout.map((soldout) => (
-                  <tr key={soldout._id}>
-                    <td onClick={() => this.togglePopup(soldout._id)}>
-                      {soldout.title}
-                    </td>
+                  <tr
+                    key={soldout._id}
+                    onClick={() => this.togglePopup(soldout._id)}
+                  >
+                    <td>{soldout.title}</td>
                     <td>{soldout.price}</td>
                   </tr>
                 ))}
@@ -198,14 +206,15 @@ class Homepage extends React.Component {
               <thead>
                 <th>title</th>
                 <th>rating</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.bestseller.map((bestseller) => (
-                  <tr key={bestseller._id}>
-                    <td onClick={() => this.togglePopup(bestseller._id)}>
-                      {bestseller.title}
-                    </td>
+                  <tr
+                    key={bestseller._id}
+                    onClick={() => this.togglePopup(bestseller._id)}
+                  >
+                    <td>{bestseller.title}</td>
                     <td>{bestseller.Ave_rating}</td>
                   </tr>
                 ))}
@@ -220,20 +229,23 @@ class Homepage extends React.Component {
                 <th>title</th>
                 <th>brand</th>
                 <th>price</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.phones.map((phone) => (
-                  <tr key={phone._id}>
+                  <tr
+                    key={phone._id}
+                    onClick={() => this.togglePopup(phone._id)}
+                  >
                     <td>{phone.image}</td>
                     <td>{phone.title}</td>
                     <td>{phone.brand}</td>
                     <td>{phone.price}</td>
-                    <td>
-                      <button onClick={() => this.togglePopup(phone._id)}>
+                    {/* <td>
+                      <button >
                         Info
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
