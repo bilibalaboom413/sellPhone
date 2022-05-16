@@ -21,7 +21,7 @@ $ npm ci
 To run both the back-end server and React app front-end in one command:
 
 ```bash
-$ cd client
+$ cd server
 $ npm run dev
 ```
 
