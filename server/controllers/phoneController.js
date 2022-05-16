@@ -167,6 +167,7 @@ module.exports = class PhoneController {
           title: { $regex: _title, $options: "i" },
           brand: { $regex: _brand, $options: "i" },
           price: { $lte: _value },
+          disabled: { $exists: false },
         },
         {
           _id: 1,
