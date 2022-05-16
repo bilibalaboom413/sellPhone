@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { Form, Input, Button, message, Layout } from "antd";
 
-import md5 from "../Sign/md5"
+import md5 from "../Sign/md5";
 const layout = {
   labelCol: {
     span: 6,

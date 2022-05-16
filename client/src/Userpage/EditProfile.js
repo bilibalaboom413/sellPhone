@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { Form, Input, Button, message } from "antd";
 import React, { Component } from "react";
-import md5 from "../Sign/md5"
+import md5 from "../Sign/md5";
 
 const layout = {
   labelCol: {
@@ -26,11 +26,9 @@ export default class EditProfile extends Component {
   constructor() {
     super();
     this.CheckLogin();
- //   this.getUserInfo();
- 
+    //   this.getUserInfo();
   }
 
- 
   CheckLogin = async () => {
     // Change Button content depends on user login situation
     // If user has login, to show the UserID
@@ -39,31 +37,23 @@ export default class EditProfile extends Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          console.log('id res '+res.data._id)
-          this.setState({ _id: res.data._id}, ()=>{this.getUserInfo()});
+          console.log("id res " + res.data._id);
+          this.setState({ _id: res.data._id }, () => {
+            this.getUserInfo();
+          });
 
-          console.log('the id '+this.state._id)
-         
-          
-
-
-
-
-          
+          console.log("the id " + this.state._id);
         } else {
           console.log("No Login!");
-          alert("Please login first!!")
+          alert("Please login first!!");
         }
       })
       .catch((err) => console.log(err.data));
-
-      
   };
-
 
   getUserInfo = async () => {
     const id = this.state._id;
-    console.log('send id:'+id)
+    console.log("send id:" + id);
     axios
       .get("http://localhost:8000/user/userPage", {
         params: {
@@ -138,7 +128,6 @@ export default class EditProfile extends Component {
   }
 
   render() {
-  
     return (
       <Form {...layout} name="nest-messages">
         <Form.Item
@@ -150,8 +139,6 @@ export default class EditProfile extends Component {
             },
           ]}
         >
-       
-          
           <Input
             placeholder={this.state.firstname}
             onChange={this.onChangeF.bind(this)}
