@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import "./homepage.css";
 class Info extends React.Component {
   state = {
     phones: [],
@@ -195,7 +195,7 @@ class Info extends React.Component {
                 <tr key={phone._id}>
                   <td>{phone.title}</td>
                   <td>{phone.brand}</td>
-                  <td>{phone._id}</td>
+                  <td><img className="listimg" src={process.env.PUBLIC_URL  + phone.image}/></td>
                   <td>{phone.stock}</td>
                   <td>{phone.seller}</td>
                   <td>{phone.price}</td>
@@ -261,13 +261,14 @@ class Info extends React.Component {
               <option value="1">1</option>
             </select>
             <input
-                onClick={() =>
-                    this.state.userid
-                        ? this.addReview()
-                        : (window.location = "./login")
-                }
-                type="button"
-                value="add review" />
+              onClick={() =>
+                this.state.userid
+                  ? this.addReview()
+                  : (window.location = "./login")
+              }
+              type="button"
+              value="add review"
+            />
             <button onClick={this.getmorereview}>all review</button>
           </div>
         </div>

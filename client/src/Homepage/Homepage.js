@@ -63,7 +63,11 @@ class Homepage extends React.Component {
         },
       })
       .then((_d) => {
-        this.setState({ phones: _d.data });
+        if(_d.data[0]!=null) {
+          this.setState({phones: _d.data});
+        }else{
+          window.alert("There does not have phones accord with the input requirements. Please change search input!");
+        }
       });
   };
   getHighestValue = async () => {
@@ -126,11 +130,10 @@ class Homepage extends React.Component {
     return (
       <div className="Homepage">
         <div className="navigationbar">
-          <p>Phone Seller</p>
-          <div className="LoginComponent">
-            <p>{this.state.userfullname}</p>
-            <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
+          <div className="Barleft">
+            <p>SellPhone</p>
           </div>
+          <div className="BarMid">
           <input
             type="text"
             placeholder="Search by name"
@@ -153,7 +156,19 @@ class Homepage extends React.Component {
           />
           <span>{this.state.setValue}</span>
           <input type="button" onClick={this.getSearch} value="search" />
+          </div>
           <div className="ButtonList">
+            {/*<div className="LoginComponent">*/}
+              {this.state.userId ? (
+                  <p>Welcome, {this.state.userfullname}</p>
+              ) : null}
+              <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
+              {this.state.userId ? (
+                  <button onClick={() => (window.location = "./userHome")}>
+                    Profile
+                  </button>
+              ) : null}
+            {/*</div>*/}
             <button
               onClick={() => {
                 this.state.userId
@@ -166,21 +181,22 @@ class Homepage extends React.Component {
           </div>
         </div>
 
-        <div className="homepagecontent">
+        {/*<div className="homepagecontent">*/}
           <div className="soldoutlist">
             <h1>Soldout List</h1>
             <table>
               <thead>
-                <th>title</th>
+                <th>Image</th>
                 <th>price</th>
                 <th></th>
               </thead>
               <tbody>
                 {this.state.soldout.map((soldout) => (
-                  <tr key={soldout._id}>
-                    <td onClick={() => this.togglePopup(soldout._id)}>
-                      {soldout.title}
-                    </td>
+                  <tr
+                    key={soldout._id}
+                    onClick={() => this.togglePopup(soldout._id)}
+                  >
+                    <td><img className="listimg" src={process.env.PUBLIC_URL  + soldout.image}/></td>
                     <td>{soldout.price}</td>
                   </tr>
                 ))}
@@ -192,16 +208,17 @@ class Homepage extends React.Component {
             <h1>Best Seller List</h1>
             <table>
               <thead>
-                <th>title</th>
+                <th>Image</th>
                 <th>rating</th>
                 <th></th>
               </thead>
               <tbody>
                 {this.state.bestseller.map((bestseller) => (
-                  <tr key={bestseller._id}>
-                    <td onClick={() => this.togglePopup(bestseller._id)}>
-                      {bestseller.title}
-                    </td>
+                  <tr
+                    key={bestseller._id}
+                    onClick={() => this.togglePopup(bestseller._id)}
+                  >
+                    <td> <img className="listimg" src={process.env.PUBLIC_URL  + bestseller.image}/></td>
                     <td>{bestseller.Ave_rating}</td>
                   </tr>
                 ))}
@@ -220,8 +237,11 @@ class Homepage extends React.Component {
               </thead>
               <tbody>
                 {this.state.phones.map((phone) => (
-                  <tr key={phone._id}>
-                    <td>{phone.image}</td>
+                  <tr
+                    key={phone._id}
+                    onClick={() => this.togglePopup(phone._id)}
+                  >
+                    <td> <img className="phoneimg" src={process.env.PUBLIC_URL  + phone.image}/></td>
                     <td>{phone.title}</td>
                     <td>{phone.brand}</td>
                     <td>{phone.price}</td>
@@ -242,7 +262,7 @@ class Homepage extends React.Component {
               />
             ) : null}
           </div>
-        </div>
+        {/*</div>*/}
       </div>
     );
   }

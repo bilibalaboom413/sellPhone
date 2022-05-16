@@ -19,6 +19,9 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
+      for (const x in phone){
+        phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
+      }
       res.json(phone);
     } catch (error) {
       res.status(500).json({ error: error });
@@ -34,7 +37,8 @@ module.exports = class PhoneController {
         },
         {
           _id: 1,
-          title: 1,
+          image: 1,
+          brand:1,
           price: 1,
         }
       )
@@ -42,6 +46,9 @@ module.exports = class PhoneController {
         .limit(5);
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
+      }
+      for (const x in phone){
+        phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
     } catch (error) {
@@ -63,7 +70,8 @@ module.exports = class PhoneController {
         {
           $project: {
             _id: 1,
-            title: 1,
+            image: 1,
+            brand:1,
             Ave_rating: { $avg: "$reviews.rating" },
           },
         },
@@ -74,6 +82,7 @@ module.exports = class PhoneController {
         res.status(404).json("There are no phone published yet!");
       }
       for (const x in phone) {
+        phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
         phone[x].Ave_rating = Number(phone[x].Ave_rating).toFixed(2);
       }
       res.json(phone);
@@ -171,6 +180,9 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
+      for (const x in phone){
+        phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
+      }
       res.json(phone);
     } catch (error) {
       res.status(500).json({ error: error });
@@ -209,6 +221,7 @@ module.exports = class PhoneController {
         }
       );
       phone[0].seller = name[0].firstname + " " + name[0].lastname;
+      phone[0].image = "/phone_default_images/" + phone[0].brand + ".jpeg";
       res.json(phone);
     } catch (error) {
       res.status(500).json({ error: error });
