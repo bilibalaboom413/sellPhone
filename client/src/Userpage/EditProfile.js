@@ -25,7 +25,7 @@ export default class EditProfile extends Component {
 
   constructor() {
     super();
- //   this.CheckLogin();
+    this.CheckLogin();
     this.getUserInfo();
     // this.setUserInfo = this.setUserInfo.bind(this);
   }
