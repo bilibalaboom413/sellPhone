@@ -16,7 +16,7 @@ const layout = {
 
 export default class EditProfile extends Component {
   state = {
-    _id: "5f5237a4c1beb1523fa3da02",
+    _id: "",
     firstname: "",
     lastname: "",
     email: "",
@@ -26,8 +26,8 @@ export default class EditProfile extends Component {
   constructor() {
     super();
     this.CheckLogin();
-    this.getUserInfo();
-    // this.setUserInfo = this.setUserInfo.bind(this);
+ //   this.getUserInfo();
+ 
   }
 
  
@@ -39,20 +39,31 @@ export default class EditProfile extends Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          this.setState({
-            _id: res.data._id,
-          });
+          console.log('id res '+res.data._id)
+          this.setState({ _id: res.data._id}, ()=>{this.getUserInfo()});
+
+          console.log('the id '+this.state._id)
+         
+          
+
+
+
+
+          
         } else {
           console.log("No Login!");
           alert("Please login first!!")
         }
       })
       .catch((err) => console.log(err.data));
+
+      
   };
 
 
   getUserInfo = async () => {
     const id = this.state._id;
+    console.log('send id:'+id)
     axios
       .get("http://localhost:8000/user/userPage", {
         params: {
@@ -127,6 +138,7 @@ export default class EditProfile extends Component {
   }
 
   render() {
+  
     return (
       <Form {...layout} name="nest-messages">
         <Form.Item
@@ -138,6 +150,8 @@ export default class EditProfile extends Component {
             },
           ]}
         >
+       
+          
           <Input
             placeholder={this.state.firstname}
             onChange={this.onChangeF.bind(this)}
