@@ -125,14 +125,14 @@ class Info extends React.Component {
   getallreview = async () => {
     const { phoneid } = this.state;
     axios
-        .get("http://localhost:8000/allreview", {
-          params: {
-            id: phoneid
-          },
-        })
-        .then((_d) => {
-          this.getShowReview(_d.data);
-        });
+      .get("http://localhost:8000/allreview", {
+        params: {
+          id: phoneid,
+        },
+      })
+      .then((_d) => {
+        this.getShowReview(_d.data);
+      });
     // const { phoneid } = this.state;
     // axios
     //   .get("http://localhost:8000/allreview", {
@@ -148,11 +148,10 @@ class Info extends React.Component {
   };
   //add review to current phone
   addReview = async () => {
-    if(this.state.commentInput === ""){
+    if (this.state.commentInput === "") {
       console.log("123");
       this.state.commentInput = "Default feedback";
-
-    }else{
+    } else {
       console.log("321");
     }
     const { phoneid, userid, commentInput, ratingInput } = this.state;
