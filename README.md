@@ -57,6 +57,7 @@ E.p.
 
 ```
 MONGO_URL=<Database URL>
+SESSION_SECRET=<Secret String>
 ```
 
 You can then access those variables after `require("dotenv").config()` by calling `process.env.<VARIABLE>`.
