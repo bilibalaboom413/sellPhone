@@ -16,7 +16,7 @@ class Homepage extends React.Component {
     phoneid: "",
     showPopup: false,
     userId: "",
-    userfullname:"",
+    userfullname: "",
     ButtonContent: "Log in",
     hasLogin: false,
   };
@@ -104,7 +104,11 @@ class Homepage extends React.Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          this.setState({ userId: res.data._id, userfullname:res.data.firstname + " " + res.data.lastname,ButtonContent: "Sign Out" });
+          this.setState({
+            userId: res.data._id,
+            userfullname: res.data.firstname + " " + res.data.lastname,
+            ButtonContent: "Sign Out",
+          });
         } else {
           console.log("No Login!");
           this.setState({ userId: null, ButtonContent: "Sign In" });
@@ -188,7 +192,7 @@ class Homepage extends React.Component {
               <thead>
                 <th>Image</th>
                 <th>price</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.soldout.map((soldout) => (
@@ -197,6 +201,7 @@ class Homepage extends React.Component {
                     onClick={() => this.togglePopup(soldout._id)}
                   >
                     <td><img className="listimg" src={process.env.PUBLIC_URL  + soldout.image}/></td>
+
                     <td>{soldout.price}</td>
                   </tr>
                 ))}
@@ -210,7 +215,7 @@ class Homepage extends React.Component {
               <thead>
                 <th>Image</th>
                 <th>rating</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.bestseller.map((bestseller) => (
@@ -233,7 +238,7 @@ class Homepage extends React.Component {
                 <th>title</th>
                 <th>brand</th>
                 <th>price</th>
-                <th></th>
+                {/* <th></th> */}
               </thead>
               <tbody>
                 {this.state.phones.map((phone) => (
@@ -245,11 +250,11 @@ class Homepage extends React.Component {
                     <td>{phone.title}</td>
                     <td>{phone.brand}</td>
                     <td>{phone.price}</td>
-                    <td>
-                      <button onClick={() => this.togglePopup(phone._id)}>
+                    {/* <td>
+                      <button >
                         Info
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

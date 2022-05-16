@@ -96,7 +96,7 @@ class Info extends React.Component {
 
   //Just show 200 characters of each review
   getShowReview = async (data) => {
-    const { reviews, showreviews } = this.state;
+    // const { reviews, showreviews } = this.state;
     var reviewlist = [];
     for (const i in data) {
       reviewlist[i] = data[i].reviews.comment;
@@ -165,9 +165,12 @@ class Info extends React.Component {
   };
 
   handleInputQuantity = (e) => {
+    const stock = this.state.phones[0].stock;
     const tmp = e.target.value;
     if (!isNaN(tmp) && tmp > 0) {
-      this.setState({ quantity: parseInt(tmp) });
+      stock >= tmp
+        ? this.setState({ quantity: parseInt(tmp) })
+        : alert("Sorry not enough stock for this phone!");
     } else if (!tmp) {
       this.setState({ inputQuantity: false });
     } else {
