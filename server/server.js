@@ -12,6 +12,8 @@ const resetRouter = require("./routes/reset.routes");
 const resetpasswordRouter = require("./routes/resetpassword.routes");
 const homepageRouter = require("./routes/homepage.routes");
 
+const userpageRouter = require("./routes/userpage.routes");
+
 const port = 8000;
 const app = express();
 
@@ -55,6 +57,7 @@ app.use("/authenticate", authenticateRouter);
 app.use("/reset", resetRouter);
 app.use("/resetpassword", resetpasswordRouter);
 app.use("/checkout", checkoutRouter);
+app.use("/user", userpageRouter);
 
 app.listen(port, () => {
   console.log(`Listening on Port ${port}`);
