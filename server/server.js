@@ -57,6 +57,7 @@ app.use("/authenticate", authenticateRouter);
 app.use("/reset", resetRouter);
 app.use("/resetpassword", resetpasswordRouter);
 app.use("/checkout", checkoutRouter);
+app.use("/user",userpageRouter)
 
 
 
