@@ -5,6 +5,7 @@ class Info extends React.Component {
   state = {
     phones: [],
     reviews: [],
+    showreviews: [],
     quantity: 0,
     prevPhone: {
       id: "",
@@ -13,9 +14,9 @@ class Info extends React.Component {
     inputQuantity: false,
     commentInput: "",
     ratingInput: 5,
-    userid: "",
     username: "",
     visible: false,
+    reviewNumber: 3,
   };
 
   constructor(props) {
@@ -64,6 +65,7 @@ class Info extends React.Component {
     }
   }
 
+  //Load the phone information
   getInfo = async () => {
     const { phoneid } = this.state;
     axios
@@ -76,30 +78,64 @@ class Info extends React.Component {
         this.setState({ phones: _d.data });
       });
   };
+
+  //Using ID and review number to load the phone review
   getreview = async () => {
-    const { phoneid } = this.state;
+    const { phoneid, reviewNumber } = this.state;
     axios
       .get("http://localhost:8000/getreview", {
         params: {
           id: phoneid,
+          reviewNumber: reviewNumber,
         },
       })
       .then((_d) => {
-        this.setState({ reviews: _d.data });
+        this.getShowReview(_d.data);
       });
   };
-  getallreview = async () => {
-    const { phoneid } = this.state;
-    axios
-      .get("http://localhost:8000/allreview", {
-        params: {
-          id: phoneid,
-        },
-      })
-      .then((_d) => {
-        this.setState({ reviews: _d.data });
-      });
+
+  //Just show 200 characters of each review
+  getShowReview = async (data) => {
+    const { reviews, showreviews } = this.state;
+    var reviewlist = [];
+    for (const i in data) {
+      reviewlist[i] = data[i].reviews.comment;
+      if (data[i].reviews.comment.length > 200) {
+        data[i].reviews.comment =
+          data[i].reviews.comment.substring(0, 200) + "...";
+      }
+    }
+    this.setState({ reviews: data });
+    this.setState({ showreviews: reviewlist });
   };
+
+  //to show the entire review if click
+  checkLength = async (index) => {
+    const { reviews, showreviews } = this.state;
+    reviews[index].reviews.comment = showreviews[index];
+    this.setState({ reviews });
+  };
+
+  //Get more 3 reviews
+  getmorereview = async () => {
+    let { reviewNumber } = this.state;
+    this.state.reviewNumber = reviewNumber + 3;
+    this.getreview();
+    // const { phoneid } = this.state;
+    // axios
+    //   .get("http://localhost:8000/allreview", {
+    //     params: {
+    //       id: phoneid,
+    //     },
+    //   })
+    //   .then((_d) => {
+    //     if(_d.data.length>3) {
+    //       this.getShowReview(_d.data)
+    //     }
+    //   });
+  };
+
+  //add review to current phone
   addReview = async () => {
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
@@ -112,21 +148,11 @@ class Info extends React.Component {
         },
       })
       .then((_d) => {
-        this.getallreview();
+        this.getmorereview();
       });
   };
-  FinduserName = async (userid) => {
-    // const {userid} = this.state;
-    axios
-      .get("http://localhost:8000/finduser", {
-        params: {
-          id: userid,
-        },
-      })
-      .then((_d) => {
-        this.setState({ username: _d.data });
-      });
-  };
+
+  //The click function for adding review
   handleGetComment = (event) => {
     this.setState({
       commentInput: event.target.value,
@@ -139,9 +165,12 @@ class Info extends React.Component {
   };
 
   handleInputQuantity = (e) => {
+    const stock = this.state.phones[0].stock;
     const tmp = e.target.value;
     if (!isNaN(tmp) && tmp > 0) {
-      this.setState({ quantity: parseInt(tmp) });
+      stock >= tmp
+        ? this.setState({ quantity: parseInt(tmp) })
+        : alert("Sorry not enough stock for this phone!");
     } else if (!tmp) {
       this.setState({ inputQuantity: false });
     } else {
@@ -184,11 +213,13 @@ class Info extends React.Component {
               <th>comment</th>
             </thead>
             <tbody>
-              {this.state.reviews.map((review) => (
+              {this.state.reviews.map((review, index) => (
                 <tr>
                   <td>{review.reviews.reviewer}</td>
                   <td>{review.reviews.rating}</td>
-                  <td>{review.reviews.comment}</td>
+                  <td onClick={() => this.checkLength(index)}>
+                    {review.reviews.comment}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -207,7 +238,11 @@ class Info extends React.Component {
             )}
             {!this.state.inputQuantity && (
               <input
-                onClick={() => this.setState({ inputQuantity: true })}
+                onClick={() =>
+                  this.state.userid
+                    ? this.setState({ inputQuantity: true })
+                    : (window.location = "./login")
+                }
                 type="button"
                 value="add to cart"
               />
@@ -228,10 +263,18 @@ class Info extends React.Component {
               <option value="2">2</option>
               <option value="1">1</option>
             </select>
-            <input type="button" onClick={this.addReview} value="add review" />
+            <input
+              onClick={() =>
+                this.state.userid
+                  ? this.addReview()
+                  : (window.location = "./login")
+              }
+              type="button"
+              value="add review"
+            />
+            <button onClick={this.getmorereview}>all review</button>
           </div>
         </div>
-        <button onClick={this.getallreview}>all review</button>
       </div>
     );
   }

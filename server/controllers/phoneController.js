@@ -28,7 +28,10 @@ module.exports = class PhoneController {
   static async apiGetSoldOutService(req, res, next) {
     try {
       const phone = await Phone.find(
-        { stock: { $gt: 0 } },
+        {
+          stock: { $gt: 0 },
+          disabled: { $exists: false },
+        },
         {
           _id: 1,
           title: 1,
@@ -50,6 +53,14 @@ module.exports = class PhoneController {
     try {
       const phone = await Phone.aggregate([
         {
+          $match: {
+            reviews: {
+              $not: { $size: 1 },
+            },
+            disabled: { $exists: false },
+          },
+        },
+        {
           $project: {
             _id: 1,
             title: 1,
@@ -61,6 +72,9 @@ module.exports = class PhoneController {
         .limit(5);
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
+      }
+      for (const x in phone) {
+        phone[x].Ave_rating = Number(phone[x].Ave_rating).toFixed(2);
       }
       res.json(phone);
     } catch (error) {
@@ -204,6 +218,7 @@ module.exports = class PhoneController {
   static async apiGetReview(req, res, next) {
     try {
       const id = req.query.id;
+      let reviewNumber = req.query.reviewNumber;
       const phone = await Phone.aggregate([
         {
           $match: {
@@ -221,7 +236,7 @@ module.exports = class PhoneController {
           },
         },
         {
-          $limit: 3,
+          $limit: Number(reviewNumber),
         },
       ]);
       if (!phone) {
@@ -245,44 +260,44 @@ module.exports = class PhoneController {
     }
   }
 
-  static async apiGetAllReview(req, res, next) {
-    try {
-      const id = req.query.id;
-      const phone = await Phone.aggregate([
-        {
-          $match: {
-            _id: new mongoose.Types.ObjectId(id),
-          },
-        },
-        {
-          $unwind: "$reviews",
-        },
-        {
-          $project: {
-            "reviews.reviewer": 1,
-            "reviews.rating": 1,
-            "reviews.comment": 1,
-          },
-        },
-      ]);
-      if (!phone) {
-        res.status(404).json("There are no phone published yet!");
-      }
-      for (const x in phone) {
-        const name = await User.find(
-          { _id: phone[x].reviews.reviewer },
-          {
-            _id: 0,
-            firstname: 1,
-            lastname: 2,
-          }
-        );
-        const fullname = name[0].firstname + " " + name[0].lastname;
-        phone[x].reviews.reviewer = fullname.toString();
-      }
-      res.json(phone);
-    } catch (error) {
-      res.status(500).json({ error: error });
-    }
-  }
+  // static async apiGetAllReview(req, res, next) {
+  //   try {
+  //     const id = req.query.id;
+  //     const phone = await Phone.aggregate([
+  //       {
+  //         $match: {
+  //           _id: new mongoose.Types.ObjectId(id),
+  //         },
+  //       },
+  //       {
+  //         $unwind: "$reviews",
+  //       },
+  //       {
+  //         $project: {
+  //           "reviews.reviewer": 1,
+  //           "reviews.rating": 1,
+  //           "reviews.comment": 1,
+  //         },
+  //       },
+  //     ]);
+  //     if (!phone) {
+  //       res.status(404).json("There are no phone published yet!");
+  //     }
+  //     for (const x in phone) {
+  //       const name = await User.find(
+  //         { _id: phone[x].reviews.reviewer },
+  //         {
+  //           _id: 0,
+  //           firstname: 1,
+  //           lastname: 2,
+  //         }
+  //       );
+  //       const fullname = name[0].firstname + " " + name[0].lastname;
+  //       phone[x].reviews.reviewer = fullname.toString();
+  //     }
+  //     res.json(phone);
+  //   } catch (error) {
+  //     res.status(500).json({ error: error });
+  //   }
+  // }
 };

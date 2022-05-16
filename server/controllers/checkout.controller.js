@@ -1,12 +1,13 @@
 const express = require("express");
 const Phone = require("../models/Phone");
+const alert = require("alert");
 
 module.exports.transactionConfirm = async (req, res) => {
   try {
-    // get phones list
+    // Get phones list
     const phones = req.body;
 
-    // iterate to update phones
+    // Iterate to update phones
     for (let i = 0; i < phones.length; i++) {
       let id = phones[i].id;
       let title = phones[i].title;
@@ -32,8 +33,9 @@ module.exports.transactionConfirm = async (req, res) => {
             } else {
               throw new Error(`Not enough stock of phone: ${title}`);
             }
-          } catch {
-            console.log(`Not enough stock of phone: ${title}`);
+          } catch (err) {
+            console.log(err.message);
+            alert(err.message);
           }
         }
       });

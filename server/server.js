@@ -1,11 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const cors = require("cors");
-const router = require("./routes/checkout.routes");
+
+const checkoutRouter = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");
+const loginRouter = require("./routes/login.routes");
+const logoutRouter = require("./routes/logout.routes");
+const authenticateRouter = require("./routes/authenticate.routes");
 const resetRouter = require("./routes/reset.routes");
 const resetpasswordRouter = require("./routes/resetpassword.routes");
-const phoneController = require("./controllers/phoneController");
+const homepageRouter = require("./routes/homepage.routes");
 
 const userpageRouter = require("./routes/userpage.routes")
 
@@ -14,33 +19,44 @@ const app = express();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
+  })
+);
+app.use(
+  session({
+    secret: "This is a secret!",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      // Expired in an hour
+      maxAge: 3600000,
+    },
+    unset: "destroy",
+  })
+);
 
-app.all("*", function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-  res.header("X-Requested-With", "3.2.1");
-  res.header("Content-Type", "application/json;charset=tf-8");
-  next();
-});
+// app.all("*", function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
+//   res.header("X-Requested-With", "3.2.1");
+//   res.header("Content-Type", "application/json;charset=tf-8");
+//   next();
+// });
 
+app.use("/", homepageRouter);
 app.use("/register", registerRouter);
+app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
+app.use("/authenticate", authenticateRouter);
 app.use("/reset", resetRouter);
 app.use("/resetpassword", resetpasswordRouter);
-app.use("/checkout", router);
-app.use("/user", userpageRouter);
-
-app.get("/phone", phoneController.apiGetAllPhoneService);
-app.get("/brand", phoneController.apiGetBrandService);
-app.get("/phoneinfo", phoneController.apiGetPhoneInfo);
-app.get("/Soldout", phoneController.apiGetSoldOutService);
-app.get("/Bestseller", phoneController.apiGetBestSellerService);
-app.get("/Search", phoneController.apiGetSearchService);
-app.get("/highestValue", phoneController.apiGetHighestValue);
-app.get("/addreview", phoneController.apiAddReview);
-app.get("/getreview", phoneController.apiGetReview);
-app.get("/allreview", phoneController.apiGetAllReview);
+app.use("/checkout", checkoutRouter);
 
 
 

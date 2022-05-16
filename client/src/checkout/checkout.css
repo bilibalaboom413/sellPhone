@@ -1,20 +1,21 @@
-* {
-  box-sizing: border-box;
+body {
+  overflow: auto;
 }
 
-.App {
-  font-family: "Karla", sans-serif;
+.Checkout {
+  font-family: "Open Sans", sans-serif;
+  box-sizing: border-box;
   margin: 0;
 }
 
-.header {
+.Checkout .header {
   color: rgb(255, 200, 0);
   text-align: center;
   background: linear-gradient(90deg, #672280 1.18%, #a626d3 100%);
   padding: 15px 0;
 }
 
-.back-button {
+.Checkout .back-button {
   /* float: right; */
   padding: 5px 5px;
   margin-top: 10px;
@@ -28,7 +29,7 @@
   margin-left: 10px;
 }
 
-.main {
+.Checkout .main {
   width: 100%;
   height: 100vh;
   display: flex;
@@ -36,23 +37,23 @@
   align-items: center;
 }
 
-table {
+.Checkout table {
   border: 2px solid forestgreen;
   width: 100%;
 }
 
-th {
+.Checkout th {
   border-bottom: 1px solid black;
   padding: 10px 0;
 }
 
-td {
+.Checkout td {
   width: 100px;
   text-align: center;
   padding: 10px 10px;
 }
 
-.submit-button {
+.Checkout .submit-button {
   float: right;
   padding: 20px 20px;
   margin-top: 10px;
@@ -64,18 +65,19 @@ td {
   cursor: pointer;
 }
 
-table .table-title {
-  /* color: rgb(255, 200, 0); */
+.Checkout table .table-title {
+  color: rgb(255, 200, 0);
   font-size: 1.5rem;
 }
 
-.quantity-input {
-  width: 80%;
+.Checkout .quantity-input {
+  max-width: 100px;
   margin-bottom: 5px;
+  margin-right: 5px;
 }
 
-.input-button,
-.remove-button {
+.Checkout .input-button,
+.Checkout .remove-button {
   height: 30px;
   background-color: #a626d3;
   color: rgb(255, 200, 0);
@@ -84,19 +86,19 @@ table .table-title {
   cursor: pointer;
 }
 
-.total-price-label,
-.total-price {
+.Checkout .total-price-label,
+.Checkout .total-price {
   font-size: 1.5rem;
   color: red;
 }
 
-.total-price-label {
+.Checkout .total-price-label {
   margin-right: 10px;
   margin-left: 10px;
   color: black;
 }
 
-.main-bottom {
+.Checkout .main-bottom {
   margin-top: 10px;
   align-items: center;
   justify-content: center;

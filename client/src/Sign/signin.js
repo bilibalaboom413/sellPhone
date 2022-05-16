@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./signin.css";
 import md5 from "./md5";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   // State Variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,6 +49,23 @@ const Login = (props) => {
       password: md5(password),
     };
     // console.log(data);
+
+    axios
+      .post("http://localhost:8000/login", data, { withCredentials: true })
+      .then((res) => {
+        if (res.data === "Login!") {
+          navigate("/");
+        } else if (
+          res.data ===
+          "You have already signed in! Please log out before using another account."
+        ) {
+          alert(res.data);
+          navigate("/");
+        } else {
+          alert(res.data);
+        }
+      })
+      .catch((err) => console.log(err.data));
   };
 
   // onChange Functions
