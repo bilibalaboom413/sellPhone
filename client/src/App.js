@@ -9,11 +9,11 @@ import Homepage from "./Homepage/Homepage";
 import Info from "./Homepage/Info";
 import Activation from "./Sign/activation";
 
-import UserHome from './Userpage/UserHome'
-import ChangePassword from './Userpage/ChangePassword'
-import EditProfile from './Userpage/EditProfile'
-import ManageList from './Userpage/ManageList'
-import AddList from './Userpage/AddList'
+import UserHome from "./Userpage/UserHome";
+import ChangePassword from "./Userpage/ChangePassword";
+import EditProfile from "./Userpage/EditProfile";
+import ManageList from "./Userpage/ManageList";
+import AddList from "./Userpage/AddList";
 
 function Test() {
   return <h1>Hello World!</h1>;
@@ -32,15 +32,15 @@ function App() {
       <Route path="/addreview" element={<Info />} />
       <Route path="/checkout" element={<Checkout />} />
 
-     
-      <Route path='/userHome' element={<UserHome/>}> 
-          <Route path='/userHome/editProfile' element={<EditProfile/>}></Route>
-          <Route path='/userHome/manageList' element={<ManageList/>}></Route>
-          <Route path='/userHome/changePassword' element={<ChangePassword/>}></Route>
-          <Route path='/userHome/addList' element={<AddList/>}></Route>
+      <Route path="/userHome" element={<UserHome />}>
+        <Route path="/userHome/editProfile" element={<EditProfile />}></Route>
+        <Route path="/userHome/manageList" element={<ManageList />}></Route>
+        <Route
+          path="/userHome/changePassword"
+          element={<ChangePassword />}
+        ></Route>
+        <Route path="/userHome/addList" element={<AddList />}></Route>
       </Route>
-      
-        
     </Routes>
   );
 }
