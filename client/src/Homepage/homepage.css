@@ -13,9 +13,13 @@
   text-align: center;
 }
 .Homepage .navigationbar p,
-span {
+.Homepage span {
   color: white;
   text-align: center;
+}
+
+.Homepage span.added-quantity {
+  color: black;
 }
 .Homepage .navigationbar .Barleft {
   float: left;
