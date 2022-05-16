@@ -20,7 +20,7 @@ mongoose.connection.on('connected',function(){
 
 export default function App() {
   return (
-    <div>
+    <div className="UserHome">
       <Layout className="layout">
         <Header>
           <div className="logo" />
