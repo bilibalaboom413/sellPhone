@@ -121,6 +121,18 @@ class Info extends React.Component {
     let { reviewNumber } = this.state;
     this.state.reviewNumber = reviewNumber + 3;
     this.getreview();
+  };
+  getallreview = async () => {
+    const { phoneid } = this.state;
+    axios
+        .get("http://localhost:8000/allreview", {
+          params: {
+            id: phoneid
+          },
+        })
+        .then((_d) => {
+          this.getShowReview(_d.data);
+        });
     // const { phoneid } = this.state;
     // axios
     //   .get("http://localhost:8000/allreview", {
@@ -134,9 +146,15 @@ class Info extends React.Component {
     //     }
     //   });
   };
-
   //add review to current phone
   addReview = async () => {
+    if(this.state.commentInput === ""){
+      console.log("123");
+      this.state.commentInput = "Default feedback";
+
+    }else{
+      console.log("321");
+    }
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
       .get("http://localhost:8000/addreview", {
@@ -148,7 +166,8 @@ class Info extends React.Component {
         },
       })
       .then((_d) => {
-        this.getmorereview();
+        this.getallreview();
+        this.state.commentInput = "";
       });
   };
 
@@ -198,7 +217,12 @@ class Info extends React.Component {
                 <tr key={phone._id}>
                   <td>{phone.title}</td>
                   <td>{phone.brand}</td>
-                  <td><img className="listimg" src={process.env.PUBLIC_URL  + phone.image}/></td>
+                  <td>
+                    <img
+                      className="listimg"
+                      src={process.env.PUBLIC_URL + phone.image}
+                    />
+                  </td>
                   <td>{phone.stock}</td>
                   <td>{phone.seller}</td>
                   <td>{phone.price}</td>
@@ -272,7 +296,7 @@ class Info extends React.Component {
               type="button"
               value="add review"
             />
-            <button onClick={this.getmorereview}>all review</button>
+            <button onClick={this.getmorereview}>More review</button>
           </div>
         </div>
       </div>
