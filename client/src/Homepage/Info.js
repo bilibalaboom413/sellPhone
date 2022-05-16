@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import "./homepage.css";
 class Info extends React.Component {
   state = {
     phones: [],
@@ -96,7 +96,7 @@ class Info extends React.Component {
 
   //Just show 200 characters of each review
   getShowReview = async (data) => {
-    const { reviews, showreviews } = this.state;
+    // const { reviews, showreviews } = this.state;
     var reviewlist = [];
     for (const i in data) {
       reviewlist[i] = data[i].reviews.comment;
@@ -198,7 +198,7 @@ class Info extends React.Component {
                 <tr key={phone._id}>
                   <td>{phone.title}</td>
                   <td>{phone.brand}</td>
-                  <td>{phone._id}</td>
+                  <td><img className="listimg" src={process.env.PUBLIC_URL  + phone.image}/></td>
                   <td>{phone.stock}</td>
                   <td>{phone.seller}</td>
                   <td>{phone.price}</td>
