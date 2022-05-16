@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import "./reset.css";
 
 const Reset = (props) => {
+  const navigate = useNavigate();
   // State Variables
   const [email, setEmail] = useState("");
 
@@ -41,6 +43,8 @@ const Reset = (props) => {
       .post("http://localhost:8000/reset", data)
       .then((res) => {
         alert(res.data);
+        // Redirect to login page
+        navigate("/login");
       })
       .catch((err) => console.log(err.data));
   };

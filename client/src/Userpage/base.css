@@ -1,25 +1,25 @@
 @import "~antd/dist/antd.css";
 
-body {
+.UserHome .body {
   font-family: "微软雅黑";
   font-size: 14px;
   color: #333;
   background: #efefef;
 }
 
-.site-layout-content {
+.UserHome .site-layout-content {
   min-height: 280px;
   padding: 24px;
   background: #fff;
 }
-#components-layout-demo-top .logo {
+.UserHome #components-layout-demo-top .logo {
   float: left;
   width: 120px;
   height: 31px;
   margin: 16px 24px 16px 0;
   background: rgba(255, 255, 255, 0.3);
 }
-.ant-row-rtl #components-layout-demo-top .logo {
+.UserHome .ant-row-rtl #components-layout-demo-top .logo {
   float: right;
   margin: 16px 0 16px 24px;
 }

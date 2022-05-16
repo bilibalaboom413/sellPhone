@@ -21,7 +21,7 @@ $ npm ci
 To run both the back-end server and React app front-end in one command:
 
 ```bash
-$ cd client
+$ cd server
 $ npm run dev
 ```
 
@@ -57,6 +57,7 @@ E.p.
 
 ```
 MONGO_URL=<Database URL>
+SESSION_SECRET=<Secret String>
 ```
 
 You can then access those variables after `require("dotenv").config()` by calling `process.env.<VARIABLE>`.

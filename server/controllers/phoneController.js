@@ -19,7 +19,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
@@ -38,7 +38,7 @@ module.exports = class PhoneController {
         {
           _id: 1,
           image: 1,
-          brand:1,
+          brand: 1,
           price: 1,
         }
       )
@@ -47,7 +47,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
@@ -71,7 +71,7 @@ module.exports = class PhoneController {
           $project: {
             _id: 1,
             image: 1,
-            brand:1,
+            brand: 1,
             Ave_rating: { $avg: "$reviews.rating" },
           },
         },
@@ -161,11 +161,13 @@ module.exports = class PhoneController {
       const _title = new RegExp(req.query.title); //模糊查询参数
       const _brand = new RegExp(req.query.brand);
       const _value = req.query.value;
+      let listNumber = req.query.listNumber;
       const phone = await Phone.find(
         {
           title: { $regex: _title, $options: "i" },
           brand: { $regex: _brand, $options: "i" },
           price: { $lte: _value },
+          disabled: { $exists: false }
         },
         {
           _id: 1,
@@ -176,11 +178,11 @@ module.exports = class PhoneController {
           seller: 1,
           price: 1,
         }
-      );
+      ).limit(Number(listNumber));
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
@@ -273,44 +275,44 @@ module.exports = class PhoneController {
     }
   }
 
-  // static async apiGetAllReview(req, res, next) {
-  //   try {
-  //     const id = req.query.id;
-  //     const phone = await Phone.aggregate([
-  //       {
-  //         $match: {
-  //           _id: new mongoose.Types.ObjectId(id),
-  //         },
-  //       },
-  //       {
-  //         $unwind: "$reviews",
-  //       },
-  //       {
-  //         $project: {
-  //           "reviews.reviewer": 1,
-  //           "reviews.rating": 1,
-  //           "reviews.comment": 1,
-  //         },
-  //       },
-  //     ]);
-  //     if (!phone) {
-  //       res.status(404).json("There are no phone published yet!");
-  //     }
-  //     for (const x in phone) {
-  //       const name = await User.find(
-  //         { _id: phone[x].reviews.reviewer },
-  //         {
-  //           _id: 0,
-  //           firstname: 1,
-  //           lastname: 2,
-  //         }
-  //       );
-  //       const fullname = name[0].firstname + " " + name[0].lastname;
-  //       phone[x].reviews.reviewer = fullname.toString();
-  //     }
-  //     res.json(phone);
-  //   } catch (error) {
-  //     res.status(500).json({ error: error });
-  //   }
-  // }
+  static async apiGetAllReview(req, res, next) {
+    try {
+      const id = req.query.id;
+      const phone = await Phone.aggregate([
+        {
+          $match: {
+            _id: new mongoose.Types.ObjectId(id),
+          },
+        },
+        {
+          $unwind: "$reviews",
+        },
+        {
+          $project: {
+            "reviews.reviewer": 1,
+            "reviews.rating": 1,
+            "reviews.comment": 1,
+          },
+        },
+      ]);
+      if (!phone) {
+        res.status(404).json("There are no phone published yet!");
+      }
+      for (const x in phone) {
+        const name = await User.find(
+          { _id: phone[x].reviews.reviewer },
+          {
+            _id: 0,
+            firstname: 1,
+            lastname: 2,
+          }
+        );
+        const fullname = name[0].firstname + " " + name[0].lastname;
+        phone[x].reviews.reviewer = fullname.toString();
+      }
+      res.json(phone);
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  }
 };
