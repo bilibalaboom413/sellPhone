@@ -1,7 +1,7 @@
 @import "~antd/dist/antd.css";
 
 .UserHome .body {
-  font-family: "微软雅黑";
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
   color: #333;
   background: #efefef;
