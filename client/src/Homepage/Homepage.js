@@ -207,7 +207,6 @@ class Homepage extends React.Component {
             <thead>
               <th>Image</th>
               <th>price</th>
-              {/* <th></th> */}
             </thead>
             <tbody>
               {this.state.soldout.map((soldout) => (
@@ -235,7 +234,6 @@ class Homepage extends React.Component {
             <thead>
               <th>Image</th>
               <th>rating</th>
-              {/* <th></th> */}
             </thead>
             <tbody>
               {this.state.bestseller.map((bestseller) => (
@@ -244,7 +242,6 @@ class Homepage extends React.Component {
                   onClick={() => this.togglePopup(bestseller._id)}
                 >
                   <td>
-                    {" "}
                     <img
                       className="listimg"
                       src={process.env.PUBLIC_URL + bestseller.image}
@@ -279,16 +276,13 @@ class Homepage extends React.Component {
                   <td>{phone.title}</td>
                   <td>{phone.brand}</td>
                   <td>{phone.price}</td>
-                  {/* <td>
-                      <button >
-                        Info
-                      </button>
-                    </td> */}
                 </tr>
               ))}
             </tbody>
           </table>
-          <button onClick={this.getmorephone}>More phones</button>
+          <div className="BottomButton">
+            <button onClick={this.getmorephone}>More phones</button>
+          </div>
           {this.state.showPopup ? (
             <Info
               phoneid={this.state.phoneid}
@@ -297,7 +291,6 @@ class Homepage extends React.Component {
             />
           ) : null}
         </div>
-        {/*</div>*/}
       </div>
     );
   }

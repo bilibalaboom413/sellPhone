@@ -133,27 +133,15 @@ class Info extends React.Component {
       .then((_d) => {
         this.getShowReview(_d.data);
       });
-    // const { phoneid } = this.state;
-    // axios
-    //   .get("http://localhost:8000/allreview", {
-    //     params: {
-    //       id: phoneid,
-    //     },
-    //   })
-    //   .then((_d) => {
-    //     if(_d.data.length>3) {
-    //       this.getShowReview(_d.data)
-    //     }
-    //   });
   };
   //add review to current phone
   addReview = async () => {
     if (this.state.commentInput === "") {
-      console.log("123");
       this.state.commentInput = "Default feedback";
-    } else {
-      console.log("321");
     }
+    // else {
+    //   console.log("321");
+    // }
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
       .get("http://localhost:8000/addreview", {
@@ -201,6 +189,7 @@ class Info extends React.Component {
     return (
       <div className="popup">
         <div className="popup_inner">
+          <div className="infotable">
           <button onClick={this.props.closePopup}>close me</button>
           <table>
             <thead>
@@ -247,7 +236,9 @@ class Info extends React.Component {
               ))}
             </tbody>
           </table>
-          <div>
+          </div>
+          <div className="infoinput">
+            <div className="infoinputleft">
             <label>current added quantity: </label>
             <span className="added-quantity">{this.state.quantity}</span>
             {this.state.inputQuantity && (
@@ -270,6 +261,8 @@ class Info extends React.Component {
                 value="add to cart"
               />
             )}
+            </div>
+              <div className="infoinputright">
             <input
               type="text"
               placeholder="Comment"
@@ -296,6 +289,7 @@ class Info extends React.Component {
               value="add review"
             />
             <button onClick={this.getmorereview}>More review</button>
+              </div>
           </div>
         </div>
       </div>

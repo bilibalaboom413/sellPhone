@@ -78,6 +78,9 @@
   width: 100%;
   /*display:inline*/
 }
+.Homepage .searchresultlist .BottomButton{
+  float: right;
+}
 .Homepage .bestsellerlist {
   float: right;
   width: 20%;
@@ -129,4 +132,16 @@
   /*bottom: 2%;*/
   margin: auto;
   background: white;
+  float: left;
 }
+.popup_inner .infotable{
+}
+
+.popup_inner .infoinputleft{
+  float: left;
+  width: 50%;
+}
+.popup_inner .infoinputright{
+  float: left;
+}
+
