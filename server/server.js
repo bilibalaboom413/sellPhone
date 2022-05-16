@@ -3,6 +3,9 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
 
+// Load .env
+require("dotenv").config();
+
 const checkoutRouter = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");
 const loginRouter = require("./routes/login.routes");
@@ -28,7 +31,7 @@ app.use(
 );
 app.use(
   session({
-    secret: "This is a secret!",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
