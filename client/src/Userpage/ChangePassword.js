@@ -48,14 +48,14 @@ const tailFormItemLayout = {
 
 export default class ChangePassword extends Component {
   state = {
-    _id: "5f5237a4c1beb1523fa3da02",
+    _id: "",
     newpassword: "",
     password: "",
   };
 
   constructor() {
     super();
-    this.getUserInfo();
+    this.CheckLogin();
   }
 
   checkPassword() {
@@ -85,6 +85,28 @@ export default class ChangePassword extends Component {
         console.log("Do with id: " + this.state._id);
         /*   console.log('this is backup:'+this.backdata[0].firstname) */
       });
+  };
+
+  CheckLogin = async () => {
+    // Change Button content depends on user login situation
+    // If user has login, to show the UserID
+    axios
+      .get("http://localhost:8000/authenticate", { withCredentials: true })
+      .then((res) => {
+        if (res.data !== "No Login!") {
+          console.log(res.data);
+          console.log("id res " + res.data._id);
+          this.setState({ _id: res.data._id }, () => {
+            this.getUserInfo();
+          });
+
+          console.log("the id " + this.state._id);
+        } else {
+          console.log("No Login!");
+          alert("Please login first!!");
+        }
+      })
+      .catch((err) => console.log(err.data));
   };
 
   onChangeP(e) {
