@@ -19,7 +19,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
@@ -38,7 +38,7 @@ module.exports = class PhoneController {
         {
           _id: 1,
           image: 1,
-          brand:1,
+          brand: 1,
           price: 1,
         }
       )
@@ -47,7 +47,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);
@@ -71,7 +71,7 @@ module.exports = class PhoneController {
           $project: {
             _id: 1,
             image: 1,
-            brand:1,
+            brand: 1,
             Ave_rating: { $avg: "$reviews.rating" },
           },
         },
@@ -180,7 +180,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
-      for (const x in phone){
+      for (const x in phone) {
         phone[x].image = "/phone_default_images/" + phone[x].brand + ".jpeg";
       }
       res.json(phone);

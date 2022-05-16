@@ -6,18 +6,6 @@ import "./base.css";
 
 const { Header, Content, Footer } = Layout;
 
-//引入模块，
-//const express=require('express');
-//引入mongoose库
-/* const mongoose=require('mongoose');
-const DB_URL="mongodb://localhost:27017/COMP5347";
-mongoose.connect(DB_URL);
-
-mongoose.connection.on('connected',function(){
-  console.log("链接成功");
-});
- */
-
 export default function App() {
   return (
     <div className="UserHome">
@@ -60,8 +48,6 @@ export default function App() {
                 <button>Back to home page</button>
               </Link>
             </Breadcrumb.Item>
-
-            <Breadcrumb.Item>User Profile</Breadcrumb.Item>
           </Breadcrumb>
           <div className="site-layout-content">
             <Outlet />

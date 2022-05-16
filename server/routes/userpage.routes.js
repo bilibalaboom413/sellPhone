@@ -8,8 +8,6 @@ router.post("/setPassword", UserPage.apiSetPassword);
 router.post("/addList", UserPage.apiAddList);
 router.post("/userPhone", UserPage.apigetPhoneInfo);
 router.post("/deletePhone", UserPage.apideletePhone);
-router.post("/getComments", UserPage.apigetComments);
-router.post("/getReviewers", UserPage.apiGetReviewerInfo);
 router.post("/enable", UserPage.apiEnable);
 router.post("/disable", UserPage.apiDisable);
 

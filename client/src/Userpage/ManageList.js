@@ -1,15 +1,6 @@
 import axios from "axios";
 
-import {
-  Form,
-  Input,
-  InputNumber,
-  Button,
-  Table,
-  Tag,
-  Space,
-  message,
-} from "antd";
+import { Table, message } from "antd";
 import React, { Component } from "react";
 
 import { Link, Outlet } from "react-router-dom";
@@ -34,11 +25,28 @@ export default class ManageList extends Component {
 
   constructor() {
     super();
-    this.setPhoneInfo();
-
-    // this.setReviewer();
+    this.CheckLogin();
   }
 
+  /* get user id from login session */
+  CheckLogin = async () => {
+    // Change Button content depends on user login situation
+    // If user has login, to show the UserID
+    axios
+      .get("http://localhost:8000/authenticate", { withCredentials: true })
+      .then((res) => {
+        if (res.data !== "No Login!") {
+          this.setState({ seller: res.data._id }, () => {
+            this.setPhoneInfo();
+          });
+        } else {
+          alert("Please login first!! Click Back to home button to back");
+        }
+      })
+      .catch((err) => console.log(err.data));
+  };
+
+  /* get phone list of user, according to user id */
   setPhoneInfo = async () => {
     const phone = [
       {
@@ -55,6 +63,7 @@ export default class ManageList extends Component {
     });
   };
 
+  /* get which delete item user select */
   getSelect = (val) => {
     const phone = [
       {
@@ -67,6 +76,7 @@ export default class ManageList extends Component {
     });
   };
 
+  /* get which enable item user select */
   enable = (val) => {
     const phone = [
       {
@@ -74,10 +84,11 @@ export default class ManageList extends Component {
       },
     ];
     axios.post("http://localhost:8000/user/enable", phone).then((res) => {
-      message.success("Succes display the item");
+      message("Succes display the item");
     });
   };
 
+  /* get which disableitem user select */
   disable = (val) => {
     const phone = [
       {
@@ -85,7 +96,7 @@ export default class ManageList extends Component {
       },
     ];
     axios.post("http://localhost:8000/user/disable", phone).then((res) => {
-      message.success("Succes display the item");
+      message("Succes display the item");
     });
   };
 
@@ -129,9 +140,9 @@ export default class ManageList extends Component {
         key: "operation",
         render: (record) => (
           <>
-            <Button onClick={() => this.enable(record)}>Enable</Button>
-            <Button onClick={() => this.disable(record)}>Disable</Button>
-            <Button onClick={() => this.getSelect(record)}>Delete</Button>
+            <button onClick={() => this.enable(record)}>Enable</button>
+            <button onClick={() => this.disable(record)}>Disable</button>
+            <button onClick={() => this.getSelect(record)}>Delete</button>
           </>
         ),
       },
@@ -146,7 +157,7 @@ export default class ManageList extends Component {
             align: "center",
             width: 100,
             ellipsis: true,
-            render: (data = record[0]) => <span>{data.reviewer}</span>,
+            render: (data = record[0]) => <div>{data.reviewer}</div>,
           },
           {
             title: "rating",
@@ -154,7 +165,7 @@ export default class ManageList extends Component {
             align: "center",
             width: 100,
             ellipsis: true,
-            render: (data = record[0]) => <span>{data.rating}</span>,
+            render: (data = record[0]) => <div>{data.rating}</div>,
           },
           {
             title: "comment",
@@ -162,7 +173,7 @@ export default class ManageList extends Component {
             align: "center",
             width: 100,
             ellipsis: true,
-            render: (data = record[0]) => <span>{data.comment}</span>,
+            render: (data = record[0]) => <div>{data.comment}</div>,
           },
         ];
         return (
@@ -195,7 +206,7 @@ export default class ManageList extends Component {
           <Column title="reviews" dataIndex="reviews" key="reviews" />
         </Table>
         <Link to="/userHome/addList">
-          <Button>Add a new Phone list</Button>
+          <button>Add a new Phone list</button>
         </Link>
       </>
     );
