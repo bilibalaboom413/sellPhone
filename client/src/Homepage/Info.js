@@ -139,9 +139,6 @@ class Info extends React.Component {
     if (this.state.commentInput === "") {
       this.state.commentInput = "Default feedback";
     }
-    // else {
-    //   console.log("321");
-    // }
     const { phoneid, userid, commentInput, ratingInput } = this.state;
     axios
       .get("http://localhost:8000/addreview", {
