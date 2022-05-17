@@ -176,7 +176,9 @@ class Homepage extends React.Component {
               value={this.state.setValue}
               onChange={this.handleGetValue}
             />
+            <div className="valueshow">
             <span>{"$ < " + this.state.setValue}</span>
+            </div>
             <input
               type="button"
               className="searchbutton"

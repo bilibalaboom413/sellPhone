@@ -15,6 +15,9 @@
 .Homepage .navigationbar h1,p{
   color: white;
 }
+.Homepage h2{
+  color: green;
+}
 .Homepage span {
   color: white;
   text-align: center;
@@ -37,7 +40,7 @@
 }
 .Homepage .navigationbar .BarMid {
   float: left;
-  width: 45%;
+  width: 50%;
   height: 50%;
   top: 25%;
   position: relative;
@@ -57,10 +60,14 @@
   margin-top: 5px;
   margin-left: 10px;
 }
+.Homepage .valueshow {
+  float: left;
+  margin-left: 10px;
+  width:80px;
+}
 
 .Homepage .searchbutton {
-  float: right;
-  margin-left: 10px;
+  float: left;
 }
 .Homepage .navigationbar .ButtonList {
   float: right;
@@ -81,6 +88,7 @@
 .Homepage th {
   border-bottom: 1px solid black;
   padding: 10px 0;
+  color:green
 }
 
 .Homepage td {
@@ -93,7 +101,8 @@
 .Homepage .soldoutlist {
   float: left;
   width: 20%;
-  border: 2px solid black;
+  border: 2px solid green;
+  text-align: center;
 }
 .Homepage .soldoutlist table {
   width: 90%;
@@ -105,7 +114,6 @@
 }
 .Homepage .searchresultlist table {
   width: 100%;
-  /*display:inline*/
 }
 .Homepage .searchresultlist .BottomButton {
   float: right;
@@ -113,7 +121,8 @@
 .Homepage .bestsellerlist {
   float: right;
   width: 20%;
-  border: 2px solid black;
+  border: 2px solid green;
+  text-align: center;
 }
 .Homepage .bestsellerlist table {
   table-layout: fixed;
