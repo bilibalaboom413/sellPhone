@@ -193,7 +193,7 @@ class Homepage extends React.Component {
             ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
             {this.state.userId ? (
-              <button onClick={() => (window.location = "./userHome")}>
+              <button onClick={() => (window.location = "./userHome/editProfile")}>
                 Profile
               </button>
             ) : null}
