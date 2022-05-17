@@ -1,6 +1,8 @@
 .Homepage {
   width: 100%;
 }
+.Homepage table {
+}
 
 .Homepage .navigationbar {
   width: 100%;
@@ -10,10 +12,23 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar p,
-span {
+.Homepage .navigationbar h1,p{
+  color: white;
+}
+.Homepage span {
   color: white;
   text-align: center;
+}
+.Homepage .welcomeslogan{
+  margin-top: 15px;
+  margin-right: 5px;
+}
+.Homepage span.added-quantity {
+  margin-right: 10px;
+  color: black;
+}
+.popup_inner span {
+  color: black;
 }
 .Homepage .navigationbar .Barleft {
   float: left;
@@ -26,6 +41,26 @@ span {
   height: 50%;
   top: 25%;
   position: relative;
+}
+.Homepage .titlesearchinput {
+  float: left;
+  margin-left: 15%;
+}
+.Homepage .brandsearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .highvaluesearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .searchbutton {
+  float: right;
+  margin-left: 10px;
 }
 .Homepage .navigationbar .ButtonList {
   float: right;
@@ -52,11 +87,13 @@ span {
   width: 100px;
   text-align: center;
   padding: 10px 10px;
+  border-bottom: 1px solid black;
 }
 
 .Homepage .soldoutlist {
   float: left;
   width: 20%;
+  border: 2px solid black;
 }
 .Homepage .soldoutlist table {
   width: 90%;
@@ -65,36 +102,36 @@ span {
 .Homepage .searchresultlist {
   float: left;
   width: 59%;
-  border-style: ;
 }
 .Homepage .searchresultlist table {
-  width: 90%;
+  width: 100%;
   /*display:inline*/
+}
+.Homepage .searchresultlist .BottomButton {
+  float: right;
 }
 .Homepage .bestsellerlist {
   float: right;
   width: 20%;
-  /*width: 1;*/
+  border: 2px solid black;
 }
 .Homepage .bestsellerlist table {
   table-layout: fixed;
   width: 90%;
-  /*width: 1;*/
 }
 .Homepage .homepagecontent .bestsellerlist {
   position: absolute;
   right: 0;
-  /*width: 1;*/
 }
 
 .Homepage .phoneimg {
-  width: 280px;
-  height: 300px;
+  width: 180px;
+  height: 220px;
 }
 
 .Homepage .listimg {
-  width: 50px;
-  height: 60px;
+  width: 70px;
+  height: 80px;
 }
 
 .popup {
@@ -109,7 +146,12 @@ span {
   background-color: rgba(0, 0, 0, 0.5);
   overflow: auto;
 }
-.Homepage .popup_inner {
+
+.popup th {
+  background: forestgreen;
+  color: white;
+}
+.popup_inner {
   position: absolute;
   left: 5%;
   right: 5%;
@@ -117,4 +159,45 @@ span {
   /*bottom: 2%;*/
   margin: auto;
   background: white;
+  float: left;
+}
+
+.popup_inner .informationtable {
+  width: 80%;
+}
+
+.popup_inner .infoinput {
+  height: 80px;
+}
+.popup_inner .infoinputleft {
+  margin-top: 20px;
+  margin-left: 10px;
+  float: left;
+  width: 40%;
+}
+
+.popup_inner .addreveiwbutton {
+  float: left;
+  margin-top: 20px;
+  margin-left: 10px;
+  height: 50%;
+}
+.popup_inner .ratinginput {
+  float: left;
+  margin-top: 30px;
+  margin-left: 10px;
+  height: 50%;
+}
+.popup_inner .commentinput {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 80%;
+  word-wrap: break-word;
+}
+.popup_inner .more-button {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  height: 50%;
 }

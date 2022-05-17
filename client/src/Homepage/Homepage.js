@@ -12,30 +12,31 @@ class Homepage extends React.Component {
     searchInput: "",
     BrandInput: "",
     highValue: "",
-    setValue: 200,
+    setValue: 500,
     phoneid: "",
     showPopup: false,
     userId: "",
     userfullname: "",
     ButtonContent: "Log in",
     hasLogin: false,
+    listNumber: 10,
   };
 
   constructor() {
     super();
     this.getBrand();
-    this.getData();
+    this.getSearch();
     this.getHighestValue();
     this.getSoldout();
     this.getBestseller();
     this.CheckLogin();
   }
-
-  getData = async () => {
-    axios.get("http://localhost:8000/phone").then((_d) => {
-      this.setState({ phones: _d.data });
-    });
-  };
+  //
+  // getData = async () => {
+  //   axios.get("http://localhost:8000/Search").then((_d) => {
+  //     this.setState({ phones: _d.data });
+  //   });
+  // };
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
       this.setState({ brandlist: _d.data });
@@ -54,12 +55,14 @@ class Homepage extends React.Component {
 
   getSearch = async () => {
     const { searchInput, BrandInput, setValue } = this.state;
+    let { listNumber } = this.state;
     axios
       .get("http://localhost:8000/Search", {
         params: {
           title: searchInput,
           brand: BrandInput,
           value: setValue,
+          listNumber: listNumber,
         },
       })
       .then((_d) => {
@@ -67,10 +70,15 @@ class Homepage extends React.Component {
           this.setState({ phones: _d.data });
         } else {
           window.alert(
-            "There does not have phones accord with the input requirements. Please change search input!"
+            "There does not have phones accord with the input requirements. Please change search conditions!"
           );
         }
       });
+  };
+  getmorephone = async () => {
+    let { listNumber } = this.state;
+    this.state.listNumber = listNumber + 10;
+    this.getSearch();
   };
   getHighestValue = async () => {
     axios.get("http://localhost:8000/highestValue").then((_d) => {
@@ -122,14 +130,16 @@ class Homepage extends React.Component {
     if (this.state.ButtonContent === "Sign In") {
       window.location = "./login";
     } else if (this.state.ButtonContent === "Sign Out") {
-      axios
-        .get("http://localhost:8000/logout", { withCredentials: true })
-        .then((res) => {
-          if (res.data === "Logout!") {
-            window.location = "./login";
-          }
-        })
-        .catch((err) => console.log(err.data));
+      if (window.confirm("Are you sure to sign out?")) {
+        axios
+          .get("http://localhost:8000/logout", { withCredentials: true })
+          .then((res) => {
+            if (res.data === "Logout!") {
+              window.location = "./login";
+            }
+          })
+          .catch((err) => console.log(err.data));
+      }
     }
   };
   render() {
@@ -137,16 +147,18 @@ class Homepage extends React.Component {
       <div className="Homepage">
         <div className="navigationbar">
           <div className="Barleft">
-            <p>SellPhone</p>
+            <h1>SellPhone</h1>
           </div>
           <div className="BarMid">
             <input
+              className="titlesearchinput"
               type="text"
-              placeholder="Search by name"
+              placeholder="Search by title"
               value={this.state.searchInput}
               onChange={this.handleGetTitle}
             />
             <select
+              className="brandsearchinput"
               value={this.state.BrandInput}
               onChange={this.handleGetBrand}
             >
@@ -156,6 +168,7 @@ class Homepage extends React.Component {
               ))}
             </select>
             <input
+              className="highvaluesearchinput"
               type="range"
               name="Value"
               min="0"
@@ -163,19 +176,22 @@ class Homepage extends React.Component {
               value={this.state.setValue}
               onChange={this.handleGetValue}
             />
-            <span>{this.state.setValue}</span>
-            <input type="button" onClick={this.getSearch} value="search" />
+            <span>{"$ < " + this.state.setValue}</span>
+            <input
+              type="button"
+              className="searchbutton"
+              onClick={this.getSearch}
+              value="search"
+            />
           </div>
           <div className="ButtonList">
             {/*<div className="LoginComponent">*/}
             {this.state.userId ? (
-              <p>Welcome, {this.state.userfullname}</p>
+              <p className="welcomeslogan">Welcome, {this.state.userfullname}</p>
             ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
             {this.state.userId ? (
-              <button
-                onClick={() => (window.location = "./userHome/editProfile")}
-              >
+              <button onClick={() => (window.location = "./userHome")}>
                 Profile
               </button>
             ) : null}
@@ -194,12 +210,11 @@ class Homepage extends React.Component {
 
         {/*<div className="homepagecontent">*/}
         <div className="soldoutlist">
-          <h1>Soldout List</h1>
+          <h2>Soldout soon</h2>
           <table>
             <thead>
               <th>Image</th>
-              <th>price</th>
-              {/* <th></th> */}
+              <th>Price</th>
             </thead>
             <tbody>
               {this.state.soldout.map((soldout) => (
@@ -222,12 +237,11 @@ class Homepage extends React.Component {
         </div>
 
         <div className="bestsellerlist">
-          <h1>Best Seller List</h1>
+          <h2>Best sellers</h2>
           <table>
             <thead>
               <th>Image</th>
-              <th>rating</th>
-              {/* <th></th> */}
+              <th>Rating</th>
             </thead>
             <tbody>
               {this.state.bestseller.map((bestseller) => (
@@ -236,7 +250,6 @@ class Homepage extends React.Component {
                   onClick={() => this.togglePopup(bestseller._id)}
                 >
                   <td>
-                    {" "}
                     <img
                       className="listimg"
                       src={process.env.PUBLIC_URL + bestseller.image}
@@ -256,7 +269,6 @@ class Homepage extends React.Component {
               <th>title</th>
               <th>brand</th>
               <th>price</th>
-              {/* <th></th> */}
             </thead>
             <tbody>
               {this.state.phones.map((phone) => (
@@ -271,15 +283,13 @@ class Homepage extends React.Component {
                   <td>{phone.title}</td>
                   <td>{phone.brand}</td>
                   <td>{phone.price}</td>
-                  {/* <td>
-                      <button >
-                        Info
-                      </button>
-                    </td> */}
                 </tr>
               ))}
             </tbody>
           </table>
+          <div className="BottomButton">
+            <button onClick={this.getmorephone}>More phones</button>
+          </div>
           {this.state.showPopup ? (
             <Info
               phoneid={this.state.phoneid}
@@ -288,7 +298,6 @@ class Homepage extends React.Component {
             />
           ) : null}
         </div>
-        {/*</div>*/}
       </div>
     );
   }
