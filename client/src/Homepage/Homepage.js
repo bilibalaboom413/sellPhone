@@ -31,12 +31,7 @@ class Homepage extends React.Component {
     this.getBestseller();
     this.CheckLogin();
   }
-  //
-  // getData = async () => {
-  //   axios.get("http://localhost:8000/Search").then((_d) => {
-  //     this.setState({ phones: _d.data });
-  //   });
-  // };
+
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
       this.setState({ brandlist: _d.data });
@@ -202,7 +197,7 @@ class Homepage extends React.Component {
 
         {/*<div className="homepagecontent">*/}
         <div className="soldoutlist">
-          <h1>Soldout List</h1>
+          <h2>Soldout List</h2>
           <table>
             <thead>
               <th>Image</th>
@@ -229,7 +224,7 @@ class Homepage extends React.Component {
         </div>
 
         <div className="bestsellerlist">
-          <h1>Best Seller List</h1>
+          <h2>Best Seller List</h2>
           <table>
             <thead>
               <th>Image</th>
