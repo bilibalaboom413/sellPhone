@@ -111,12 +111,10 @@
   float: right;
   width: 20%;
   border: 2px solid black;
-  /*width: 1;*/
 }
 .Homepage .bestsellerlist table {
   table-layout: fixed;
   width: 90%;
-  /*width: 1;*/
 }
 .Homepage .homepagecontent .bestsellerlist {
   position: absolute;
@@ -175,18 +173,11 @@
   width: 40%;
 }
 
-.popup_inner .infoinputright {
-  margin-top: 10px;
-  float: left;
-}
-
 .popup_inner .addreveiwbutton {
   float: left;
   margin-top: 20px;
   margin-left: 10px;
   height: 50%;
-  /*height:80%;*/
-  /*background: forestgreen;*/
 }
 .popup_inner .ratinginput {
   float: left;
