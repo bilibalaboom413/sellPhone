@@ -12,13 +12,22 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar p,
+.Homepage .navigationbar h1,p{
+  color: white;
+}
 .Homepage span {
   color: white;
   text-align: center;
 }
-
+.Homepage .welcomeslogan{
+  margin-top: 15px;
+  margin-right: 5px;
+}
 .Homepage span.added-quantity {
+  margin-right: 10px;
+  color: black;
+}
+.popup_inner span {
   color: black;
 }
 .Homepage .navigationbar .Barleft {
@@ -32,6 +41,26 @@
   height: 50%;
   top: 25%;
   position: relative;
+}
+.Homepage .titlesearchinput {
+  float: left;
+  margin-left: 15%;
+}
+.Homepage .brandsearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .highvaluesearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .searchbutton {
+  float: right;
+  margin-left: 10px;
 }
 .Homepage .navigationbar .ButtonList {
   float: right;
@@ -78,16 +107,17 @@
   width: 100%;
   /*display:inline*/
 }
+.Homepage .searchresultlist .BottomButton {
+  float: right;
+}
 .Homepage .bestsellerlist {
   float: right;
   width: 20%;
   border: 2px solid black;
-  /*width: 1;*/
 }
 .Homepage .bestsellerlist table {
   table-layout: fixed;
   width: 90%;
-  /*width: 1;*/
 }
 .Homepage .homepagecontent .bestsellerlist {
   position: absolute;
@@ -129,4 +159,45 @@
   /*bottom: 2%;*/
   margin: auto;
   background: white;
+  float: left;
+}
+
+.popup_inner .informationtable {
+  width: 80%;
+}
+
+.popup_inner .infoinput {
+  height: 80px;
+}
+.popup_inner .infoinputleft {
+  margin-top: 20px;
+  margin-left: 10px;
+  float: left;
+  width: 40%;
+}
+
+.popup_inner .addreveiwbutton {
+  float: left;
+  margin-top: 20px;
+  margin-left: 10px;
+  height: 50%;
+}
+.popup_inner .ratinginput {
+  float: left;
+  margin-top: 30px;
+  margin-left: 10px;
+  height: 50%;
+}
+.popup_inner .commentinput {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 80%;
+  word-wrap: break-word;
+}
+.popup_inner .more-button {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  height: 50%;
 }
