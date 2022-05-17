@@ -176,7 +176,9 @@ class Homepage extends React.Component {
               value={this.state.setValue}
               onChange={this.handleGetValue}
             />
+            <div className="valueshow">
             <span>{"$ < " + this.state.setValue}</span>
+            </div>
             <input
               type="button"
               className="searchbutton"
@@ -191,7 +193,7 @@ class Homepage extends React.Component {
             ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
             {this.state.userId ? (
-              <button onClick={() => (window.location = "./userHome")}>
+              <button onClick={() => (window.location = "./userHome/editProfile")}>
                 Profile
               </button>
             ) : null}

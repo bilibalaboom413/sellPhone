@@ -5,31 +5,14 @@ import axios from "axios";
 import { Form, Input, Button, message, Layout } from "antd";
 
 import md5 from "../Sign/md5";
+
+/* layout of page */
 const layout = {
   labelCol: {
     span: 6,
   },
   wrapperCol: {
     span: 10,
-  },
-};
-
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
   },
 };
 
@@ -58,18 +41,27 @@ export default class ChangePassword extends Component {
     this.CheckLogin();
   }
 
+  /* check whether user have right password, 
+  and check whether the new password is equal to old password,
+  check whether user input emtyp value */
   checkPassword() {
-    const str = prompt("Please input your password");
-    if (md5(str) == this.state.password) {
-      this.setPassword();
-
-      message.success("Sucess update your password");
-      setTimeout(() => window.location.reload(), 3000);
+    if (this.state.newpassword == "") {
+      alert("Input empty password, try again!");
+    } else if (this.state.newpassword == this.state.password) {
+      alert("Your new password equal to old password, try again!");
     } else {
-      alert("You input wrong password, try again!");
+      const str = prompt("Please input your password");
+      if (md5(str) == this.state.password) {
+        this.setPassword();
+        alert("Sucess update your password");
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        alert("You input wrong/empty password, try again!");
+      }
     }
   }
 
+  /*  request user old password according to userid */
   getUserInfo = async () => {
     const id = this.state._id;
     axios
@@ -80,13 +72,12 @@ export default class ChangePassword extends Component {
       })
       .then((res) => {
         this.setState({ _id: res.data[0]._id });
-        this.setState({ newpassword: res.data[0].password });
         this.setState({ password: res.data[0].password });
         console.log("Do with id: " + this.state._id);
-        /*   console.log('this is backup:'+this.backdata[0].firstname) */
       });
   };
 
+  /*   get user id through login sessions */
   CheckLogin = async () => {
     // Change Button content depends on user login situation
     // If user has login, to show the UserID
@@ -94,32 +85,29 @@ export default class ChangePassword extends Component {
       .get("http://localhost:8000/authenticate", { withCredentials: true })
       .then((res) => {
         if (res.data !== "No Login!") {
-          console.log(res.data);
-          console.log("id res " + res.data._id);
           this.setState({ _id: res.data._id }, () => {
             this.getUserInfo();
           });
-
-          console.log("the id " + this.state._id);
         } else {
-          console.log("No Login!");
-          alert("Please login first!!");
+          alert("Please login first!! Click Back to home button to back ");
         }
       })
       .catch((err) => console.log(err.data));
   };
 
+  /*   update user input  */
   onChangeP(e) {
     this.setState({
-      newpassword: e.target.value,
+      newpassword: md5(e.target.value),
     });
   }
 
+  /*   update new password , if the input of user is correct */
   setPassword = async () => {
     const user = [
       {
         _id: this.state._id,
-        newpassword: md5(this.state.newpassword),
+        newpassword: this.state.newpassword,
       },
     ];
 
@@ -176,7 +164,7 @@ export default class ChangePassword extends Component {
             <Input.Password onChange={this.onChangeP.bind(this)} />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <Button onClick={() => this.checkPassword()}>Register</Button>
+            <button onClick={() => this.checkPassword()}>Register</button>
           </Form.Item>
         </Form>
       </div>

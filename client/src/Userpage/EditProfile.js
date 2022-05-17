@@ -4,6 +4,7 @@ import { Form, Input, Button, message } from "antd";
 import React, { Component } from "react";
 import md5 from "../Sign/md5";
 
+/* Setting the layout of page */
 const layout = {
   labelCol: {
     span: 6,
@@ -21,17 +22,16 @@ export default class EditProfile extends Component {
     lastname: "",
     email: "",
     password: "",
+    change: 0,
   };
 
   constructor() {
     super();
     this.CheckLogin();
-    //   this.getUserInfo();
   }
 
+  /* Check whether user login, if no login, alert user and back to home page */
   CheckLogin = async () => {
-    // Change Button content depends on user login situation
-    // If user has login, to show the UserID
     axios
       .get("http://localhost:8000/authenticate", { withCredentials: true })
       .then((res) => {
@@ -45,12 +45,13 @@ export default class EditProfile extends Component {
           console.log("the id " + this.state._id);
         } else {
           console.log("No Login!");
-          alert("Please login first!!");
+          alert("Please login first!! Click Back to home button to back ");
         }
       })
       .catch((err) => console.log(err.data));
   };
 
+  /*   Acording to the userId, send request to get userdetail information */
   getUserInfo = async () => {
     const id = this.state._id;
     console.log("send id:" + id);
@@ -61,21 +62,15 @@ export default class EditProfile extends Component {
         },
       })
       .then((res) => {
-        //    this.setState({userInfo:res.data})
-        console.log(res);
-        console.log(res.id);
-        console.log(res.data);
         this.setState({ _id: res.data[0]._id });
-        console.log("id " + this.state._id);
         this.setState({ firstname: res.data[0].firstname });
         this.setState({ lastname: res.data[0].lastname });
         this.setState({ email: res.data[0].email });
         this.setState({ password: res.data[0].password });
-        console.log(this.state.firstname);
-        /*   console.log('this is backup:'+this.backdata[0].firstname) */
       });
   };
 
+  /*   Update the userinformatin according to user input */
   setUserInfo = async () => {
     const user = [
       {
@@ -96,35 +91,44 @@ export default class EditProfile extends Component {
       });
   };
 
+  /*   Check whether user have password, and check whether input some value, if no value, return alert */
   checkPassword() {
-    const str = prompt("Please input your password");
-    if (md5(str) == this.state.password) {
-      this.setUserInfo();
-      message.success("Sucess update your file");
-      setTimeout(() => window.location.reload(), 3000);
+    if (this.state.change == 0) {
+      alert("You input nothing, Please input some value,");
     } else {
-      alert("You input wrong password, try again!");
+      const str = prompt("Please input your password");
+      if (md5(str) == this.state.password) {
+        this.setUserInfo();
+        alert("Sucess update your file");
+        setTimeout(() => window.location.reload(), 1500);
+      } else {
+        alert("You input wrong password, try again!");
+      }
     }
   }
 
+  /*  Update the change of firstname */
   onChangeF(e) {
     this.setState({
       firstname: e.target.value,
+      change: 1,
     });
   }
 
+  /*  Update the change of lastname */
   onChangeL(e) {
     this.setState({
       lastname: e.target.value,
+      change: 1,
     });
-    /* this.backdata.lastname = e.target.value */
   }
 
+  /*  Update the change of email */
   onChangeE(e) {
     this.setState({
       email: e.target.value,
+      change: 1,
     });
-    /*  this.backdata.email = e.target.value */
   }
 
   render() {
@@ -176,7 +180,7 @@ export default class EditProfile extends Component {
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button onClick={() => this.checkPassword()}>Submit</Button>
+          <button onClick={() => this.checkPassword()}>Submit</button>
         </Form.Item>
       </Form>
     );
