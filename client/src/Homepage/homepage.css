@@ -12,7 +12,7 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar h1{
+.Homepage .navigationbar h1 {
   color: white;
 }
 .Homepage span {
@@ -102,7 +102,7 @@
   width: 100%;
   /*display:inline*/
 }
-.Homepage .searchresultlist .BottomButton{
+.Homepage .searchresultlist .BottomButton {
   float: right;
 }
 .Homepage .bestsellerlist {
@@ -159,57 +159,48 @@
   float: left;
 }
 
-
-.popup_inner .informationtable{
+.popup_inner .informationtable {
   width: 80%;
 }
 
-.popup_inner .infoinput{
-  height:80px;
+.popup_inner .infoinput {
+  height: 80px;
 }
-.popup_inner .infoinputleft{
-  margin-top:10px;
+.popup_inner .infoinputleft {
+  margin-top: 10px;
   float: left;
   width: 50%;
 }
 
-.popup_inner .infoinputright{
-  margin-top:10px;
+.popup_inner .infoinputright {
+  margin-top: 10px;
   float: right;
 }
 
-.popup_inner .addreveiwbutton{
+.popup_inner .addreveiwbutton {
   float: left;
-  margin-top:20px;
-  margin-left:10px;
-  height:50%;
+  margin-top: 20px;
+  margin-left: 10px;
+  height: 50%;
   /*height:80%;*/
   /*background: forestgreen;*/
 }
-.popup_inner .ratinginput{
+.popup_inner .ratinginput {
   float: left;
-  margin-top:20px;
-  margin-left:10px;
-  height:50%;
-
-  /*height:80%;*/
-  /*background: forestgreen;*/
+  margin-top: 20px;
+  margin-left: 10px;
+  height: 50%;
 }
-.popup_inner .commentinput{
+.popup_inner .commentinput {
   float: left;
-  margin-top:10px;
-  margin-left:10px;
-  height:80%;
-  word-wrap:break-word;
-  /*height:80%;*/
-  /*background: forestgreen;*/
+  margin-top: 10px;
+  margin-left: 10px;
+  height: 80%;
+  word-wrap: break-word;
 }
-.popup_inner .more-button{
+.popup_inner .more-button {
   float: right;
   margin-right: 20px;
-  margin-top:20px;
-  height:50%;
-  /*height:80%;*/
-  /*background: forestgreen;*/
+  margin-top: 20px;
+  height: 50%;
 }
-

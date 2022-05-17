@@ -190,106 +190,106 @@ class Info extends React.Component {
       <div className="popup">
         <div className="popup_inner">
           <div className="infotable">
-          <button onClick={this.props.closePopup}>close me</button>
-          <table>
-            <thead>
-              <th>title</th>
-              <th>brand</th>
-              <th>image</th>
-              <th>stock</th>
-              <th>seller</th>
-              <th>price</th>
-            </thead>
-            <tbody>
-              {this.state.phones.map((phone) => (
-                <tr key={phone._id}>
-                  <td>{phone.title}</td>
-                  <td>{phone.brand}</td>
-                  <td>
-                    <img
-                      className="listimg"
-                      src={process.env.PUBLIC_URL + phone.image}
-                    />
-                  </td>
-                  <td>{phone.stock}</td>
-                  <td>{phone.seller}</td>
-                  <td>{phone.price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <table>
-            <thead>
-              <th>reviewer</th>
-              <th>rating</th>
-              <th>comment</th>
-            </thead>
-            <tbody>
-              {this.state.reviews.map((review, index) => (
-                <tr>
-                  <td>{review.reviews.reviewer}</td>
-                  <td>{review.reviews.rating}</td>
-                  <td onClick={() => this.checkLength(index)}>
-                    {review.reviews.comment}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            <button onClick={this.props.closePopup}>close me</button>
+            <table>
+              <thead>
+                <th>title</th>
+                <th>brand</th>
+                <th>image</th>
+                <th>stock</th>
+                <th>seller</th>
+                <th>price</th>
+              </thead>
+              <tbody>
+                {this.state.phones.map((phone) => (
+                  <tr key={phone._id}>
+                    <td>{phone.title}</td>
+                    <td>{phone.brand}</td>
+                    <td>
+                      <img
+                        className="listimg"
+                        src={process.env.PUBLIC_URL + phone.image}
+                      />
+                    </td>
+                    <td>{phone.stock}</td>
+                    <td>{phone.seller}</td>
+                    <td>{phone.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <table>
+              <thead>
+                <th>reviewer</th>
+                <th>rating</th>
+                <th>comment</th>
+              </thead>
+              <tbody>
+                {this.state.reviews.map((review, index) => (
+                  <tr>
+                    <td>{review.reviews.reviewer}</td>
+                    <td>{review.reviews.rating}</td>
+                    <td onClick={() => this.checkLength(index)}>
+                      {review.reviews.comment}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           <div className="infoinput">
             <div className="infoinputleft">
-            <label>current added quantity: </label>
-            <span className="added-quantity">{this.state.quantity}</span>
-            {this.state.inputQuantity && (
+              <label>current added quantity: </label>
+              <span className="added-quantity">{this.state.quantity}</span>
+              {this.state.inputQuantity && (
+                <input
+                  type="text"
+                  placeholder="input quantity"
+                  onBlur={(e) => {
+                    this.handleInputQuantity(e);
+                  }}
+                />
+              )}
+              {!this.state.inputQuantity && (
+                <input
+                  onClick={() =>
+                    this.state.userid
+                      ? this.setState({ inputQuantity: true })
+                      : (window.location = "./login")
+                  }
+                  type="button"
+                  value="add to cart"
+                />
+              )}
+            </div>
+            <div className="infoinputright">
               <input
                 type="text"
-                placeholder="input quantity"
-                onBlur={(e) => {
-                  this.handleInputQuantity(e);
-                }}
+                placeholder="Comment"
+                value={this.state.commentInput}
+                onChange={this.handleGetComment}
               />
-            )}
-            {!this.state.inputQuantity && (
+              <select
+                value={this.state.ratingInput}
+                onChange={this.handleGetRating}
+              >
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+              </select>
               <input
                 onClick={() =>
                   this.state.userid
-                    ? this.setState({ inputQuantity: true })
+                    ? this.addReview()
                     : (window.location = "./login")
                 }
                 type="button"
-                value="add to cart"
+                value="add review"
               />
-            )}
+              <button onClick={this.getmorereview}>More review</button>
             </div>
-              <div className="infoinputright">
-            <input
-              type="text"
-              placeholder="Comment"
-              value={this.state.commentInput}
-              onChange={this.handleGetComment}
-            />
-            <select
-              value={this.state.ratingInput}
-              onChange={this.handleGetRating}
-            >
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1</option>
-            </select>
-            <input
-              onClick={() =>
-                this.state.userid
-                  ? this.addReview()
-                  : (window.location = "./login")
-              }
-              type="button"
-              value="add review"
-            />
-            <button onClick={this.getmorereview}>More review</button>
-              </div>
           </div>
         </div>
       </div>

@@ -31,7 +31,12 @@ class Homepage extends React.Component {
     this.getBestseller();
     this.CheckLogin();
   }
-
+  //
+  // getData = async () => {
+  //   axios.get("http://localhost:8000/Search").then((_d) => {
+  //     this.setState({ phones: _d.data });
+  //   });
+  // };
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
       this.setState({ brandlist: _d.data });
@@ -65,7 +70,7 @@ class Homepage extends React.Component {
           this.setState({ phones: _d.data });
         } else {
           window.alert(
-            "There does not have phones accord with the input requirements. Please change search input!"
+            "There does not have phones accord with the input requirements. Please change search conditions!"
           );
         }
       });
@@ -142,16 +147,18 @@ class Homepage extends React.Component {
       <div className="Homepage">
         <div className="navigationbar">
           <div className="Barleft">
-            <p>SellPhone</p>
+            <h1>SellPhone</h1>
           </div>
           <div className="BarMid">
             <input
+              className="titlesearchinput"
               type="text"
-              placeholder="Search by name"
+              placeholder="Search by title"
               value={this.state.searchInput}
               onChange={this.handleGetTitle}
             />
             <select
+              className="brandsearchinput"
               value={this.state.BrandInput}
               onChange={this.handleGetBrand}
             >
@@ -161,6 +168,7 @@ class Homepage extends React.Component {
               ))}
             </select>
             <input
+              className="highvaluesearchinput"
               type="range"
               name="Value"
               min="0"
@@ -168,8 +176,13 @@ class Homepage extends React.Component {
               value={this.state.setValue}
               onChange={this.handleGetValue}
             />
-            <span>{this.state.setValue}</span>
-            <input type="button" onClick={this.getSearch} value="search" />
+            <span>{"$ < " + this.state.setValue}</span>
+            <input
+              type="button"
+              className="searchbutton"
+              onClick={this.getSearch}
+              value="search"
+            />
           </div>
           <div className="ButtonList">
             {/*<div className="LoginComponent">*/}
@@ -197,11 +210,11 @@ class Homepage extends React.Component {
 
         {/*<div className="homepagecontent">*/}
         <div className="soldoutlist">
-          <h2>Soldout List</h2>
+          <h1>Soldout List</h1>
           <table>
             <thead>
               <th>Image</th>
-              <th>price</th>
+              <th>Price</th>
             </thead>
             <tbody>
               {this.state.soldout.map((soldout) => (
@@ -224,11 +237,11 @@ class Homepage extends React.Component {
         </div>
 
         <div className="bestsellerlist">
-          <h2>Best Seller List</h2>
+          <h1>Best Seller List</h1>
           <table>
             <thead>
               <th>Image</th>
-              <th>rating</th>
+              <th>Rating</th>
             </thead>
             <tbody>
               {this.state.bestseller.map((bestseller) => (
@@ -256,7 +269,6 @@ class Homepage extends React.Component {
               <th>title</th>
               <th>brand</th>
               <th>price</th>
-              {/* <th></th> */}
             </thead>
             <tbody>
               {this.state.phones.map((phone) => (
