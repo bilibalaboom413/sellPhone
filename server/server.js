@@ -14,7 +14,6 @@ const authenticateRouter = require("./routes/authenticate.routes");
 const resetRouter = require("./routes/reset.routes");
 const resetpasswordRouter = require("./routes/resetpassword.routes");
 const homepageRouter = require("./routes/homepage.routes");
-
 const userpageRouter = require("./routes/userpage.routes");
 
 const port = 8000;
@@ -42,15 +41,6 @@ app.use(
     unset: "destroy",
   })
 );
-
-// app.all("*", function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-//   res.header("X-Requested-With", "3.2.1");
-//   res.header("Content-Type", "application/json;charset=tf-8");
-//   next();
-// });
 
 app.use("/", homepageRouter);
 app.use("/register", registerRouter);

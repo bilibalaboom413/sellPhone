@@ -3,16 +3,8 @@ import axios from "axios";
 import { Table, message } from "antd";
 import React, { Component } from "react";
 
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const layout = {
-  labelCol: {
-    span: 6,
-  },
-  wrapperCol: {
-    span: 10,
-  },
-};
 /* eslint-disable no-template-curly-in-string */
 
 export default class ManageList extends Component {
@@ -101,7 +93,7 @@ export default class ManageList extends Component {
   };
 
   render() {
-    const { Column, ColumnGroup } = Table;
+    const { Column } = Table;
     const data = this.state.phoneList;
 
     const columns = [
@@ -206,7 +198,7 @@ export default class ManageList extends Component {
           <Column title="reviews" dataIndex="reviews" key="reviews" />
         </Table>
         <Link to="/userHome/addList">
-          <button>Add a new Phone list</button>
+          <button>Add a New Phone List</button>
         </Link>
       </>
     );

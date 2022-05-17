@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Form, Input, Button, message } from "antd";
+import { Form, Input } from "antd";
 import React, { Component } from "react";
 import md5 from "../Sign/md5";
 
@@ -93,11 +93,11 @@ export default class EditProfile extends Component {
 
   /*   Check whether user have password, and check whether input some value, if no value, return alert */
   checkPassword() {
-    if (this.state.change == 0) {
+    if (this.state.change === 0) {
       alert("You input nothing, Please input some value,");
     } else {
       const str = prompt("Please input your password");
-      if (md5(str) == this.state.password) {
+      if (md5(str) === this.state.password) {
         this.setUserInfo();
         alert("Sucess update your file");
         setTimeout(() => window.location.reload(), 1500);
@@ -136,7 +136,7 @@ export default class EditProfile extends Component {
       <Form {...layout} name="nest-messages">
         <Form.Item
           name={["user", "firstname"]}
-          label="firstName"
+          label="First Name"
           rules={[
             {
               required: false,
@@ -151,7 +151,7 @@ export default class EditProfile extends Component {
 
         <Form.Item
           name={["user", "lastname"]}
-          label="lastName"
+          label="Last Name"
           rules={[
             {
               required: false,

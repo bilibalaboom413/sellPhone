@@ -12,17 +12,18 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar h1,p{
+.Homepage .navigationbar h1,
+p {
   color: white;
 }
-.Homepage h2{
+.Homepage h2 {
   color: green;
 }
 .Homepage span {
   color: white;
   text-align: center;
 }
-.Homepage .welcomeslogan{
+.Homepage .welcomeslogan {
   margin-top: 15px;
   margin-right: 5px;
 }
@@ -64,7 +65,7 @@
 .Homepage .valueshow {
   float: left;
   margin-left: 10px;
-  width:80px;
+  width: 80px;
 }
 
 .Homepage .searchbutton {
@@ -89,7 +90,7 @@
 .Homepage th {
   border-bottom: 1px solid black;
   padding: 10px 0;
-  color:green
+  color: green;
 }
 
 .Homepage td {

@@ -31,12 +31,7 @@ class Homepage extends React.Component {
     this.getBestseller();
     this.CheckLogin();
   }
-  //
-  // getData = async () => {
-  //   axios.get("http://localhost:8000/Search").then((_d) => {
-  //     this.setState({ phones: _d.data });
-  //   });
-  // };
+
   getBrand = async () => {
     axios.get("http://localhost:8000/brand").then((_d) => {
       this.setState({ brandlist: _d.data });
@@ -177,23 +172,27 @@ class Homepage extends React.Component {
               onChange={this.handleGetValue}
             />
             <div className="valueshow">
-            <span>{"$ < " + this.state.setValue}</span>
+              <span>{"$ < " + this.state.setValue}</span>
             </div>
             <input
               type="button"
               className="searchbutton"
               onClick={this.getSearch}
-              value="search"
+              value="Search"
             />
           </div>
           <div className="ButtonList">
             {/*<div className="LoginComponent">*/}
             {this.state.userId ? (
-              <p className="welcomeslogan">Welcome, {this.state.userfullname}</p>
+              <p className="welcomeslogan">
+                Welcome, {this.state.userfullname}
+              </p>
             ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
             {this.state.userId ? (
-              <button onClick={() => (window.location = "./userHome/editProfile")}>
+              <button
+                onClick={() => (window.location = "./userHome/editProfile")}
+              >
                 Profile
               </button>
             ) : null}
@@ -205,7 +204,7 @@ class Homepage extends React.Component {
                   : (window.location = "./login");
               }}
             >
-              checkout
+              Checkout
             </button>
           </div>
         </div>
@@ -267,10 +266,10 @@ class Homepage extends React.Component {
         <div className="searchresultlist">
           <table>
             <thead>
-              <th >image</th>
-              <th width="50%">title</th>
-              <th width="10%">brand</th>
-              <th width="10%">price</th>
+              <th>Image</th>
+              <th width="50%">Title</th>
+              <th width="10%">Brand</th>
+              <th width="10%">Price</th>
             </thead>
             <tbody>
               {this.state.phones.map((phone) => (
