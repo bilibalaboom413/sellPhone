@@ -93,7 +93,7 @@
 .Homepage .soldoutlist {
   float: left;
   width: 20%;
-  border: 2px solid black;
+  border: 2px solid none;
 }
 .Homepage .soldoutlist table {
   width: 90%;
@@ -113,7 +113,7 @@
 .Homepage .bestsellerlist {
   float: right;
   width: 20%;
-  border: 2px solid black;
+  border: 2px solid none;
 }
 .Homepage .bestsellerlist table {
   table-layout: fixed;
