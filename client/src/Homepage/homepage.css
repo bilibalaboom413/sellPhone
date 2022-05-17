@@ -12,14 +12,17 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar h1 {
+.Homepage .navigationbar h1,p{
   color: white;
 }
 .Homepage span {
   color: white;
   text-align: center;
 }
-
+.Homepage .welcomeslogan{
+  margin-top: 15px;
+  margin-right: 5px;
+}
 .Homepage span.added-quantity {
   margin-right: 10px;
   color: black;

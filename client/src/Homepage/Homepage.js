@@ -187,7 +187,7 @@ class Homepage extends React.Component {
           <div className="ButtonList">
             {/*<div className="LoginComponent">*/}
             {this.state.userId ? (
-              <p>Welcome, {this.state.userfullname}</p>
+              <p className="welcomeslogan">Welcome, {this.state.userfullname}</p>
             ) : null}
             <button onClick={this.signBtn}>{this.state.ButtonContent}</button>
             {this.state.userId ? (
