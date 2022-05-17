@@ -210,7 +210,7 @@ class Homepage extends React.Component {
 
         {/*<div className="homepagecontent">*/}
         <div className="soldoutlist">
-          <h2>Soldout List</h2>
+          <h2>Soldout soon</h2>
           <table>
             <thead>
               <th>Image</th>
@@ -237,7 +237,7 @@ class Homepage extends React.Component {
         </div>
 
         <div className="bestsellerlist">
-          <h2>Best Seller List</h2>
+          <h2>Best sellers</h2>
           <table>
             <thead>
               <th>Image</th>
