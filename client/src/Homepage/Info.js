@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import "./homepage.css";
+
 class Info extends React.Component {
   state = {
     phones: [],
@@ -259,14 +260,14 @@ class Info extends React.Component {
                 />
               )}
             </div>
-              <input
-                className="commentinput"
-                type="text"
-                placeholder="Give your Comment"
-                value={this.state.commentInput}
-                onChange={this.handleGetComment}
-              />
-            <div  className="ratinginput">
+            <input
+              className="commentinput"
+              type="text"
+              placeholder="Give your Comment"
+              value={this.state.commentInput}
+              onChange={this.handleGetComment}
+            />
+            <div className="ratinginput">
               <span>Rating:</span>
               <select
                 value={this.state.ratingInput}
@@ -279,16 +280,19 @@ class Info extends React.Component {
                 <option value="1">1</option>
               </select>
             </div>
-              <input className="addreveiwbutton"
-                onClick={() =>
-                  this.state.userid
-                    ? this.addReview()
-                    : (window.location = "./login")
-                }
-                type="button"
-                value="add review"
-              />
-            <button className="more-button" onClick={this.getmorereview}>More review</button>
+            <input
+              className="addreveiwbutton"
+              onClick={() =>
+                this.state.userid
+                  ? this.addReview()
+                  : (window.location = "./login")
+              }
+              type="button"
+              value="add review"
+            />
+            <button className="more-button" onClick={this.getmorereview}>
+              More review
+            </button>
           </div>
         </div>
       </div>

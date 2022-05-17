@@ -12,17 +12,18 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar h1,p{
+.Homepage .navigationbar h1,
+p {
   color: white;
 }
-.Homepage h2{
+.Homepage h2 {
   color: green;
 }
 .Homepage span {
   color: white;
   text-align: center;
 }
-.Homepage .welcomeslogan{
+.Homepage .welcomeslogan {
   margin-top: 15px;
   margin-right: 5px;
 }
@@ -35,12 +36,13 @@
 }
 .Homepage .navigationbar .Barleft {
   float: left;
-  width: 20%;
+  margin-left: 50px;
   height: 100%;
 }
 .Homepage .navigationbar .BarMid {
+  margin-left: 20px;
   float: left;
-  width: 50%;
+  width: 700px;
   height: 50%;
   top: 25%;
   position: relative;
@@ -63,7 +65,7 @@
 .Homepage .valueshow {
   float: left;
   margin-left: 10px;
-  width:80px;
+  width: 80px;
 }
 
 .Homepage .searchbutton {
@@ -88,7 +90,7 @@
 .Homepage th {
   border-bottom: 1px solid black;
   padding: 10px 0;
-  color:green
+  color: green;
 }
 
 .Homepage td {

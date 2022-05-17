@@ -1,30 +1,15 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Breadcrumb } from "antd";
 import { Outlet, Link } from "react-router-dom";
 
 import "./base.css";
 
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 export default function App() {
   return (
     <div className="UserHome">
       <Layout className="layout">
-        <Header>
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            items={new Array(2).fill(null).map((_, index) => {
-              const key = index + 1;
-              return {
-                key,
-                label: `nav ${key}`,
-              };
-            })}
-          />
-        </Header>
         <Content style={{ padding: "0 50px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>
@@ -39,13 +24,13 @@ export default function App() {
             </Breadcrumb.Item>
             <Breadcrumb.Item>
               <Link to="/userHome/manageList">
-                <button>Add new list</button>
+                <button>Add New List</button>
               </Link>
             </Breadcrumb.Item>
 
             <Breadcrumb.Item>
               <Link to="/">
-                <button>Back to home page</button>
+                <button>Back to Homepage</button>
               </Link>
             </Breadcrumb.Item>
           </Breadcrumb>

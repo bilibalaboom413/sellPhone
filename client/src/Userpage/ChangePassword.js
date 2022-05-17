@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import axios from "axios";
 
-import { Form, Input, Button, message, Layout } from "antd";
+import { Form, Input } from "antd";
 
 import md5 from "../Sign/md5";
 
@@ -45,13 +45,13 @@ export default class ChangePassword extends Component {
   and check whether the new password is equal to old password,
   check whether user input emtyp value */
   checkPassword() {
-    if (this.state.newpassword == "") {
+    if (this.state.newpassword === "") {
       alert("Input empty password, try again!");
-    } else if (this.state.newpassword == this.state.password) {
+    } else if (this.state.newpassword === this.state.password) {
       alert("Your new password equal to old password, try again!");
     } else {
       const str = prompt("Please input your password");
-      if (md5(str) == this.state.password) {
+      if (md5(str) === this.state.password) {
         this.setPassword();
         alert("Sucess update your password");
         setTimeout(() => window.location.reload(), 1000);
@@ -128,7 +128,8 @@ export default class ChangePassword extends Component {
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                min: 6,
+                message: "Password < 6 characters!",
               },
             ]}
             hasFeedback
@@ -164,7 +165,7 @@ export default class ChangePassword extends Component {
             <Input.Password onChange={this.onChangeP.bind(this)} />
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
-            <button onClick={() => this.checkPassword()}>Register</button>
+            <button onClick={() => this.checkPassword()}>Confirm Change</button>
           </Form.Item>
         </Form>
       </div>
