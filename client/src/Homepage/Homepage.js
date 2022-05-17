@@ -267,10 +267,10 @@ class Homepage extends React.Component {
         <div className="searchresultlist">
           <table>
             <thead>
-              <th>image</th>
-              <th>title</th>
-              <th>brand</th>
-              <th>price</th>
+              <th >image</th>
+              <th width="50%">title</th>
+              <th width="10%">brand</th>
+              <th width="10%">price</th>
             </thead>
             <tbody>
               {this.state.phones.map((phone) => (

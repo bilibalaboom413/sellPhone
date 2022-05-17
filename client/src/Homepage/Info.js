@@ -217,9 +217,9 @@ class Info extends React.Component {
             </table>
             <table>
               <thead>
-                <th>reviewer</th>
-                <th>rating</th>
-                <th>comment</th>
+                <th width="20%">reviewer</th>
+                <th width="20%">rating</th>
+                <th width="60%">comment</th>
               </thead>
               <tbody>
                 {this.state.reviews.map((review, index) => (
