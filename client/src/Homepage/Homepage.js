@@ -111,8 +111,8 @@ class Homepage extends React.Component {
           console.log(res.data);
           this.setState({
             userId: res.data._id,
-            userfullname: res.data.firstname + " " + res.data.lastname,
-            ButtonContent: "Sign Out",
+          },() => {
+            this.getUserInfo();
           });
         } else {
           console.log("No Login!");
@@ -120,6 +120,21 @@ class Homepage extends React.Component {
         }
       })
       .catch((err) => console.log(err.data));
+  };
+  getUserInfo = async () => {
+    const id = this.state.userId;
+    console.log("send id:" + id);
+    axios
+      .get("http://localhost:8000/user/userPage", {
+        params: {
+          id: id,
+        },
+      })
+      .then((res) => {
+        
+        this.setState({ userfullname: res.data[0].firstname + " " + res.data[0].lastname,   ButtonContent: "Sign Out", });
+     
+      });
   };
   signBtn = async () => {
     if (this.state.ButtonContent === "Sign In") {
