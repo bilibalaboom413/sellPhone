@@ -12,15 +12,19 @@
   padding: 0;
   text-align: center;
 }
-.Homepage .navigationbar p,
+.Homepage .navigationbar h1{
+  color: white;
+}
 .Homepage span {
   color: white;
   text-align: center;
 }
 
 .Homepage span.added-quantity {
+  margin-right: 10px;
   color: black;
 }
+
 .Homepage .navigationbar .Barleft {
   float: left;
   width: 20%;
@@ -32,6 +36,26 @@
   height: 50%;
   top: 25%;
   position: relative;
+}
+.Homepage .titlesearchinput {
+  float: left;
+  margin-left: 15%;
+}
+.Homepage .brandsearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .highvaluesearchinput {
+  float: left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.Homepage .searchbutton {
+  float: right;
+  margin-left: 10px;
 }
 .Homepage .navigationbar .ButtonList {
   float: right;
@@ -134,14 +158,60 @@
   background: white;
   float: left;
 }
-.popup_inner .infotable{
+
+
+.popup_inner .informationtable{
+  width: 80%;
 }
 
+.popup_inner .infoinput{
+  height:80px;
+}
 .popup_inner .infoinputleft{
+  margin-top:10px;
   float: left;
   width: 50%;
 }
+
 .popup_inner .infoinputright{
-  float: left;
+  margin-top:10px;
+  float: right;
 }
+
+.popup_inner .addreveiwbutton{
+  float: left;
+  margin-top:20px;
+  margin-left:10px;
+  height:50%;
+  /*height:80%;*/
+  /*background: forestgreen;*/
+}
+.popup_inner .ratinginput{
+  float: left;
+  margin-top:20px;
+  margin-left:10px;
+  height:50%;
+
+  /*height:80%;*/
+  /*background: forestgreen;*/
+}
+.popup_inner .commentinput{
+  float: left;
+  margin-top:10px;
+  margin-left:10px;
+  height:80%;
+  word-wrap:break-word;
+  /*height:80%;*/
+  /*background: forestgreen;*/
+}
+.popup_inner .more-button{
+  float: right;
+  margin-right: 20px;
+  margin-top:20px;
+  height:50%;
+  /*height:80%;*/
+  /*background: forestgreen;*/
+}
+
+
 
