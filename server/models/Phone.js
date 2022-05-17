@@ -22,6 +22,7 @@ const PhoneSchema = new mongoose.Schema(
     stock: {
       type: Number,
       required: true,
+      index: true,
     },
     seller: {
       type: String,
@@ -43,6 +44,7 @@ const PhoneSchema = new mongoose.Schema(
       comment: {
         type: String,
         required: false,
+        index: true,
       },
     },
     disabled: {
@@ -58,6 +60,8 @@ const PhoneSchema = new mongoose.Schema(
 PhoneSchema.statics.findPhoneById = function (id, callback) {
   return this.find({ _id: id }).exec(callback);
 };
+
+PhoneSchema.index({ stock: 1, reviews: -1 });
 
 var Phone = mongoose.model("Phone", PhoneSchema, "phonelisting");
 module.exports = Phone;
