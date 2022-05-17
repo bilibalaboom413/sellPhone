@@ -24,7 +24,9 @@
   margin-right: 10px;
   color: black;
 }
-
+.popup_inner span {
+  color: black;
+}
 .Homepage .navigationbar .Barleft {
   float: left;
   width: 20%;
@@ -167,14 +169,15 @@
   height: 80px;
 }
 .popup_inner .infoinputleft {
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-left: 10px;
   float: left;
-  width: 50%;
+  width: 40%;
 }
 
 .popup_inner .infoinputright {
   margin-top: 10px;
-  float: right;
+  float: left;
 }
 
 .popup_inner .addreveiwbutton {
@@ -187,7 +190,7 @@
 }
 .popup_inner .ratinginput {
   float: left;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: 10px;
   height: 50%;
 }

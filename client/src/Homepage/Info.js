@@ -259,13 +259,15 @@ class Info extends React.Component {
                 />
               )}
             </div>
-            <div className="infoinputright">
               <input
+                className="commentinput"
                 type="text"
-                placeholder="Comment"
+                placeholder="Give your Comment"
                 value={this.state.commentInput}
                 onChange={this.handleGetComment}
               />
+            <div  className="ratinginput">
+              <span>Rating:</span>
               <select
                 value={this.state.ratingInput}
                 onChange={this.handleGetRating}
@@ -276,7 +278,8 @@ class Info extends React.Component {
                 <option value="2">2</option>
                 <option value="1">1</option>
               </select>
-              <input
+            </div>
+              <input className="addreveiwbutton"
                 onClick={() =>
                   this.state.userid
                     ? this.addReview()
@@ -285,8 +288,7 @@ class Info extends React.Component {
                 type="button"
                 value="add review"
               />
-              <button onClick={this.getmorereview}>More review</button>
-            </div>
+            <button className="more-button" onClick={this.getmorereview}>More review</button>
           </div>
         </div>
       </div>
