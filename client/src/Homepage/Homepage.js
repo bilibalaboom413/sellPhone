@@ -109,11 +109,14 @@ class Homepage extends React.Component {
       .then((res) => {
         if (res.data !== "No Login!") {
           console.log(res.data);
-          this.setState({
-            userId: res.data._id,
-          },() => {
-            this.getUserInfo();
-          });
+          this.setState(
+            {
+              userId: res.data._id,
+            },
+            () => {
+              this.getUserInfo();
+            }
+          );
         } else {
           console.log("No Login!");
           this.setState({ userId: null, ButtonContent: "Sign In" });
@@ -131,9 +134,10 @@ class Homepage extends React.Component {
         },
       })
       .then((res) => {
-        
-        this.setState({ userfullname: res.data[0].firstname + " " + res.data[0].lastname,   ButtonContent: "Sign Out", });
-     
+        this.setState({
+          userfullname: res.data[0].firstname + " " + res.data[0].lastname,
+          ButtonContent: "Sign Out",
+        });
       });
   };
   signBtn = async () => {
