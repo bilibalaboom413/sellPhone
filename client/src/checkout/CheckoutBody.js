@@ -169,7 +169,7 @@ export default function CheckoutBody() {
   function checkout(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/checkout/transaction", phones)
+      .post("/checkout/transaction", phones)
       .then(
         (res) => {
           console.log(res.data);

@@ -15,14 +15,9 @@ import EditProfile from "./Userpage/EditProfile";
 import ManageList from "./Userpage/ManageList";
 import AddList from "./Userpage/AddList";
 
-function Test() {
-  return <h1>Hello World!</h1>;
-}
-
 function App() {
   return (
     <Routes>
-      <Route path="/helloworld" element={<Test />} />
       <Route path="/register" element={<Register />} />
       <Route path="/register/:id" element={<Activation />} />
       <Route path="/reset" element={<Reset />} />
@@ -31,7 +26,7 @@ function App() {
       <Route path="/" element={<Homepage />} />
       <Route path="/addreview" element={<Info />} />
       <Route path="/checkout" element={<Checkout />} />
-
+      
       <Route path="/userHome" element={<UserHome />}>
         <Route path="/userHome/editProfile" element={<EditProfile />}></Route>
         <Route path="/userHome/manageList" element={<ManageList />}></Route>

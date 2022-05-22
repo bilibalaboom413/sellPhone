@@ -3,9 +3,6 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
 
-// Load .env
-require("dotenv").config();
-
 const checkoutRouter = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");
 const loginRouter = require("./routes/login.routes");
@@ -31,14 +28,14 @@ app.use(
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+    resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request.
+    saveUninitialized: false, // Forces a session that is "uninitialized" to be saved to the store
     cookie: {
       secure: false,
       // Expired in an hour
       maxAge: 3600000,
     },
-    unset: "destroy",
+    unset: "destroy", // The session will be destroyed (deleted) when the response ends.
   })
 );
 
