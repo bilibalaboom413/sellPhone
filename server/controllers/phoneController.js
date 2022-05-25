@@ -158,7 +158,7 @@ module.exports = class PhoneController {
 
   static async apiGetSearchService(req, res, next) {
     try {
-      const _title = new RegExp(req.query.title); //模糊查询参数
+      const _title = new RegExp(req.query.title);
       const _brand = new RegExp(req.query.brand);
       const _value = req.query.value;
       let listNumber = req.query.listNumber;
@@ -214,6 +214,7 @@ module.exports = class PhoneController {
       if (!phone) {
         res.status(404).json("There are no phone published yet!");
       }
+      console.log(phone);
       const name = await User.find(
         { _id: phone[0].seller },
         {

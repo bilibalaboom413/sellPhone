@@ -9,7 +9,8 @@
     "start": "node server.js",
     "prettier": "prettier --write ..",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "run-p start client"
+    "dev": "run-p start client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
   },
   "repository": {
     "type": "git",
