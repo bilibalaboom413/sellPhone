@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors");
+const path = require("path");
 
 const checkoutRouter = require("./routes/checkout.routes");
 const registerRouter = require("./routes/register.routes");

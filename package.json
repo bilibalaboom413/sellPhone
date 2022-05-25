@@ -1,19 +1,16 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "engines": {
-    "node": "17.x"
-  },
   "description": "COMP5347 Assignment 2 Backend",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server.js --watch server",
-    "client": "npm start --prefix ../client",
-    "start": "node server.js",
+    "server": "nodemon server.js --watch server/server.js",
+    "client": "npm start --prefix client",
+    "start": "node server/server.js",
     "prettier": "prettier --write ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "run-p start client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix ../client && npm run build --prefix ../client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
@@ -38,7 +35,8 @@
     "emailjs": "^2.2.0",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
-    "mongoose": "^6.3.0"
+    "mongoose": "^6.3.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
