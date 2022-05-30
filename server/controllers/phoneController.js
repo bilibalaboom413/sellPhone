@@ -242,7 +242,7 @@ module.exports = class PhoneController {
           },
         },
         {
-          $unwind: "$reviews",
+          $unwind: "$reviews", //The following aggregation uses the $unwind stage to output a document for each element in the reviews array:
         },
         {
           $project: {

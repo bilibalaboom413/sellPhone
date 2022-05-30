@@ -29,14 +29,14 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
  * with the querystring library (when false) or the qs library (when true).
  */
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    // origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true, // Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted.
+  })
+);
+// app.use(cors());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
