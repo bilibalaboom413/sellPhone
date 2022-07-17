@@ -30,25 +30,25 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
  */
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(
-	cors({
-		// origin: "http://localhost:3000",
-		methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
-		credentials: true, // Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted.
-	})
+  cors({
+    // origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true, // Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted.
+  })
 );
 // app.use(cors());
 app.use(
-	session({
-		secret: process.env.SESSION_SECRET,
-		resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request.
-		saveUninitialized: false, // Forces a session that is "uninitialized" to be saved to the store
-		cookie: {
-			secure: false,
-			// Expired in an hour
-			maxAge: 3600000,
-		},
-		unset: "destroy", // The session will be destroyed (deleted) when the response ends.
-	})
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false, // Forces the session to be saved back to the session store, even if the session was never modified during the request.
+    saveUninitialized: false, // Forces a session that is "uninitialized" to be saved to the store
+    cookie: {
+      secure: false,
+      // Expired in an hour
+      maxAge: 3600000,
+    },
+    unset: "destroy", // The session will be destroyed (deleted) when the response ends.
+  })
 );
 
 app.use("/", homepageRouter);
@@ -62,11 +62,11 @@ app.use("/checkout", checkoutRouter);
 app.use("/user", userpageRouter);
 
 app.get("/", (req, res) => {
-	res.send("Hello World");
+  res.send("Hello World");
 });
 
 app.listen(port, () => {
-	console.log(`Listening on Port ${port}`);
+  console.log(`Listening on Port ${port}`);
 });
 
 module.exports = app;
