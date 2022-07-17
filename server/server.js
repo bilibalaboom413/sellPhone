@@ -14,7 +14,7 @@ const resetpasswordRouter = require("./routes/resetpassword.routes");
 const homepageRouter = require("./routes/homepage.routes");
 const userpageRouter = require("./routes/userpage.routes");
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 5000;
 const app = express();
 
 /**
