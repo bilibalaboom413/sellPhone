@@ -9,8 +9,8 @@
   "main": "server.js",
   "scripts": {
     "server": "nodemon server/server.js --watch",
-    "client": "npm start --prefix client",
-    "start": "node server/server.js",
+    "client": "npm start --prefix ../client",
+    "start": "node server.js",
     "prettier": "prettier --write ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "run-p start client"
