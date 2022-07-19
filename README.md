@@ -72,3 +72,8 @@ Run below command **before creating any pull requests!**
 $ cd server
 $ npm run prettier
 ```
+
+## Demo
+
+![image](https://user-images.githubusercontent.com/61271027/179417980-5c7cfd89-e248-4e11-8737-fa492b215fc0.png)
+
