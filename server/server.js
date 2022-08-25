@@ -36,7 +36,7 @@ app.use(
 		credentials: true, // Configures the Access-Control-Allow-Credentials CORS header. Set to true to pass the header, otherwise it is omitted.
 	})
 );
-// app.use(cors());
+
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
